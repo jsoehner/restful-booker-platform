@@ -22,3 +22,6 @@ target/
 
 # ui
 ui/public/js
+
+# ApprovalTests
+**/.approval_tests_temp/
