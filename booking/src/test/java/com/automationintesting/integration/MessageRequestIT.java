@@ -1,11 +1,8 @@
 package com.automationintesting.integration;
 
-import com.automationintesting.api.BookingApplication;
-import com.automationintesting.model.db.Booking;
-import com.xebialabs.restito.semantics.Call;
-import com.xebialabs.restito.server.StubServer;
-import io.restassured.http.ContentType;
-import io.restassured.response.Response;
+import java.time.LocalDate;
+import java.time.Month;
+
 import org.approvaltests.Approvals;
 import org.glassfish.grizzly.http.util.HttpStatus;
 import org.junit.jupiter.api.AfterEach;
@@ -16,13 +13,15 @@ import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.ActiveProfiles;
 import org.springframework.test.context.junit.jupiter.SpringExtension;
 
-import java.time.LocalDate;
-import java.time.Month;
-
+import com.automationintesting.api.BookingApplication;
+import com.automationintesting.model.db.Booking;
 import static com.xebialabs.restito.builder.stub.StubHttp.whenHttp;
 import static com.xebialabs.restito.semantics.Action.status;
 import static com.xebialabs.restito.semantics.Condition.post;
+import com.xebialabs.restito.server.StubServer;
+
 import static io.restassured.RestAssured.given;
+import io.restassured.http.ContentType;
 
 @ExtendWith(SpringExtension.class)
 @SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.DEFINED_PORT, classes = BookingApplication.class)
@@ -59,11 +58,11 @@ public class MessageRequestIT {
                 .setPhone("01292123456")
                 .build();
 
-        Response bookingResponse = given()
-                .contentType(ContentType.JSON)
-                .body(bookingPayload)
-                .when()
-                .post("http://localhost:3000/booking/");
+        given()
+            .contentType(ContentType.JSON)
+            .body(bookingPayload)
+            .when()
+            .post("http://localhost:3000/booking/");
 
         Approvals.verify(server.getCalls().get(0).getPostBody());
     }

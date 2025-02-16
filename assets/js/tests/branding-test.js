@@ -1,6 +1,6 @@
 import React from 'react';
 import Branding from '../src/js/components/Branding.js';
-import nock from 'nock';
+import axios from 'axios';
 import ReactModal from 'react-modal';
 import '@testing-library/jest-dom'
 import {
@@ -8,6 +8,9 @@ import {
     fireEvent,
     waitFor
   } from '@testing-library/react'
+
+// Mock axios
+jest.mock('axios');
 
 const brandingData = {
     name: 'Shady Meadows B&B',
@@ -25,10 +28,12 @@ const brandingData = {
     }
 }
 
-nock('http://localhost')
-    .persist()
-    .get('/branding/')
-    .reply(200, brandingData)
+beforeEach(() => {
+    jest.clearAllMocks();
+    axios.get.mockResolvedValue({
+        data: brandingData
+    });
+});
 
 test('Branding page renders', async () => {
     const { asFragment, findByDisplayValue } = render(
@@ -41,9 +46,7 @@ test('Branding page renders', async () => {
 });
 
 test('Branding page shows modal on success', async () => {
-    nock('http://localhost')
-        .put('/branding/')
-        .reply(202)
+    axios.put.mockResolvedValueOnce({ status: 202 });
 
     ReactModal.setAppElement(document.createElement('div'));
 
@@ -58,11 +61,14 @@ test('Branding page shows modal on success', async () => {
 });
 
 test('Branding page shows errors', async () => {
-    nock('http://localhost')
-        .put('/branding/')
-        .reply(400, {
-            "fieldErrors": ["Phone should not be blank"]
-        })
+    axios.put.mockRejectedValueOnce({
+        response: {
+            status: 400,
+            data: {
+                fieldErrors: ["Phone should not be blank"]
+            }
+        }
+    });
 
     const {getByText, findByText} = render(
         <Branding />

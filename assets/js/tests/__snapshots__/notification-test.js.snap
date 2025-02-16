@@ -4,6 +4,7 @@ exports[`Notification renders alert inbox when there are unread notifications 1`
 <DocumentFragment>
   <a
     class="nav-link"
+    data-discover="true"
     href="/admin/messages"
   >
     <i
@@ -24,6 +25,7 @@ exports[`Notification renders plain inbox when no unread notifications 1`] = `
 <DocumentFragment>
   <a
     class="nav-link"
+    data-discover="true"
     href="/admin/messages"
   >
     <i
