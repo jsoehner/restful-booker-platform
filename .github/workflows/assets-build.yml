@@ -66,7 +66,49 @@ jobs:
           VERSION=$(ls api/target/restful-booker-platform-assets-*-exec.jar | cut -d '-' -f 5 | cut -c1-11)
           docker build -t mwinteringham/restfulbookerplatform_assets:$VERSION .
           docker push mwinteringham/restfulbookerplatform_assets:$VERSION
+          echo "VERSION=$VERSION" >> $GITHUB_ENV
         else
           echo "Assets JAR file not found"
           exit 1
-        fi 
+        fi
+
+    # Deploy to EC2
+    - name: Configure AWS credentials
+      if: github.ref == 'refs/heads/trunk'
+      uses: aws-actions/configure-aws-credentials@v4
+      with:
+        aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }}
+        aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+        aws-region: ${{ secrets.AWS_REGION }}
+
+    - name: Deploy to EC2
+      if: github.ref == 'refs/heads/trunk'
+      env:
+        EC2_HOST: ${{ secrets.EC2_HOST }}
+        EC2_USERNAME: ${{ secrets.EC2_USERNAME }}
+        SSH_PRIVATE_KEY: ${{ secrets.SSH_PRIVATE_KEY }}
+      run: |
+        # Setup SSH
+        mkdir -p ~/.ssh
+        echo "$SSH_PRIVATE_KEY" > ~/.ssh/private_key
+        chmod 600 ~/.ssh/private_key
+        
+        # Deploy commands
+        ssh -o StrictHostKeyChecking=no -i ~/.ssh/private_key ${EC2_USERNAME}@${EC2_HOST} << 'ENDSSH'
+          # Pull new image
+          docker pull mwinteringham/restfulbookerplatform_assets:${VERSION}
+          
+          # Stop and remove old container
+          docker stop assets-service || true
+          docker rm assets-service || true
+          
+          # Remove old images except the latest
+          docker images -q mwinteringham/restfulbookerplatform_assets | grep -v $(docker images mwinteringham/restfulbookerplatform_assets:${VERSION} -q) | xargs -r docker rmi
+          
+          # Start new container
+          docker run -d \
+            --name assets-service \
+            --network rbp-network \
+            -p 3003:3003 \
+            mwinteringham/restfulbookerplatform_assets:${VERSION}
+        ENDSSH 
