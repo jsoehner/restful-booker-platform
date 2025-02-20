@@ -48,7 +48,7 @@ jobs:
     # Build API
     - name: Build Assets API
       working-directory: ./assets/api
-      run: mvn clean install -Drevision=$(git rev-parse --short HEAD)
+      run: mvn install -Drevision=$(git rev-parse --short HEAD)
 
     # Docker steps
     - name: Login to Docker Hub
