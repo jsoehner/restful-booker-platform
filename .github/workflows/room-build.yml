@@ -3,12 +3,10 @@ name: Room Service Build
 on:
   push:
     paths:
-      # - 'room/**'
-      - '**'
+      - 'room/**'
   pull_request:
     paths:
-      # - 'room/**'
-      - '**'
+      - 'room/**'
 
 jobs:
   build:

@@ -3,12 +3,10 @@ name: Message Service Build
 on:
   push:
     paths:
-      # - 'message/**'
-      - '**'
+      - 'message/**'
   pull_request:
     paths:
-      # - 'message/**'
-      - '**'
+      - 'message/**'
 
 jobs:
   build:

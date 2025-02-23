@@ -3,12 +3,10 @@ name: Assets Build
 on:
   push:
     paths:
-      # - 'assets/**'
-      - '**'
+      - 'assets/**'
   pull_request:
     paths:
-      # - 'assets/**'
-      - '**'
+      - 'assets/**'
 
 jobs:
   build:

@@ -3,12 +3,10 @@ name: Booking Service Build
 on:
   push:
     paths:
-      # - 'booking/**'
-      - '**'
+      - 'booking/**'
   pull_request:
     paths:
-      # - 'booking/**'
-      - '**'
+      - 'booking/**'
 
 jobs:
   build:

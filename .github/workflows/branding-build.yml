@@ -3,12 +3,10 @@ name: Branding Service Build
 on:
   push:
     paths:
-      # - 'branding/**'
-      - '**'
+      - 'branding/**'
   pull_request:
     paths:
-      # - 'branding/**'
-      - '**'
+      - 'branding/**'
 
 jobs:
   build:
