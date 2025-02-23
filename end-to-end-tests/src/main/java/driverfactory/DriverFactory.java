@@ -1,16 +1,15 @@
 package driverfactory;
 
-import io.github.bonigarcia.wdm.WebDriverManager;
+import java.net.MalformedURLException;
+import java.net.URL;
+
 import org.openqa.selenium.MutableCapabilities;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.chrome.ChromeDriver;
-import org.openqa.selenium.chrome.ChromeOptions;
 import org.openqa.selenium.firefox.FirefoxOptions;
-import org.openqa.selenium.remote.DesiredCapabilities;
 import org.openqa.selenium.remote.RemoteWebDriver;
 
-import java.net.MalformedURLException;
-import java.net.URL;
+import io.github.bonigarcia.wdm.WebDriverManager;
 
 public class DriverFactory
 {
@@ -51,13 +50,12 @@ public class DriverFactory
 
         FirefoxOptions firefoxOptions = new FirefoxOptions();
 
-        firefoxOptions.setCapability("platformName", "Windows 10");
-        firefoxOptions.setCapability("browserVersion", "101.0");
+        firefoxOptions.setCapability("platformName", "Windows 11");
+        firefoxOptions.setCapability("browserVersion", "135.0");
 
         MutableCapabilities sauceCaps = new MutableCapabilities();
         sauceCaps.setCapability("username", System.getenv("SAUCE_USERNAME"));
         sauceCaps.setCapability("accessKey", System.getenv("SAUCE_ACCESS_KEY"));
-        sauceCaps.setCapability("seleniumVersion", "3.141.59");
         sauceCaps.setCapability("name", "Restful-booker-platform");
         firefoxOptions.setCapability("sauce:options", sauceCaps);
 

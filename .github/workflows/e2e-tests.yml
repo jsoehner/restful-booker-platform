@@ -23,17 +23,16 @@ jobs:
         distribution: 'temurin'
         cache: 'maven'
 
-    - name: Install Selenium dependencies
-      run: |
-        sudo apt-get update
-        sudo apt-get install -y xvfb
-        
-    - name: Run E2E Tests
+    - name: Run E2E Tests on Sauce Labs
       env:
-        TARGET: http://${{ secrets.EC2_HOST }}:8080
+        SAUCE_USERNAME: ${{ secrets.SAUCE_USERNAME }}
+        SAUCE_ACCESS_KEY: ${{ secrets.SAUCE_ACCESS_KEY }}
       run: |
         cd end-to-end-tests
-        mvn clean test -Denv.target=${TARGET}
+        mvn clean test \
+          -Denv.target=production \
+          -Dtest.username=${SAUCE_USERNAME} \
+          -Dtest.key=${SAUCE_ACCESS_KEY}
 
     - name: Upload Test Results
       if: always()
