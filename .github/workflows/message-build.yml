@@ -38,6 +38,7 @@ jobs:
           VERSION=$(ls target/restful-booker-platform-message-*-exec.jar | cut -d '-' -f 5 | cut -c1-11)
           docker build -t mwinteringham/restfulbookerplatform_message:$VERSION .
           docker push mwinteringham/restfulbookerplatform_message:$VERSION
+          echo "VERSION=$VERSION" >> $GITHUB_ENV
         else
           echo "Message JAR file not found"
           exit 1

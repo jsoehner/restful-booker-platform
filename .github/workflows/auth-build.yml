@@ -42,6 +42,7 @@ jobs:
           VERSION=$(ls target/restful-booker-platform-auth-*-exec.jar | cut -d '-' -f 5 | cut -c1-11)
           docker build -t mwinteringham/restfulbookerplatform_auth:$VERSION .
           docker push mwinteringham/restfulbookerplatform_auth:$VERSION
+          echo "VERSION=$VERSION" >> $GITHUB_ENV
         else
           echo "Auth JAR file not found"
           exit 1

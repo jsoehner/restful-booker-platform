@@ -38,6 +38,7 @@ jobs:
           VERSION=$(ls target/restful-booker-platform-branding-*-exec.jar | cut -d '-' -f 5 | cut -c1-11)
           docker build -t mwinteringham/restfulbookerplatform_branding:$VERSION .
           docker push mwinteringham/restfulbookerplatform_branding:$VERSION
+          echo "VERSION=$VERSION" >> $GITHUB_ENV
         else
           echo "Branding JAR file not found"
           exit 1

@@ -38,6 +38,7 @@ jobs:
           VERSION=$(ls target/restful-booker-platform-report-*-exec.jar | cut -d '-' -f 5 | cut -c1-11)
           docker build -t mwinteringham/restfulbookerplatform_report:$VERSION .
           docker push mwinteringham/restfulbookerplatform_report:$VERSION
+          echo "VERSION=$VERSION" >> $GITHUB_ENV
         else
           echo "Report JAR file not found"
           exit 1
