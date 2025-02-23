@@ -4,10 +4,10 @@ A platform of web services that forms a Bed and Breakfast booking system. The pl
 ## Requirements
 RBP is currently known to work with the following requirements:
 
-- JDK 18.0.2 or higher (Tested with JDK 18)
+- JDK 21.0.5 or higher (Tested with JDK 21)
 - Maven 3.6.3
-- Node 20.9.0
-- NPM 10.1.0
+- Node 22.14.0
+- NPM 10.9.2
 
 ## Building locally
 
@@ -40,18 +40,3 @@ The user login details are:
 ### API details
 
 The details on running checks, building APIs and additional details on documentation for development can be found in READMEs inside each of the API folders.
-
-### Setting up your own CI/CD for this project 
-
-The build process for this project is managed by [CircleCI](https://circleci.com/) which is all managed by the config.yml file in the .circleci folder. To get setup you will need to:
-
-### Running CI tests
-
-Follow these steps to get a CI setup running the tests 
-
-1. Fork this repository so that you have your own copy
-2. If you haven't already, create a CircleCI login using your GitHub details. This will connect CircleCI to your GitHub profile.
-3. Head to the Projects page in CircleCI, locate the RBP repository and click setup project. 
-4. Go through the steps to for setting up the project, ensuring that it loads in the config.yml from the project (Click use existing config)
-
-If you would like to setup CircleCI to run a full deployment, please drop an issue into the repository.  
