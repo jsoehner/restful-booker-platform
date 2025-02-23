@@ -69,4 +69,5 @@ jobs:
           sudo docker rm rbp-auth || true && \
           sudo docker images -q mwinteringham/restfulbookerplatform_auth | grep -v \$(sudo docker images ${DOCKER_IMAGE} -q) | xargs -r sudo docker rmi || true && \
           sudo docker run -d --network rbp-host --name rbp-auth -p 3004:3004 -e dbRefresh='60' ${DOCKER_IMAGE}
+          sudo docker restart rbp-proxy
         "

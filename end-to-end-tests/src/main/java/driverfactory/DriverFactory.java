@@ -6,6 +6,7 @@ import java.net.URL;
 import org.openqa.selenium.MutableCapabilities;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.chrome.ChromeDriver;
+import org.openqa.selenium.chrome.ChromeOptions;
 import org.openqa.selenium.firefox.FirefoxOptions;
 import org.openqa.selenium.remote.RemoteWebDriver;
 
@@ -46,21 +47,22 @@ public class DriverFactory
             throw new RuntimeException("To use remote driver a Sauce lab account is required. Please assign your Sauce labs access key to the environmental variable 'sauce_access_key'");
         }
 
-        String URL = "http://" + System.getenv("SAUCE_USERNAME") + ":" + System.getenv("SAUCE_ACCESS_KEY") + "@ondemand.saucelabs.com:80/wd/hub";
+        String URL = "https://ondemand.eu-central-1.saucelabs.com/wd/hub";
 
-        FirefoxOptions firefoxOptions = new FirefoxOptions();
+        ChromeOptions chromeOptions = new ChromeOptions();
 
-        firefoxOptions.setCapability("platformName", "Windows 11");
-        firefoxOptions.setCapability("browserVersion", "135.0");
+        chromeOptions.setPlatformName("Windows 10");
+        chromeOptions.setBrowserVersion("latest");
 
         MutableCapabilities sauceCaps = new MutableCapabilities();
         sauceCaps.setCapability("username", System.getenv("SAUCE_USERNAME"));
         sauceCaps.setCapability("accessKey", System.getenv("SAUCE_ACCESS_KEY"));
         sauceCaps.setCapability("name", "Restful-booker-platform");
-        firefoxOptions.setCapability("sauce:options", sauceCaps);
+        sauceCaps.setCapability("extendedDebugging", true);
+        chromeOptions.setCapability("sauce:options", sauceCaps);
 
         try {
-            return new RemoteWebDriver(new URL(URL), firefoxOptions);
+            return new RemoteWebDriver(new URL(URL), chromeOptions);
         } catch (MalformedURLException e) {
             throw new RuntimeException("WARN: An error occurred attempting to create a remote driver connection. See the following error: " + e);
         }

@@ -64,4 +64,5 @@ jobs:
           sudo docker rm rbp-branding || true && \
           sudo docker images -q mwinteringham/restfulbookerplatform_branding | grep -v \$(sudo docker images ${DOCKER_IMAGE} -q) | xargs -r sudo docker rmi || true && \
           sudo docker run -d --network rbp-host --name rbp-branding -p 3002:3002 -e dbRefresh='60' ${DOCKER_IMAGE}
+          sudo docker restart rbp-proxy
         " 

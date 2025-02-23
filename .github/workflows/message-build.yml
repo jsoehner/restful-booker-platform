@@ -64,4 +64,5 @@ jobs:
           sudo docker rm rbp-message || true && \
           sudo docker images -q mwinteringham/restfulbookerplatform_message | grep -v \$(sudo docker images ${DOCKER_IMAGE} -q) | xargs -r sudo docker rmi || true && \
           sudo docker run -d --network rbp-host --name rbp-message -p 3006:3006 -e dbRefresh='60' ${DOCKER_IMAGE}
+          sudo docker restart rbp-proxy
         " 

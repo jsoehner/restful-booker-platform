@@ -28,6 +28,7 @@ jobs:
         SAUCE_USERNAME: ${{ secrets.SAUCE_USERNAME }}
         SAUCE_ACCESS_KEY: ${{ secrets.SAUCE_ACCESS_KEY }}
         BROWSER: remote
+        TARGET: production
       run: |
         cd end-to-end-tests
         mvn clean test

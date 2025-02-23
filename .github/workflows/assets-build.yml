@@ -93,4 +93,5 @@ jobs:
           sudo docker rm rbp-assets || true && \
           sudo docker images -q mwinteringham/restfulbookerplatform_assets | grep -v \$(sudo docker images ${DOCKER_IMAGE} -q) | xargs -r sudo docker rmi || true && \
           sudo docker run -d --network rbp-host --name rbp-assets -p 3003:3003 -e dbRefresh='60' ${DOCKER_IMAGE}
+          sudo docker restart rbp-proxy
         "
