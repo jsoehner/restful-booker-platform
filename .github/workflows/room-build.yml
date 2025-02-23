@@ -57,6 +57,7 @@ jobs:
         
         # Execute deployment commands directly via SSH
         DOCKER_IMAGE="mwinteringham/restfulbookerplatform_room:${VERSION}"
+        echo "Deploying: ${DOCKER_IMAGE}"
         ssh -o StrictHostKeyChecking=no -i ~/.ssh/private_key ${EC2_USERNAME}@${EC2_HOST} "
           sudo docker pull ${DOCKER_IMAGE} && \
           sudo docker stop rbp-room || true && \
