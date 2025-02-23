@@ -38,6 +38,7 @@ jobs:
           VERSION=$(ls target/restful-booker-platform-room-*-exec.jar | cut -d '-' -f 5 | cut -c1-11)
           docker build -t mwinteringham/restfulbookerplatform_room:$VERSION .
           docker push mwinteringham/restfulbookerplatform_room:$VERSION
+          echo "VERSION=$VERSION" >> $GITHUB_ENV
         else
           echo "Room JAR file not found"
           exit 1
