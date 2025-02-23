@@ -3,12 +3,6 @@ name: E2E Tests
 on:
   workflow_run:
     workflows:
-      - "Auth Service Build"
-      - "Booking Service Build"
-      - "Branding Service Build"
-      - "Message Service Build"
-      - "Report Service Build"
-      - "Room Service Build"
       - "Assets Build"
     types:
       - completed
@@ -43,8 +37,7 @@ jobs:
 
     - name: Upload Test Results
       if: always()
-      uses: actions/upload-artifact@v3
+      uses: actions/upload-artifact@v4
       with:
         name: test-results
         path: end-to-end-tests/target/surefire-reports 
-        
