@@ -27,12 +27,10 @@ jobs:
       env:
         SAUCE_USERNAME: ${{ secrets.SAUCE_USERNAME }}
         SAUCE_ACCESS_KEY: ${{ secrets.SAUCE_ACCESS_KEY }}
+        BROWSER: remote
       run: |
         cd end-to-end-tests
-        mvn clean test \
-          -Denv.target=production \
-          -Dtest.username=${SAUCE_USERNAME} \
-          -Dtest.key=${SAUCE_ACCESS_KEY}
+        mvn clean test
 
     - name: Upload Test Results
       if: always()
