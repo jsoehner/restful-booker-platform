@@ -1,8 +1,8 @@
 const http = require('http');
 const https = require('https');
 
-makeHttpRequest = (host, apiName) => {
-  http.get(host + apiName + 'actuator/health', (response) => {
+makeHttpRequest = (endpoint) => {
+  http.get(endpoint, (response) => {
     let data = '';
     
     response.on('data', (chunk) => {
@@ -14,23 +14,23 @@ makeHttpRequest = (host, apiName) => {
         process.stdout.write('.');
 
         setTimeout(() => {
-          makeHttpRequest(host, apiName);
+          makeHttpRequest(endpoint);
         }, 5000);
       } else {
-        process.stdout.write('\n' + apiName + ' ready ');
+        process.stdout.write('\n' + endpoint + ' ready ');
       }
     });
 
   }).on('error', () => {
       process.stdout.write('.')
       setTimeout(() => {
-        makeHttpRequest(host, apiName);
+        makeHttpRequest(endpoint);
       }, 5000);
   });
 }
 
-makeHttpsRequest = (host, apiName) => {
-  https.get(host + apiName + 'actuator/health', (response) => {
+makeHttpsRequest = (endpoint) => {
+  https.get(endpoint, (response) => {
     let data = '';
     
     response.on('data', (chunk) => {
@@ -42,29 +42,29 @@ makeHttpsRequest = (host, apiName) => {
         process.stdout.write('.');
         
         setTimeout(() => {
-          makeHttpsRequest(host, apiName);
+          makeHttpsRequest(endpoint);
         }, 5000);
       } else {
-        process.stdout.write('\n' + apiName + ' ready ');
+        process.stdout.write('\n' + endpoint + ' ready ');
       }
     });
 
   }).on('error', () => {
       process.stdout.write('.')
       setTimeout(() => {
-        makeHttpsRequest(host, apiName);
+        makeHttpsRequest(endpoint);
       }, 5000);
   });
 }
 
-exports.checkForLife = (protocol, host, apiName) => {
+exports.checkForLife = (protocol, endpoint) => {
   if(protocol === 'https'){
-    makeHttpsRequest(host, apiName);
+    makeHttpsRequest(endpoint);
   } else if (protocol === 'http'){
-    makeHttpRequest(host, apiName, (requestResult) => {
+    makeHttpRequest(endpoint, (requestResult) => {
       if(requestResult !== 200){
         setTimeout(() => {
-          makeHttpRequest(host, apiName)
+          makeHttpRequest(endpoint)
         }, 5000);
       }
     });
