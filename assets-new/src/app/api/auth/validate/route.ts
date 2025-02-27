@@ -10,8 +10,6 @@ export async function POST(request: Request) {
         { status: 401 }
       );
     }
-    
-    console.log(token);
 
     // Forward the validation request to the auth service
     const authApi = process.env.AUTH_API || 'http://localhost:3004';

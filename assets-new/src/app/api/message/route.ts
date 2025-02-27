@@ -1,59 +1,69 @@
 import { NextResponse } from 'next/server';
+import { cookies } from 'next/headers';
 
-export async function POST(request: Request) {
+export async function GET() {
   try {
-    const messageData = await request.json();
-    
-    // Validate the message data
-    const errorMessages: string[] = [];
-    
-    if (!messageData.name || messageData.name.trim() === '') {
-      errorMessages.push('Name must be set');
-    }
-    
-    if (!messageData.email || messageData.email.trim() === '') {
-      errorMessages.push('Email must be set');
-    } else if (!messageData.email.includes('@')) {
-      errorMessages.push('Email must be valid format');
-    }
-    
-    if (!messageData.phone || messageData.phone.trim() === '') {
-      errorMessages.push('Phone must be set');
-    }
-    
-    if (!messageData.subject || messageData.subject.trim() === '') {
-      errorMessages.push('Subject must be set');
-    }
-    
-    if (!messageData.description || messageData.description.trim() === '') {
-      errorMessages.push('Message must be set');
-    }
-    
-    if (errorMessages.length > 0) {
-      return NextResponse.json({ errorMessages }, { status: 400 });
-    }
-    
-    // Forward the message to the message service
     const messageApi = process.env.MESSAGE_API || 'http://localhost:3006';
-    const response = await fetch(`${messageApi}/message/`, {
-      method: 'POST',
+    
+    // Get the token from cookies
+    const cookieStore = cookies();
+    const token = cookieStore.get('token');
+
+    if (!token) {
+      return NextResponse.json(
+        { error: 'Authentication required' },
+        { status: 401 }
+      );
+    }
+
+    const response = await fetch(`${messageApi}/message`, {
       headers: {
-        'Content-Type': 'application/json',
+        'Cookie': `token=${token.value}`
       },
-      body: JSON.stringify(messageData),
+      next: { 
+        revalidate: 30,  // Cache for 30 seconds
+        tags: ['messages'] 
+      }
     });
     
     if (!response.ok) {
-      const errorData = await response.json();
-      return NextResponse.json(errorData, { status: response.status });
+      throw new Error(`Failed to fetch messages: ${response.status}`);
     }
     
     const data = await response.json();
     return NextResponse.json(data);
   } catch (error) {
-    console.error('Error processing message:', error);
+    console.error('Error fetching messages:', error);
+    return NextResponse.json([], { status: 500 });
+  }
+}
+
+export async function POST(request: Request) {
+  try {
+    const messageApi = process.env.MESSAGE_API || 'http://localhost:3006';
+    const body = await request.json();
+    
+    const response = await fetch(`${messageApi}/message`, {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify(body),
+    });
+    
+    if (!response.ok) {
+      const errorData = await response.json();
+      return NextResponse.json(
+        errorData,
+        { status: response.status }
+      );
+    }
+    
+    return NextResponse.json({ success: true });
+  } catch (error) {
+    console.error('Error creating message:', error);
     return NextResponse.json(
-      { errorMessages: ['An unexpected error occurred. Please try again later.'] }, 
+      { error: 'Failed to create message' },
       { status: 500 }
     );
   }

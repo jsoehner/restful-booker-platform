@@ -1,4 +1,5 @@
 import { NextResponse } from 'next/server';
+import { cookies } from 'next/headers';
 
 export async function PUT(
   request: Request,
@@ -6,11 +7,22 @@ export async function PUT(
 ) {
   try {
     const id = params.id;
-    
-    // Forward the request to the message service
+    const cookieStore = cookies();
+    const token = cookieStore.get('token');
+
+    if (!token) {
+      return NextResponse.json(
+        { error: 'Authentication required' },
+        { status: 401 }
+      );
+    }
+
     const messageApi = process.env.MESSAGE_API || 'http://localhost:3006';
     const response = await fetch(`${messageApi}/message/${id}/read`, {
       method: 'PUT',
+      headers: {
+        'Cookie': `token=${token.value}`
+      }
     });
     
     if (!response.ok) {

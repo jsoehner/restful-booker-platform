@@ -40,7 +40,8 @@ const MessageList: React.FC<MessageListProps> = ({ setCount }) => {
       const response = await fetch('/api/message');
       if (response.ok) {
         const data = await response.json();
-        setMessages(data || []);
+        console.log("RESPONSE", data.messages);
+        setMessages(data.messages || []);
       }
     } catch (error) {
       console.error('Error fetching messages:', error);
@@ -59,49 +60,25 @@ const MessageList: React.FC<MessageListProps> = ({ setCount }) => {
 
   return (
     <div>
-      {messageId > 0 && (
-        <Message 
-          messageId={messageId} 
-          closeMessage={closeMessage} 
-          refreshMessageList={refreshMessageList} 
-        />
-      )}
-      <div className="messages">
-        <div className="row">
-          <div className="col-sm-2 rowHeader"><p>Name</p></div>
-          <div className="col-sm-9 rowHeader"><p>Subject</p></div>
-          <div className="col-sm-1"></div>
+        {messageId > 0 && 
+            <Message messageId={messageId} closeMessage={closeMessage} refreshMessageList={refreshMessageList} />
+        }
+        <div className="messages">
+            <div className="row">
+                <div className="col-sm-2 rowHeader"><p>Name</p></div>
+                <div className="col-sm-9 rowHeader"><p>Subject</p></div>
+                <div className="col-sm-1"></div>
+            </div>
+            {messages.map((value, index) => {
+                return  <div className={"row detail read-" + value.read} id={"message" + index} key={index}>
+                            <div className="col-sm-2" data-testid={"message" + index} onClick={() => openMessage(value.id)}><p>{value.name}</p></div>
+                            <div className="col-sm-9" data-testid={"messageDescription" + index} onClick={() => openMessage(value.id)}><p>{value.subject}</p></div>
+                            <div className="col-sm-1">
+                            <span data-testid={"DeleteMessage" + index} className="fa fa-remove roomDelete" onClick={() => deleteMessage(value.id)}></span>
+                            </div>
+                        </div>
+            })}
         </div>
-        {messages.map((value, index) => (
-          <div 
-            className={`row detail read-${value.read}`} 
-            id={`message${index}`} 
-            key={index}
-          >
-            <div 
-              className="col-sm-2" 
-              data-testid={`message${index}`} 
-              onClick={() => openMessage(value.id)}
-            >
-              <p>{value.name}</p>
-            </div>
-            <div 
-              className="col-sm-9" 
-              data-testid={`messageDescription${index}`} 
-              onClick={() => openMessage(value.id)}
-            >
-              <p>{value.subject}</p>
-            </div>
-            <div className="col-sm-1">
-              <span 
-                data-testid={`DeleteMessage${index}`} 
-                className="fa fa-remove roomDelete" 
-                onClick={() => deleteMessage(value.id)}
-              ></span>
-            </div>
-          </div>
-        ))}
-      </div>
     </div>
   );
 };

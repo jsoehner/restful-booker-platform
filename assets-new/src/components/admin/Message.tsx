@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from 'react';
+import ReactModal from 'react-modal';
 
 interface MessageProps {
   messageId: number;
@@ -22,7 +23,7 @@ const Message: React.FC<MessageProps> = ({ messageId, closeMessage, refreshMessa
   useEffect(() => {
     const fetchMessage = async () => {
       try {
-        const response = await fetch(`/api/admin/messages/${messageId}`);
+        const response = await fetch(`/api/admin/message/${messageId}`);
         if (response.ok) {
           const data = await response.json();
           setMessage(data);
@@ -42,7 +43,7 @@ const Message: React.FC<MessageProps> = ({ messageId, closeMessage, refreshMessa
 
   const markAsRead = async () => {
     try {
-      await fetch(`/api/admin/messages/${messageId}/read`, {
+      await fetch(`/api/admin/message/${messageId}/read`, {
         method: 'PUT',
       });
       refreshMessageList();
@@ -52,45 +53,47 @@ const Message: React.FC<MessageProps> = ({ messageId, closeMessage, refreshMessa
   };
 
   if (!message) {
-    return <div>Loading message...</div>;
+    return <div></div>;
   }
 
   return (
-    <div className="row message-detail">
-      <div className="col-sm-12">
-        <div className="card">
-          <div className="card-header">
-            <div className="row">
-              <div className="col-sm-1">
-                <button 
-                  type="button" 
-                  className="btn btn-outline-primary" 
-                  onClick={closeMessage}
-                >
-                  Back
-                </button>
-              </div>
-              <div className="col-sm-11">
-                <h4>{message.subject}</h4>
-              </div>
+    <ReactModal 
+        isOpen={true}
+        ariaHideApp={false}
+        contentLabel="onRequestClose Example"
+        className="message-modal" >
+        
+        <div data-testid="message">
+            <div className="form-row">
+                <div className="col-10">
+                    <p><span>From: </span>{message.name}</p>
+                </div>
+                <div className="col-2">
+                    <p><span>Phone: </span>{message.phone}</p>
+                </div>
             </div>
-          </div>
-          <div className="card-body">
-            <div className="row">
-              <div className="col-sm-12">
-                <p>From: {message.name} ({message.email})</p>
-                {message.phone && <p>Phone: {message.phone}</p>}
-              </div>
+            <div className="form-row">
+                <div className="col-12">
+                    <p><span>Email: </span>{message.email}</p>
+                </div>
             </div>
-            <div className="row">
-              <div className="col-sm-12">
-                <p>{message.description}</p>
-              </div>
+            <div className="form-row">
+                <div className="col-12">
+                    <p><span>{message.subject}</span></p>
+                </div>
             </div>
-          </div>
+            <div className="form-row">
+                <div className="col-12">
+                    <p>{message.description}</p>
+                </div>
+            </div>
+            <div className="form-row">
+                <div className="col-12">
+                    <button className="btn btn-outline-primary" onClick={() => closeMessage()}>Close</button>
+                </div>
+            </div>
         </div>
-      </div>
-    </div>
+    </ReactModal>
   );
 };
 
