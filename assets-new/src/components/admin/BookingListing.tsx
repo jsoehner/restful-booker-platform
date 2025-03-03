@@ -59,13 +59,12 @@ const BookingListing: React.FC<BookingListingProps> = ({booking, getBookings, ro
 
     const handleDateChange = (date: Date | null, target: 'checkin' | 'checkout') => {
         if (date) {
-            setEditBooking(prevState => ({
-                ...prevState,
-                bookingdates: {
-                    ...prevState.bookingdates,
-                    [target]: moment(date.toUTCString()).format("YYYY-MM-DD")
-                }
-            }));
+            const formattedDate = moment(date.toUTCString()).format("YYYY-MM-DD");
+            setEditBooking(prevState => {
+                const newState = { ...prevState };
+                newState.bookingdates[target] = formattedDate;
+                return newState;
+            });
         }
     }
 

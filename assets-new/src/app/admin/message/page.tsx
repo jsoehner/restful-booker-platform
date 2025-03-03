@@ -1,6 +1,6 @@
 'use client';
 
-import React, { Suspense, useContext } from 'react';
+import React, { Suspense } from 'react';
 import dynamic from 'next/dynamic';
 import Loading from '@/components/admin/Loading';
 
@@ -14,22 +14,9 @@ const MessageList = dynamic(
 );
 
 export default function MessagesPage() {
-  // We'll need to pass the setCount function from the parent layout
-  // This can be done via React Context or by fetching it again here
-  const setCount = async () => {
-    try {
-      const response = await fetch('/api//message/count');
-      if (response.ok) {
-        // This is just to update the count, the actual component will handle this
-      }
-    } catch (error) {
-      console.error('Error updating notification count:', error);
-    }
-  };
-
   return (
     <Suspense fallback={<Loading />}>
-      <MessageList setCount={setCount} />
+      <MessageList />
     </Suspense>
   );
-} 
+}

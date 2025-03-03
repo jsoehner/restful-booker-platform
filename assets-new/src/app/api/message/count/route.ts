@@ -11,7 +11,7 @@ export async function GET() {
     }
     
     const data = await response.json();
-    return NextResponse.json({ count: data.count || 0 });
+    return NextResponse.json(data);
   } catch (error) {
     console.error('Error fetching notification count:', error);
     return NextResponse.json({ count: 0 }, { status: 500 });

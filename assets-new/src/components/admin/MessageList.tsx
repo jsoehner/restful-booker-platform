@@ -8,11 +8,7 @@ interface MessageProps {
   read: boolean;
 }
 
-interface MessageListProps {
-  setCount: () => void;
-}
-
-const MessageList: React.FC<MessageListProps> = ({ setCount }) => {
+const MessageList: React.FC = () => {
   const [messageId, setMessageId] = useState<number>(0);
   const [messages, setMessages] = useState<MessageProps[]>([]);
 
@@ -28,7 +24,9 @@ const MessageList: React.FC<MessageListProps> = ({ setCount }) => {
       
       if (response.ok) {
         refreshMessageList();
-        setCount();
+        if (typeof window !== 'undefined' && (window as any).updateMessageCount) {
+          (window as any).updateMessageCount();
+        }
       }
     } catch (error) {
       console.error('Error deleting message:', error);
@@ -54,7 +52,9 @@ const MessageList: React.FC<MessageListProps> = ({ setCount }) => {
   const closeMessage = () => {
     refreshMessageList();
     setMessageId(0);
-    setCount();
+    if (typeof window !== 'undefined' && (window as any).updateMessageCount) {
+      (window as any).updateMessageCount();
+    }
   };
 
   return (

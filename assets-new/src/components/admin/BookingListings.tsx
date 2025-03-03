@@ -44,7 +44,7 @@ const BookingListings: React.FC<BookingListingsProps> = ({ roomid, roomPrice }) 
           <BookingListing 
             booking={booking} 
             getBookings={getBookings} 
-            roomPrice={roomPrice} 
+            roomPrice={roomPrice ? parseFloat(roomPrice) : undefined} 
           />
         </div>
       ))}
@@ -52,4 +52,4 @@ const BookingListings: React.FC<BookingListingsProps> = ({ roomid, roomPrice }) 
   );
 };
 
-export default BookingListings; 
+export default BookingListings;

@@ -122,9 +122,9 @@ const RoomBookingForm: React.FC<RoomBookingFormProps> = ({ roomid, roomPrice, to
       });
 
       const data = await response.json();
-      
+
       if (!response.ok) {
-        setErrors(data.errorMessages || ['An error occurred while submitting your booking']);
+        setErrors(data.errors || ['An error occurred while submitting your booking']);
         return;
       }
 

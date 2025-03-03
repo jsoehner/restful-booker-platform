@@ -22,7 +22,6 @@ const Message: React.FC<MessageProps> = ({ messageId, closeMessage, refreshMessa
 
   useEffect(() => {
     const fetchMessage = async () => {
-      console.log("A MESSAGE I BEING RETRIEVED");
       try {
         const response = await fetch(`/api/message/${messageId}`);
         if (response.ok) {
@@ -44,10 +43,17 @@ const Message: React.FC<MessageProps> = ({ messageId, closeMessage, refreshMessa
 
   const markAsRead = async () => {
     try {
-      await fetch(`/api/message/${messageId}/read`, {
+      const response = await fetch(`/api/message/${messageId}/read`, {
         method: 'PUT',
       });
-      refreshMessageList();
+      
+      if (response.ok) {
+        // Update the message list and count
+        refreshMessageList();
+        if (typeof window !== 'undefined' && (window as any).updateMessageCount) {
+          (window as any).updateMessageCount();
+        }
+      }
     } catch (error) {
       console.error('Error marking message as read:', error);
     }

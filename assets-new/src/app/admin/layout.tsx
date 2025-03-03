@@ -33,7 +33,6 @@ export default function AdminLayout({
   children: React.ReactNode;
 }) {
   const [isAuthenticated, setAuthenticate] = useState<boolean | null>(null);
-  const [count, updateCount] = useState(0);
   const router = useRouter();
   const pathname = usePathname();
 
@@ -53,26 +52,12 @@ export default function AdminLayout({
     validateAuth();
   }, [pathname, router]);
   
-  const setCount = async () => {
-    try {
-      const response = await fetch('/api/message/count');
-      if (response.ok) {
-        const data = await response.json();
-        updateCount(data.count || 0);
-      }
-    } catch (error) {
-      console.error('Error fetching notification count:', error);
-    }
-  };
-
   if (isAuthenticated === null) {
     return (
       <div>
         <Nav 
           setAuthenticate={setAuthenticate} 
           isAuthenticated={isAuthenticated} 
-          setCount={setCount} 
-          count={count} 
         />
         <Loading />
       </div>
@@ -84,8 +69,6 @@ export default function AdminLayout({
       <Nav 
         setAuthenticate={setAuthenticate} 
         isAuthenticated={isAuthenticated} 
-        setCount={setCount} 
-        count={count} 
       />
       <div className="container">
         {children}

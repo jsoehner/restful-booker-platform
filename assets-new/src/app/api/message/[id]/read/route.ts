@@ -24,8 +24,8 @@ export async function PUT(
         'Cookie': `token=${token.value}`
       }
     });
-    
-    if (!response.ok) {
+
+    if( response.status !== 202) {
       throw new Error(`Failed to mark message as read: ${response.status}`);
     }
     

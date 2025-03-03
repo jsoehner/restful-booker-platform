@@ -39,3 +39,30 @@ export async function GET(request: Request) {
     return NextResponse.json([], { status: 500 });
   }
 }
+
+export async function POST(request: Request) {
+  try {
+    const bookingApi = process.env.BOOKING_API || 'http://localhost:3000';
+    const response = await fetch(`${bookingApi}/booking/`, {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json'
+      },
+      body: JSON.stringify(await request.json())
+    });
+
+    if (!response.ok) {
+      const errorData = await response.json();
+      return NextResponse.json(
+        { errors: errorData.fieldErrors || ['Failed to create booking'] },
+        { status: response.status }
+      );
+    }
+    
+    const data = await response.json();
+    return NextResponse.json(data.bookings || []);
+  } catch (error) {
+    console.error('Error fetching bookings:', error);
+    return NextResponse.json([], { status: 500 });
+  }
+}
