@@ -22,8 +22,9 @@ const Message: React.FC<MessageProps> = ({ messageId, closeMessage, refreshMessa
 
   useEffect(() => {
     const fetchMessage = async () => {
+      console.log("A MESSAGE I BEING RETRIEVED");
       try {
-        const response = await fetch(`/api/admin/message/${messageId}`);
+        const response = await fetch(`/api/message/${messageId}`);
         if (response.ok) {
           const data = await response.json();
           setMessage(data);
@@ -43,7 +44,7 @@ const Message: React.FC<MessageProps> = ({ messageId, closeMessage, refreshMessa
 
   const markAsRead = async () => {
     try {
-      await fetch(`/api/admin/message/${messageId}/read`, {
+      await fetch(`/api/message/${messageId}/read`, {
         method: 'PUT',
       });
       refreshMessageList();

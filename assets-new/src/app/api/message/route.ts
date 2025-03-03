@@ -1,30 +1,15 @@
 import { NextResponse } from 'next/server';
-import { cookies } from 'next/headers';
 
 export async function GET() {
   try {
     const messageApi = process.env.MESSAGE_API || 'http://localhost:3006';
-    
-    // Get the token from cookies
-    const cookieStore = cookies();
-    const token = cookieStore.get('token');
 
-    if (!token) {
-      return NextResponse.json(
-        { error: 'Authentication required' },
-        { status: 401 }
-      );
-    }
-
-    const response = await fetch(`${messageApi}/message`, {
-      headers: {
-        'Cookie': `token=${token.value}`
-      },
-      next: { 
-        revalidate: 30,  // Cache for 30 seconds
-        tags: ['messages'] 
+    const response = await fetch(`${messageApi}/message/`, {
+      headers : {
+        'Content-type': 'application/json'
       }
     });
+    
     
     if (!response.ok) {
       throw new Error(`Failed to fetch messages: ${response.status}`);
@@ -43,7 +28,7 @@ export async function POST(request: Request) {
     const messageApi = process.env.MESSAGE_API || 'http://localhost:3006';
     const body = await request.json();
     
-    const response = await fetch(`${messageApi}/message`, {
+    const response = await fetch(`${messageApi}/message/`, {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
@@ -51,15 +36,17 @@ export async function POST(request: Request) {
       body: JSON.stringify(body),
     });
     
-    if (!response.ok) {
+    
+    if (response.status !== 201) {
       const errorData = await response.json();
       return NextResponse.json(
-        errorData,
+        errorData.fieldErrors,
         { status: response.status }
       );
+    } else {
+      return NextResponse.json({ success: true });
     }
     
-    return NextResponse.json({ success: true });
   } catch (error) {
     console.error('Error creating message:', error);
     return NextResponse.json(

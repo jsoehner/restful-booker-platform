@@ -1,68 +1,51 @@
 import React, { useEffect, useState } from 'react';
-import Link from 'next/link';
-import { Room } from '@/libs/Api';
+import RoomListing from './RoomListing';
+import RoomForm from './RoomForm';
+
+interface Room {
+  roomid: number;
+  roomName: string;
+  type: string;
+  accessible: boolean;
+  roomPrice: number;
+  features: string[];
+}
 
 const RoomListings: React.FC = () => {
   const [rooms, setRooms] = useState<Room[]>([]);
-  const [loading, setLoading] = useState(true);
 
   useEffect(() => {
-    const fetchRooms = async () => {
-      try {
-        const response = await fetch('/api/rooms');
-        if (response.ok) {
-          const data = await response.json();
-          setRooms(data.rooms || []);
-        }
-      } catch (error) {
-        console.error('Error fetching rooms:', error);
-      } finally {
-        setLoading(false);
+    updateRooms();
+  }, [])
+
+  const updateRooms = async () => {
+    try {
+      const response = await fetch('/api/room');
+      if (response.ok) {
+        const data = await response.json();
+        setRooms(data.rooms || []);
       }
-    };
-
-    fetchRooms();
-  }, []);
-
-  if (loading) {
-    return <div>Loading rooms...</div>;
+    } catch (error) {
+      console.error('Error fetching rooms:', error);
+    }
   }
 
-  return (
+  return(
     <div>
-      <h2>Rooms</h2>
       <div className="row">
-        <div className="col-sm-12">
-          <table className="table table-striped">
-            <thead>
-              <tr>
-                <th>Room #</th>
-                <th>Type</th>
-                <th>Accessible</th>
-                <th>Price</th>
-                <th>Actions</th>
-              </tr>
-            </thead>
-            <tbody>
-              {rooms.map((room) => (
-                <tr key={room.roomid}>
-                  <td>{room.roomName}</td>
-                  <td>{room.type}</td>
-                  <td>{room.accessible ? 'Yes' : 'No'}</td>
-                  <td>£{room.roomPrice}</td>
-                  <td>
-                    <Link href={`/admin/rooms/${room.roomid}`} className="btn btn-sm btn-primary">
-                      Edit
-                    </Link>
-                  </td>
-                </tr>
-              ))}
-            </tbody>
-          </table>
-        </div>
+        <div className="col-sm-1 rowHeader"><p>Room #</p></div>
+        <div className="col-sm-2 rowHeader"><p>Type</p></div>
+        <div className="col-sm-2 rowHeader"><p>Accessible</p></div>
+        <div className="col-sm-1 rowHeader"><p>Price</p></div>
+        <div className="col-sm-5 rowHeader"><p>Room details</p></div>
+        <div className="col-sm-1"></div>
       </div>
+      {rooms.map((room, id) => {
+        return <div key={id}><RoomListing details={room} updateRooms={updateRooms} /></div>
+      })}
+      <RoomForm updateRooms={updateRooms}/>
     </div>
   );
-};
+}
 
-export default RoomListings; 
+export default RoomListings;

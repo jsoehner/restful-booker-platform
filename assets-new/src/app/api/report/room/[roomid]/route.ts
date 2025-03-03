@@ -9,9 +9,7 @@ export async function GET(
     
     // Forward the request to the report service
     const reportApi = process.env.REPORT_API || 'http://localhost:3005';
-    const response = await fetch(`${reportApi}/report/room/${roomid}`, {
-      next: { revalidate: 60 } // Cache for 60 seconds
-    });
+    const response = await fetch(`${reportApi}/report/room/${roomid}`);
     
     if (!response.ok) {
       throw new Error(`Failed to fetch room report: ${response.status}`);

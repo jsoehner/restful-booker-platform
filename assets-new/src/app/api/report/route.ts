@@ -1,11 +1,23 @@
 import { NextResponse } from 'next/server';
+import { cookies } from 'next/headers';
 
 export async function GET() {
   try {
-    // Forward the request to the booking service
-    const bookingApi = process.env.BOOKING_API || 'http://localhost:3000';
+    const cookieStore = cookies();
+    const token = cookieStore.get('token');
+
+    if (!token) {
+      return NextResponse.json(
+        { error: 'Authentication required' },
+        { status: 401 }
+      );
+    }
+
+    const bookingApi = process.env.BOOKING_API || 'http://localhost:3005';
     const response = await fetch(`${bookingApi}/report`, {
-      next: { revalidate: 60 } // Cache for 60 seconds
+      headers: {
+        'Cookie': `token=${token.value}`
+      }
     });
     
     if (!response.ok) {

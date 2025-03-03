@@ -1,74 +1,41 @@
 import { NextResponse } from 'next/server';
+import { cookies } from 'next/headers';
 
-export async function POST(request: Request) {
+export async function GET(request: Request) {
   try {
-    const bookingData = await request.json();
-    
-    // Validate the booking data
-    const errorMessages: string[] = [];
-    
-    if (!bookingData.firstname || bookingData.firstname.trim() === '') {
-      errorMessages.push('Firstname should not be blank');
+    const { searchParams } = new URL(request.url);
+    const roomid = searchParams.get('roomid');
+
+    const token = cookies().get('token');
+    if (!token) {
+      return NextResponse.json(
+        { error: 'Authentication required' },
+        { status: 401 }
+      );
     }
-    
-    if (!bookingData.lastname || bookingData.lastname.trim() === '') {
-      errorMessages.push('Lastname should not be blank');
+
+    if (!roomid) {
+      return NextResponse.json(
+        { error: 'Room ID is required' },
+        { status: 400 }
+      );
     }
-    
-    if (!bookingData.email || bookingData.email.trim() === '') {
-      errorMessages.push('Email should not be blank');
-    } else if (!bookingData.email.includes('@')) {
-      errorMessages.push('Email should be valid');
-    }
-    
-    if (!bookingData.phone || bookingData.phone.trim() === '') {
-      errorMessages.push('Phone should not be blank');
-    }
-    
-    if (!bookingData.bookingdates?.checkin) {
-      errorMessages.push('Check in date should not be blank');
-    }
-    
-    if (!bookingData.bookingdates?.checkout) {
-      errorMessages.push('Check out date should not be blank');
-    }
-    
-    if (bookingData.bookingdates?.checkin && bookingData.bookingdates?.checkout) {
-      const checkin = new Date(bookingData.bookingdates.checkin);
-      const checkout = new Date(bookingData.bookingdates.checkout);
-      
-      if (checkin >= checkout) {
-        errorMessages.push('Check out date should be after check in date');
-      }
-    }
-    
-    if (errorMessages.length > 0) {
-      return NextResponse.json({ errorMessages }, { status: 400 });
-    }
-    
-    // Forward the booking to the booking service
+
     const bookingApi = process.env.BOOKING_API || 'http://localhost:3000';
-    const response = await fetch(`${bookingApi}/booking/`, {
-      method: 'POST',
+    const response = await fetch(`${bookingApi}/booking/?roomid=${roomid}`, {
       headers: {
-        'Content-Type': 'application/json',
-        'Accept': 'application/json'
-      },
-      body: JSON.stringify(bookingData),
+        'Cookie': `token=${token.value}`
+      }
     });
     
     if (!response.ok) {
-      const errorData = await response.json();
-      return NextResponse.json(errorData, { status: response.status });
+      throw new Error(`Failed to fetch bookings: ${response.status}`);
     }
     
     const data = await response.json();
-    return NextResponse.json(data);
+    return NextResponse.json(data.bookings || []);
   } catch (error) {
-    console.error('Error processing booking:', error);
-    return NextResponse.json(
-      { errorMessages: ['An unexpected error occurred. Please try again later.'] }, 
-      { status: 500 }
-    );
+    console.error('Error fetching bookings:', error);
+    return NextResponse.json([], { status: 500 });
   }
-} 
+}

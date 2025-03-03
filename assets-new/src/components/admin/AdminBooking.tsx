@@ -1,4 +1,6 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
+import ReactModal from 'react-modal';
+import moment from 'moment';
 
 interface AdminBookingProps {
   closeBooking: () => void;
@@ -9,161 +11,154 @@ interface AdminBookingProps {
   } | null;
 }
 
-interface BookingDetails {
+interface Room {
+  roomid: number;
+  roomName: string;
+}
+
+interface Booking {
   firstname: string;
   lastname: string;
-  email: string;
-  phone: string;
+  depositpaid: boolean;
+  roomid: number;
   bookingdates: {
-    checkin: string;
-    checkout: string;
+    checkin?: string;
+    checkout?: string;
   };
 }
 
 const AdminBooking: React.FC<AdminBookingProps> = ({ closeBooking, dates }) => {
-  const [booking, setBooking] = useState<BookingDetails>({
+  const [rooms, setRooms] = useState<Room[]>([]);
+  const [booking, setBooking] = useState<Booking>({
     firstname: '',
     lastname: '',
-    email: '',
-    phone: '',
-    bookingdates: {
-      checkin: dates?.start.toISOString().split('T')[0] || '',
-      checkout: dates?.end.toISOString().split('T')[0] || ''
-    }
+    depositpaid: false,
+    roomid: 0,
+    bookingdates: {}
   });
+  const [errors, setErrors] = useState<string[]>([]);
 
-  const handleSubmit = async (e: React.FormEvent) => {
-    e.preventDefault();
-    
+  useEffect(() => {
+    if (dates) {
+      const newBooking = {
+        ...booking,
+        bookingdates: {
+          checkin: moment(dates.start).format('YYYY-MM-DD'),
+          checkout: moment(dates.end).format('YYYY-MM-DD')
+        }
+      };
+      setBooking(newBooking);
+      fetchRooms();
+    }
+  }, []);
+
+  const fetchRooms = async () => {
     try {
-      const response = await fetch('/api/admin/booking', {
+      const response = await fetch('/api/room');
+      if (response.ok) {
+        const data = await response.json();
+        setRooms(data.rooms);
+      }
+    } catch (error) {
+      console.error('Error fetching rooms:', error);
+      setErrors(['Failed to fetch rooms']);
+    }
+  };
+
+  const updateState = (event: { name: string; value: string | boolean }) => {
+    const value = event.name === 'depositpaid' ? event.value === 'true' : event.value;
+    setBooking(prevState => ({
+      ...prevState,
+      [event.name]: value
+    }));
+  };
+
+  const doBooking = async () => {
+    try {
+      const response = await fetch('/api/booking', {
         method: 'POST',
         headers: {
-          'Content-Type': 'application/json',
+          'Content-Type': 'application/json'
         },
-        body: JSON.stringify(booking),
+        body: JSON.stringify(booking)
       });
-      
-      if (response.ok) {
+
+      if (response.status === 201) {
         closeBooking();
       } else {
-        console.error('Failed to create booking');
+        const error = await response.json();
+        setErrors(error.errors || ['Failed to create booking']);
       }
     } catch (error) {
       console.error('Error creating booking:', error);
+      setErrors(['Failed to create booking']);
     }
   };
 
-  const updateField = (e: React.ChangeEvent<HTMLInputElement>) => {
-    const { name, value } = e.target;
-    if (name.startsWith('bookingdates.')) {
-      const dateField = name.split('.')[1];
-      setBooking(prev => ({
-        ...prev,
-        bookingdates: {
-          ...prev.bookingdates,
-          [dateField]: value
-        }
-      }));
-    } else {
-      setBooking(prev => ({
-        ...prev,
-        [name]: value
-      }));
-    }
-  };
+  let errorDetails;
+  if (errors.length > 0) {
+    errorDetails = (
+      <div className="alert alert-danger" style={{ marginTop: '1rem' }}>
+        {errors.map((value) => (
+          <p key={value}>{value}</p>
+        ))}
+      </div>
+    );
+  }
 
   return (
-    <div className="row">
-      <div className="col-sm-2"></div>
-      <div className="col-sm-8">
-        <div className="card">
-          <div className="card-header">
-            <h2>Book a room</h2>
+    <ReactModal 
+          isOpen={true}
+          contentLabel="onRequestClose Example"
+          className="confirmation-modal"
+          >
+          
+          <div className="form-row">
+              <div className="col-6">
+                  <input type="text" className="form-control" placeholder="Firstname" aria-label="Firstname" name="firstname" aria-describedby="basic-addon1" value={booking.firstname} onChange={e => updateState({ name: e.target.name, value: e.target.value })} />    
+              </div>
+              <div className="col-6">
+              <input type="text" className="form-control" placeholder="Lastname" aria-label="Lastname" name="lastname" aria-describedby="basic-addon1" value={booking.lastname} onChange={e => updateState({ name: e.target.name, value: e.target.value })} />
+              </div>
           </div>
-          <div className="card-body">
-            <form onSubmit={handleSubmit}>
-              <div className="form-group">
-                <label htmlFor="firstname">First name:</label>
-                <input 
-                  type="text"
-                  className="form-control"
-                  name="firstname"
-                  value={booking.firstname}
-                  onChange={updateField}
-                />
+          <div className="form-row room-booking-form">
+              <div className="col-6">
+                  <div className="input-group-prepend">
+                      <span className="input-group-text" id="basic-addon1">Room</span>
+                      <select className="form-control" name="roomid" id="roomid" value={booking.roomid} onChange={e => updateState({ name: e.target.name, value: e.target.value })}>
+                      <option value="0">Select room</option>
+                      {rooms.map((room) => {
+                          return <option key={room.roomid} value={room.roomid}>{room.roomName}</option>
+                      })}
+                      </select>
+                  </div>
               </div>
-              <div className="form-group">
-                <label htmlFor="lastname">Last name:</label>
-                <input 
-                  type="text"
-                  className="form-control"
-                  name="lastname"
-                  value={booking.lastname}
-                  onChange={updateField}
-                />
+              <div className="col-6">
+                  <div className="input-group-prepend">
+                      <span className="input-group-text" id="basic-addon1">Deposit paid?</span>
+                      <select className="form-control" name="depositpaid" id="depositpaid" value={booking.depositpaid.toString()} onChange={e => updateState({ name: e.target.name, value: e.target.value })}>
+                          <option value="false">false</option>
+                          <option value="true">true</option>
+                      </select>
+                  </div>
               </div>
-              <div className="form-group">
-                <label htmlFor="email">Email:</label>
-                <input 
-                  type="email"
-                  className="form-control"
-                  name="email"
-                  value={booking.email}
-                  onChange={updateField}
-                />
-              </div>
-              <div className="form-group">
-                <label htmlFor="phone">Phone:</label>
-                <input 
-                  type="text"
-                  className="form-control"
-                  name="phone"
-                  value={booking.phone}
-                  onChange={updateField}
-                />
-              </div>
-              <div className="form-group">
-                <label htmlFor="checkin">Check in:</label>
-                <input 
-                  type="date"
-                  className="form-control"
-                  name="bookingdates.checkin"
-                  value={booking.bookingdates.checkin}
-                  onChange={updateField}
-                />
-              </div>
-              <div className="form-group">
-                <label htmlFor="checkout">Check out:</label>
-                <input 
-                  type="date"
-                  className="form-control"
-                  name="bookingdates.checkout"
-                  value={booking.bookingdates.checkout}
-                  onChange={updateField}
-                />
-              </div>
-              <div className="form-group">
-                <button 
-                  type="button" 
-                  className="btn btn-outline-danger" 
-                  onClick={closeBooking}
-                >
-                  Cancel
-                </button>
-                <button 
-                  type="submit" 
-                  className="btn btn-outline-primary float-right"
-                >
-                  Book
-                </button>
-              </div>
-            </form>
           </div>
-        </div>
-      </div>
-      <div className="col-sm-2"></div>
-    </div>
+          <div className="form-row room-booking-form">
+              <div className="col-6">
+                  <p><span style={{fontWeight : "bold"}}>Checkin: </span>{booking.bookingdates.checkin}</p>
+              </div>
+              <div className="col-6">
+                  <p><span style={{fontWeight : "bold"}}>Checkout: </span>{booking.bookingdates.checkout}</p>
+              </div>
+          </div>
+          <div className="form-row room-booking-form">
+              <div className="col-sm-12 text-right">
+                  <button type='button' className='btn btn-outline-danger float-right book-room' onClick={() => closeBooking()}>Cancel</button>
+                  <button type='button' className='btn btn-outline-primary float-right book-room' style={{marginRight : '10px' }} onClick={() => doBooking()}>Book</button>
+              </div>
+          </div>
+          {errorDetails}
+      </ReactModal>
   );
 };
 

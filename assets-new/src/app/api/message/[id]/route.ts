@@ -25,7 +25,7 @@ export async function GET(
         'Cookie': `token=${token.value}`
       }
     });
-    
+
     if (!response.ok) {
       const errorData = await response.json();
       return NextResponse.json(

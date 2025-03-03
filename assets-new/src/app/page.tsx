@@ -6,24 +6,60 @@ import HotelMap from '@/components/HotelMap';
 import HotelLogo from '@/components/HotelLogo';
 import HotelContact from '@/components/HotelContact';
 import Footer from '@/components/Footer';
-import { fetchBranding, fetchRooms, BrandingResponse, Room } from '@/libs/Api';
+
+interface Room {
+  roomid: number;
+  roomName: string;
+  type: string;
+  accessible: boolean;
+  image: string;
+  description: string;
+  features: string[];
+  roomPrice: number;
+}
+
+interface BrandingResponse {
+  name: string;
+  map: {
+    latitude: number;
+    longitude: number;
+  };
+  logoUrl: string;
+  description: string;
+  contact: {
+    name: string;
+    address: string;
+    phone: string;
+    email: string;
+  };
+}
 
 export default function Home() {
   const [rooms, setRooms] = useState<Room[]>([]);
-  const [branding, setBranding] = useState<BrandingResponse>({});
+  const [branding, setBranding] = useState<BrandingResponse | null>(null);
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
     async function loadData() {
       try {
         setLoading(true);
-        const [brandingData, roomsData] = await Promise.all([
-          fetchBranding(),
-          fetchRooms()
-        ]);
+        
+        // Fetch branding data
+        const brandingResponse = await fetch('/api/branding');
+        if (!brandingResponse.ok) {
+          throw new Error('Failed to fetch branding data');
+        }
+        const brandingData = await brandingResponse.json();
+
+        // Fetch rooms data
+        const roomsResponse = await fetch('/api/room');
+        if (!roomsResponse.ok) {
+          throw new Error('Failed to fetch rooms data');
+        }
+        const roomsData = await roomsResponse.json();
         
         setBranding(brandingData);
-        setRooms(roomsData);
+        setRooms(roomsData.rooms || []);
       } catch (error) {
         console.error('Error loading data:', error);
       } finally {

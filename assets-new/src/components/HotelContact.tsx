@@ -50,7 +50,7 @@ const HotelContact: React.FC<HotelContactProps> = ({ contactDetails }) => {
       
       if (!response.ok) {
         const errorData = await response.json();
-        setErrors(errorData.errorMessages || ['An error occurred while submitting your message']);
+        setErrors(errorData || ['An error occurred while submitting your message']);
         return;
       }
       

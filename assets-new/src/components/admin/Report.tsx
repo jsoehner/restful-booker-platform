@@ -30,16 +30,11 @@ const Report: React.FC<ReportProps> = ({ defaultDate }) => {
   useEffect(() => {
     const fetchReport = async () => {
       try {
-        const response = await fetch('/api/admin/report');
+        const response = await fetch('/api/report');
         if (response.ok) {
           const data = await response.json();
-          // Convert string dates to Date objects
-          const formattedData = data.map((event: any) => ({
-            ...event,
-            start: new Date(event.start),
-            end: new Date(event.end)
-          }));
-          setReport(formattedData);
+
+          setReport(data.report);
         }
       } catch (error) {
         console.error('Error fetching report:', error);
@@ -61,15 +56,11 @@ const Report: React.FC<ReportProps> = ({ defaultDate }) => {
     
     // Refresh report data
     try {
-      const response = await fetch('/api/admin/report');
+      const response = await fetch('/api/report');
       if (response.ok) {
         const data = await response.json();
-        const formattedData = data.map((event: any) => ({
-          ...event,
-          start: new Date(event.start),
-          end: new Date(event.end)
-        }));
-        setReport(formattedData);
+        
+        setReport(data.report);
       }
     } catch (error) {
       console.error('Error refreshing report:', error);

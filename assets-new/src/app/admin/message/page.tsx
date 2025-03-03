@@ -18,7 +18,7 @@ export default function MessagesPage() {
   // This can be done via React Context or by fetching it again here
   const setCount = async () => {
     try {
-      const response = await fetch('/api/admin/notifications/count');
+      const response = await fetch('/api//message/count');
       if (response.ok) {
         // This is just to update the count, the actual component will handle this
       }

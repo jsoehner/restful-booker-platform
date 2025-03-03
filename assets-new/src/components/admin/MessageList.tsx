@@ -40,7 +40,6 @@ const MessageList: React.FC<MessageListProps> = ({ setCount }) => {
       const response = await fetch('/api/message');
       if (response.ok) {
         const data = await response.json();
-        console.log("RESPONSE", data.messages);
         setMessages(data.messages || []);
       }
     } catch (error) {

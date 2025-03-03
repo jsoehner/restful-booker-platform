@@ -66,7 +66,7 @@ const Nav: React.FC<NavProps> = ({ setAuthenticate, isAuthenticated, setCount, c
                   </Link>
                 </li>
                 <li className="nav-item">
-                  <Link href="/admin/messages" className={getNavLinkClass('/admin/messages')}>
+                  <Link href="/admin/message" className={getNavLinkClass('/admin/message')}>
                     Messages {count > 0 && <span className="badge badge-pill badge-primary">{count}</span>}
                   </Link>
                 </li>

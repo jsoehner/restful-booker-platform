@@ -55,7 +55,7 @@ export default function AdminLayout({
   
   const setCount = async () => {
     try {
-      const response = await fetch('/api/admin/notifications/count');
+      const response = await fetch('/api/message/count');
       if (response.ok) {
         const data = await response.json();
         updateCount(data.count || 0);
