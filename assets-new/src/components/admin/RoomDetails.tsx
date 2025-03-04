@@ -11,7 +11,7 @@ interface RoomState {
   accessible: boolean;
   description: string;
   image?: string;
-  roomPrice?: string;
+  roomPrice?: number;
   featuresObject: {
     WiFi: boolean;
     TV: boolean;

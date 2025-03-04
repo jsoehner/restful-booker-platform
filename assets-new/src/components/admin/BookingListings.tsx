@@ -3,7 +3,7 @@ import BookingListing from './BookingListing';
 
 interface BookingListingsProps {
   roomid: string;
-  roomPrice?: string;
+  roomPrice?: number;
 }
 
 interface Booking {
@@ -22,7 +22,9 @@ const BookingListings: React.FC<BookingListingsProps> = ({ roomid, roomPrice }) 
   const [bookings, setBookings] = useState<Booking[]>([]);
 
   useEffect(() => {
-    getBookings();
+    if (roomid) {
+      getBookings();
+    }
   }, [roomid]);
 
   const getBookings = async () => {
@@ -30,7 +32,7 @@ const BookingListings: React.FC<BookingListingsProps> = ({ roomid, roomPrice }) 
       const response = await fetch(`/api/booking/?roomid=${roomid}`);
       if (response.ok) {
         const data = await response.json();
-        setBookings(data);
+        setBookings(data.bookings || []);
       }
     } catch (error) {
       console.error('Error fetching bookings:', error);
@@ -39,12 +41,12 @@ const BookingListings: React.FC<BookingListingsProps> = ({ roomid, roomPrice }) 
 
   return (
     <div>
-      {bookings.map((booking, id) => (
+      {bookings?.map((booking, id) => (
         <div key={id}>
           <BookingListing 
             booking={booking} 
             getBookings={getBookings} 
-            roomPrice={roomPrice ? parseFloat(roomPrice) : undefined} 
+            roomPrice={roomPrice}
           />
         </div>
       ))}

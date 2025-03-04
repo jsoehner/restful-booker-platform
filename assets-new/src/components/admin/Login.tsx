@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { useRouter } from 'next/navigation';
+import { useNavigate } from 'react-router-dom';
 import Cookies from 'universal-cookie';
 
 interface LoginProps {
@@ -10,7 +10,7 @@ const Login: React.FC<LoginProps> = ({ setAuthenticate }) => {
   const [username, setUsername] = useState('');
   const [password, setPassword] = useState('');
   const [error, setError] = useState(false);
-  const router = useRouter();
+  const navigate = useNavigate();
 
   const doLogin = async (e: React.FormEvent) => {
     e.preventDefault();
@@ -30,7 +30,7 @@ const Login: React.FC<LoginProps> = ({ setAuthenticate }) => {
         cookies.set('token', data.token, { path: '/' });
         
         setAuthenticate(true);
-        router.push('/admin/rooms');
+        navigate('/admin/rooms');
       } else {
         setError(true);
       }
