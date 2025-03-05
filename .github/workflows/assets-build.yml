@@ -20,33 +20,16 @@ jobs:
       with:
         node-version: '22'
         cache: 'npm'
-        cache-dependency-path: assets/js/package-lock.json
+        cache-dependency-path: assets/package-lock.json
     
     # Build JS assets
     - name: Install JS Dependencies
-      working-directory: ./assets/js
+      working-directory: ./assets
       run: npm ci
 
     - name: Test JS Assets
-      working-directory: ./assets/js
+      working-directory: ./assets
       run: npm test
-
-    - name: Build JS Assets
-      working-directory: ./assets/js
-      run: npm run build
-
-    # Setup Java for API build
-    - name: Set up JDK
-      uses: actions/setup-java@v3
-      with:
-        java-version: '21'
-        distribution: 'temurin'
-        cache: 'maven'
-
-    # Build API
-    - name: Build Assets API
-      working-directory: ./assets/api
-      run: mvn install -Drevision=$(git rev-parse --short HEAD)
 
     # Docker steps
     - name: Login to Docker Hub
