@@ -1,6 +1,8 @@
 import { NextResponse } from 'next/server';
 import { cookies } from 'next/headers';
 
+export const dynamic = 'force-dynamic'
+
 // Server-side API route that proxies requests to the branding service
 export async function GET() {
   try {

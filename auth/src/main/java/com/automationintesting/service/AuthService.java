@@ -27,7 +27,6 @@ public class AuthService {
     }
 
     public HttpStatus verify(Token token) throws SQLException {
-        System.out.println(token.toString());
         Token returnedToken = authDB.queryToken(token);
 
         if(returnedToken != null){

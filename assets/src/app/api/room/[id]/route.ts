@@ -110,7 +110,6 @@ export async function PUT(
         
         if (!response.ok) {
             const errorData = await response.json();
-            console.log(errorData);
             return NextResponse.json(
                 { errors: errorData.fieldErrors || ['Failed to update room'] },
                 { status: response.status }

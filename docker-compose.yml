@@ -34,8 +34,3 @@ services:
     ports:
       - "3006:3006"
     restart: always
-  rbp-proxy:
-    image: mwinteringham/restfulbookerplatform_proxy:latest
-    ports:
-      - "80:80"
-    restart: always

@@ -23,7 +23,6 @@ export async function POST(request: Request) {
     });
 
     if (!response.ok) {
-      console.log(response.status);
       return NextResponse.json(
         { error: 'Invalid token' },
         { status: response.status }

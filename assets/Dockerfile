@@ -24,7 +24,8 @@ RUN npm run build
 FROM base AS runner
 WORKDIR /app
 
-ENV NODE_ENV=production
+ENV NODE_ENV=development
+# ENV NODE_ENV=production
 ENV NEXT_TELEMETRY_DISABLED=1
 ENV BOOKING_API=http://rbp-booking:3000
 ENV ROOM_API=http://rbp-room:3001

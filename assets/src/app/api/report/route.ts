@@ -15,8 +15,8 @@ export async function GET() {
       );
     }
 
-    const bookingApi = process.env.BOOKING_API || 'http://localhost:3005';
-    const response = await fetch(`${bookingApi}/report`, {
+    const reportApi = process.env.REPORT_API || 'http://localhost:3005';
+    const response = await fetch(`${reportApi}/report/`, {
       headers: {
         'Cookie': `token=${token.value}`
       }
