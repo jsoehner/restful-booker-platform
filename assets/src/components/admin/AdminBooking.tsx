@@ -83,7 +83,7 @@ const AdminBooking: React.FC<AdminBookingProps> = ({ closeBooking, dates }) => {
         body: JSON.stringify(booking)
       });
 
-      if (response.status === 201) {
+      if (response.status === 200) {
         closeBooking();
       } else {
         const error = await response.json();

@@ -2,28 +2,44 @@ import { NextResponse } from 'next/server';
 
 export const dynamic = 'force-dynamic'
 
-export async function GET() {
+export async function GET(request: Request) {
   try {
+    // Get the original URL and headers
+    const url = request.url;
+    const headers = Object.fromEntries(request.headers);
+    
     const messageApi = process.env.MESSAGE_API || 'http://localhost:3006';
-    const response = await fetch(`${messageApi}/message/count`);
     
-    console.log(response);
-
-    if (!response.ok) {
-      return NextResponse.json(
-        { error: 'Failed to fetch message count' },
-        { status: 500 }
-      );
+    // Make the request with explicit no-cache headers
+    const response = await fetch(`${messageApi}/message/count`, {
+      cache: 'no-store',
+      headers: {
+        'Pragma': 'no-cache',
+        'Cache-Control': 'no-cache, no-store, must-revalidate',
+        'User-Agent': 'NextJS-Direct-Test/1.0'
+      }
+    });
+    
+    const rawText = await response.text();
+    
+    try {
+      const data = JSON.parse(rawText);
+      return NextResponse.json({
+        count: data.count,
+        debug: {
+          rawResponse: rawText,
+          headers: Object.fromEntries(response.headers),
+          url: messageApi
+        }
+      });
+    } catch (e) {
+      return NextResponse.json({ 
+        count: 0, 
+        error: 'JSON parse error', 
+        rawText: rawText 
+      });
     }
-    
-    const data = await response.json();
-    console.log(data);
-    return NextResponse.json(data);
   } catch (error) {
-    console.error('Error fetching message count:', error);
-    return NextResponse.json(
-      { error: 'Failed to fetch message count' },
-      { status: 500 }
-    );
+    return NextResponse.json({ count: 0, error: error });
   }
 }

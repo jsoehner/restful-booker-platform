@@ -31,7 +31,11 @@ export async function PUT(
     });
     
     if (!response.ok) {
-      throw new Error(`Failed to update booking: ${response.status}`);
+      const errorData = await response.json();
+      return NextResponse.json(
+        errorData,
+        { status: response.status }
+      );
     }
     
     return NextResponse.json({ success: true });
