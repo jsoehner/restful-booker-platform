@@ -1,12 +1,50 @@
-FROM openjdk:21-slim
+FROM node:20-alpine AS base
 
-ADD . /usr/local/assets
+# Install dependencies only when needed
+FROM base AS deps
+WORKDIR /app
 
-WORKDIR /usr/local/assets
+# Copy package files
+COPY package.json package-lock.json* ./
+RUN npm ci
 
-ENV profile=dev
+# Rebuild the source code only when needed
+FROM base AS builder
+WORKDIR /app
+COPY --from=deps --chown=node:node /app/node_modules ./node_modules
+COPY --chown=node:node . .
 
-COPY api/target ./
+# Next.js collects anonymous telemetry data about general usage.
+ENV NEXT_TELEMETRY_DISABLED=1
 
-ENTRYPOINT java -jar -Dspring.profiles.active=$profile restful-booker-platform-assets-*.jar
+USER node
+RUN npm run build
 
+# Production image, copy all the files and run next
+FROM base AS runner
+WORKDIR /app
+
+ENV NODE_ENV=production
+ENV NEXT_TELEMETRY_DISABLED=1
+ENV BOOKING_API=http://rbp-booking:3000
+ENV ROOM_API=http://rbp-room:3001
+ENV BRANDING_API=http://rbp-branding:3002
+ENV AUTH_API=http://rbp-auth:3004
+ENV MESSAGE_API=http://rbp-message:3006
+ENV REPORT_API=http://rbp-report:3005
+
+RUN addgroup --system --gid 1001 nodejs
+RUN adduser --system --uid 1001 nextjs
+
+COPY --from=builder --chown=nextjs:nodejs /app/public ./public
+COPY --from=builder --chown=nextjs:nodejs /app/.next/standalone ./
+COPY --from=builder --chown=nextjs:nodejs /app/.next/static ./.next/static
+
+USER nextjs
+
+EXPOSE 80
+
+ENV PORT=80
+ENV HOSTNAME="0.0.0.0"
+
+CMD ["node", "server.js"]
