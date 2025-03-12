@@ -43,15 +43,10 @@ jobs:
       if: github.ref == 'refs/heads/trunk'
       working-directory: ./assets
       run: |
-        if [ -f api/target/restful-booker-platform-assets-*-exec.jar ]; then
-          VERSION=$(ls api/target/restful-booker-platform-assets-*-exec.jar | cut -d '-' -f 5 | cut -c1-11)
-          docker build -t mwinteringham/restfulbookerplatform_assets:$VERSION .
-          docker push mwinteringham/restfulbookerplatform_assets:$VERSION
-          echo "VERSION=$VERSION" >> $GITHUB_ENV
-        else
-          echo "Assets JAR file not found"
-          exit 1
-        fi
+        VERSION=$(grep '"version":' package.json | sed 's/.*"version": "\(.*\)",/\1/').$(git rev-parse --short HEAD)
+        docker build -t mwinteringham/restfulbookerplatform_assets:$VERSION .
+        docker push mwinteringham/restfulbookerplatform_assets:$VERSION
+        echo "VERSION=$VERSION" >> $GITHUB_ENV
 
     # Deploy to EC2
     - name: Deploy to EC2
