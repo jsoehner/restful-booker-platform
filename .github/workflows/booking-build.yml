@@ -62,5 +62,4 @@ jobs:
           sudo docker rm rbp-booking || true && \
           sudo docker images -q mwinteringham/restfulbookerplatform_booking | grep -v \$(sudo docker images ${DOCKER_IMAGE} -q) | xargs -r sudo docker rmi || true && \
           sudo docker run -d --network rbp-host --name rbp-booking -p 3000:3000 -e dbRefresh='60' ${DOCKER_IMAGE}
-          sudo docker restart rbp-proxy
         " 

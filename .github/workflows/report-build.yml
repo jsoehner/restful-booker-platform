@@ -62,5 +62,4 @@ jobs:
           sudo docker rm rbp-report || true && \
           sudo docker images -q mwinteringham/restfulbookerplatform_report | grep -v \$(sudo docker images ${DOCKER_IMAGE} -q) | xargs -r sudo docker rmi || true && \
           sudo docker run -d --network rbp-host --name rbp-report -p 3005:3005 -e dbRefresh='60' ${DOCKER_IMAGE}
-          sudo docker restart rbp-proxy
         " 
