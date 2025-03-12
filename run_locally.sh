@@ -23,7 +23,6 @@ java -jar -Dspring.profiles.active=dev report/target/restful-booker-platform-rep
 java -jar -Dspring.profiles.active=dev branding/target/restful-booker-platform-branding-*.jar > branding.log &
 java -jar -Dspring.profiles.active=dev message/target/restful-booker-platform-message-*.jar > message.log &
 java -jar -Dspring.profiles.active=dev assets/api/target/restful-booker-platform-assets-*.jar > ui.log &
-java -jar proxy/target/restful-booker-platform-local-proxy-*.jar > proxy.log &
 
 node .utilities/monitor/local_monitor.js
 

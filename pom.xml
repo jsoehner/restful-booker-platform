@@ -18,7 +18,6 @@
         <module>message</module>
         <module>assets/js</module>
         <module>assets/api</module>
-        <module>proxy</module>
     </modules>
 
     <build>
