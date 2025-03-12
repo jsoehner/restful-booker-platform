@@ -35,7 +35,7 @@ export async function PUT(request: Request) {
     const body = await request.json();
 
     // Get the token from cookies
-    const cookieStore = cookies();
+    const cookieStore = await cookies();
     const token = cookieStore.get('token');
 
     if (!token) {

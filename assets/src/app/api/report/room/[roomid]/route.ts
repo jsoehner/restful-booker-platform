@@ -2,10 +2,10 @@ import { NextResponse } from 'next/server';
 
 export async function GET(
   request: Request,
-  { params }: { params: { roomid: string } }
+  { params }: { params: Promise<{ roomid: string }> }
 ) {
   try {
-    const roomid = params.roomid;
+    const { roomid } = await params;
     
     // Forward the request to the report service
     const reportApi = process.env.REPORT_API || 'http://localhost:3005';

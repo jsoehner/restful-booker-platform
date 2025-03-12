@@ -3,14 +3,14 @@ import { cookies } from 'next/headers';
 
 export async function GET(
     request: Request,
-    { params }: { params: { id: string } }
+    { params }: { params: Promise<{ id: string }> }
 ) {
 try {
-    const id = params.id;
+    const { id } = await params;
     const roomApi = process.env.ROOM_API || 'http://localhost:3001';
     
     // Get the token from cookies
-    const cookieStore = cookies();
+    const cookieStore = await cookies();
     const token = cookieStore.get('token');
     if (!token) {
         return NextResponse.json(
@@ -43,33 +43,35 @@ try {
 
 export async function DELETE(
     request: Request,
-    { params }: { params: { id: string } }
+    { params }: { params: Promise<{ id: string }> }
     ) {
     try {
-        const id = params.id;
+        const { id } = await params;
         const roomApi = process.env.ROOM_API || 'http://localhost:3001';
         
-        const token = cookies().get('token');
+        const cookieStore = await cookies();
+        const token = cookieStore.get('token');
+        
         if (!token) {
-        return NextResponse.json(
-            { errors: ['Authentication required'] },
-            { status: 401 }
-        );
+            return NextResponse.json(
+                { errors: ['Authentication required'] },
+                { status: 401 }
+            );
         }
         
         const response = await fetch(`${roomApi}/room/${id}`, {
-        method: 'DELETE',
-        headers: {
-            'Cookie': `token=${token.value}`
-        }
+            method: 'DELETE',
+            headers: {
+                'Cookie': `token=${token.value}`
+            }
         });
         
         if (!response.ok) {
-        const errorData = await response.json();
-        return NextResponse.json(
-            { errors: errorData.errors || ['Failed to delete room'] },
-            { status: response.status }
-        );
+            const errorData = await response.json();
+            return NextResponse.json(
+                { errors: errorData.errors || ['Failed to delete room'] },
+                { status: response.status }
+            );
         }
         
         return NextResponse.json({ success: true });
@@ -84,14 +86,16 @@ export async function DELETE(
 
 export async function PUT(
     request: Request,
-    { params }: { params: { id: string } }
+    { params }: { params: Promise<{ id: string }> }
     ) {
     try {
-        const id = params.id;
+        const { id } = await params;
         const roomApi = process.env.ROOM_API || 'http://localhost:3001';
         const body = await request.json();
         
-        const token = cookies().get('token');
+        const cookieStore = await cookies();
+        const token = cookieStore.get('token');
+        
         if (!token) {
             return NextResponse.json(
                 { errors: ['Authentication required'] },

@@ -26,7 +26,9 @@ export async function POST(
     const roomApi = process.env.ROOM_API || 'http://localhost:3001';
     const body = await request.json();
 
-    const token = cookies().get('token');
+    const cookieStore = await cookies();
+    const token = cookieStore.get('token');
+    
     if (!token) {
       return NextResponse.json(
         { errors: ['Authentication required'] },

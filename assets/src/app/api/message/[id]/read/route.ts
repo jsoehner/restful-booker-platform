@@ -3,11 +3,11 @@ import { cookies } from 'next/headers';
 
 export async function PUT(
   request: Request,
-  { params }: { params: { id: string } }
+  { params }: { params: Promise<{ id: string }> }
 ) {
   try {
-    const id = params.id;
-    const cookieStore = cookies();
+    const { id } = await params;
+    const cookieStore = await cookies();
     const token = cookieStore.get('token');
 
     if (!token) {

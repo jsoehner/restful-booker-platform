@@ -6,7 +6,9 @@ export async function GET(request: Request) {
     const { searchParams } = new URL(request.url);
     const roomid = searchParams.get('roomid');
 
-    const token = cookies().get('token');
+    const cookieStore = await cookies();
+    const token = cookieStore.get('token');
+    
     if (!token) {
       return NextResponse.json(
         { error: 'Authentication required' },

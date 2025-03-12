@@ -36,7 +36,7 @@ describe('Report Component', () => {
       })
     );
 
-    const { asFragment } = render(
+    render(
       <Report defaultDate={new Date("2019-04-02")} />
     );
 

@@ -13,10 +13,12 @@ const RoomDetails = dynamic(
   }
 );
 
-export default function RoomDetailsPage({ params }: { params: { id: string } }) {
+export default async function RoomDetailsPage({params}: {params: Promise<{ id: string }>}) {
+  const { id } = await params;
+
   return (
     <Suspense fallback={<Loading />}>
-      <RoomDetails id={params.id} />
+      <RoomDetails id={id} />
     </Suspense>
   );
-} 
+}

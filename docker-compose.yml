@@ -15,9 +15,9 @@ services:
       - "3002:3002"
     restart: always
   rbp-assets:
-    image: mwinteringham/restfulbookerplatform_assets:latest
+    image: mwinteringham/restfulbookerplatform_assets:1.7.3d25890
     ports:
-      - "3003:3003"
+      - "80:80"
     restart: always
   rbp-auth:
     image: mwinteringham/restfulbookerplatform_auth:1.7.3d25890
