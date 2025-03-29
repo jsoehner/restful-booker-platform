@@ -26,7 +26,7 @@ public class RoomController {
     }
 
     @RequestMapping(value = "/{id:[0-9]*}", method = RequestMethod.GET)
-    public ResponseEntity getRoom(@PathVariable(value = "id") int roomId) throws SQLException {
+    public ResponseEntity<Room> getRoom(@PathVariable(value = "id") int roomId) throws SQLException {
         RoomResult roomResult = roomService.getSpecificRoom(roomId);
 
         return ResponseEntity.status(roomResult.getHttpStatus()).body(roomResult.getRoom());
@@ -40,7 +40,7 @@ public class RoomController {
     }
 
     @RequestMapping(value = "/{id:[0-9]*}", method = RequestMethod.DELETE)
-    public ResponseEntity deleteRoom(@PathVariable(value = "id") int roomId, @CookieValue(value ="token", required = false) String token) throws SQLException {
+    public ResponseEntity<?> deleteRoom(@PathVariable(value = "id") int roomId, @CookieValue(value ="token", required = false) String token) throws SQLException {
         RoomResult roomResult = roomService.deleteRoom(roomId, token);
 
         return ResponseEntity.status(roomResult.getHttpStatus()).build();

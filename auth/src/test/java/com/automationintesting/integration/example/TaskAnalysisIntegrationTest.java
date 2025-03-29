@@ -2,7 +2,6 @@ package com.automationintesting.integration.example;
 
 import com.automationintesting.api.AuthApplication;
 import com.automationintesting.model.Auth;
-import com.automationintesting.model.Token;
 import io.restassured.http.ContentType;
 import io.restassured.response.Response;
 import org.junit.jupiter.api.Test;

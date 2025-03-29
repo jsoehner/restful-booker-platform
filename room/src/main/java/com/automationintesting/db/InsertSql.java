@@ -11,14 +11,6 @@ public class InsertSql {
 
     private PreparedStatement preparedStatement;
 
-    private String roomName;
-    private String type;
-    private int beds;
-    private boolean accessible;
-    private String image;
-    private String description;
-    private String[] features;
-
     InsertSql(Connection connection, Room room) throws SQLException {
         final String CREATE_ROOM = "INSERT INTO PUBLIC.ROOMS (room_name, type, accessible, image, description, features, roomPrice) VALUES(?, ?, ?, ?, ?, ?, ?);";
 

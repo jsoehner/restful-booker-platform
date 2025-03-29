@@ -204,5 +204,6 @@ public class BookingDB {
         }
 
         connection.prepareStatement(sb.toString()).executeUpdate();
+        sc.close();
     }
 }

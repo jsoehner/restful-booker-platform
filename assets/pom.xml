@@ -21,6 +21,7 @@
                 <version>1.3.2</version>
                 <executions>
                     <execution>
+                        <?m2e execute onConfiguration,onIncremental?>
                         <id>npm install</id>
                         <goals>
                             <goal>exec</goal>

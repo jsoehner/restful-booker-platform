@@ -23,7 +23,7 @@ public class BookingRequests {
         HttpHeaders httpHeaders = new HttpHeaders();
         httpHeaders.add("Cookie", "token=" + token);
 
-        HttpEntity httpEntity = new HttpEntity(null, httpHeaders);
+        HttpEntity<Void> httpEntity = new HttpEntity<>(httpHeaders);
 
         return restTemplate.exchange(host + "/?roomid=" + roomId, HttpMethod.GET, httpEntity, Bookings.class).getBody();
     }

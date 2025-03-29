@@ -102,6 +102,7 @@ public class AuthDB {
         }
 
         connection.prepareStatement(sb.toString()).executeUpdate();
+        sc.close();
     }
 
     public void resetDB() throws SQLException, IOException {

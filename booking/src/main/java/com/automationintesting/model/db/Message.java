@@ -3,12 +3,6 @@ package com.automationintesting.model.db;
 import com.fasterxml.jackson.annotation.JsonProperty;
 
 import jakarta.persistence.Entity;
-import jakarta.validation.constraints.Email;
-import jakarta.validation.constraints.NotBlank;
-import jakarta.validation.constraints.NotNull;
-import jakarta.validation.constraints.Size;
-import java.sql.ResultSet;
-import java.sql.SQLException;
 
 @Entity
 public class Message {

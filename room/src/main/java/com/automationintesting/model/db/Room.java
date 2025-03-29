@@ -153,7 +153,6 @@ public class Room {
 
     public static class RoomBuilder {
 
-        private int roomid;
         private String roomName;
         private String type;
         private boolean accessible;
@@ -161,12 +160,6 @@ public class Room {
         private String description;
         private String[] features;
         private int roomPrice;
-
-        public RoomBuilder setRoomid(int roomid) {
-            this.roomid = roomid;
-
-            return this;
-        }
 
         public RoomBuilder setRoomName(String roomName) {
             this.roomName = roomName;

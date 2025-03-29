@@ -65,7 +65,9 @@ public class ContractIT {
         // Then we import our expected JSON contract from the contract folder
         // and store in a string
         File file = ResourceUtils.getFile(this.getClass().getResource("/contract.json"));
-        String testObject = new Scanner(file).useDelimiter("\\Z").next();
+        Scanner scanner = new Scanner(file);
+        String testObject = scanner.useDelimiter("\\Z").next();
+        scanner.close();
 
         // Finally we compare the contract string and the JSONObject to compare
         // and pass if they match

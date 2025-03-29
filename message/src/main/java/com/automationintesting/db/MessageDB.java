@@ -144,5 +144,6 @@ public class MessageDB {
         }
 
         connection.prepareStatement(sb.toString()).executeUpdate();
+        sc.close();
     }
 }

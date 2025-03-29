@@ -46,7 +46,7 @@ public class AuthController {
     }
 
     @RequestMapping(value = "/logout", method = RequestMethod.POST)
-    public ResponseEntity clearToken(@RequestBody Token token) throws SQLException {
+    public ResponseEntity<?> clearToken(@RequestBody Token token) throws SQLException {
         HttpStatus httpStatus = authService.deleteToken(token);
 
         return ResponseEntity.status(httpStatus).build();

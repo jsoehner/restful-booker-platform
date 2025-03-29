@@ -10,12 +10,6 @@ public class InsertSql {
 
     private PreparedStatement preparedStatement;
 
-    private String name;
-    private String email;
-    private String phone;
-    private String subject;
-    private String description;
-
     InsertSql(Connection connection, Message message) throws SQLException {
         final String CREATE_ROOM = "INSERT INTO PUBLIC.MESSAGES (name, email, phone, subject, description, read) VALUES(?, ?, ?, ?, ?, false);";
 

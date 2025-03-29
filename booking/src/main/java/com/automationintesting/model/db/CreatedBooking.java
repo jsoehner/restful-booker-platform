@@ -1,6 +1,5 @@
 package com.automationintesting.model.db;
 
-import com.automationintesting.model.db.Booking;
 import com.fasterxml.jackson.annotation.JsonProperty;
 
 public class CreatedBooking {

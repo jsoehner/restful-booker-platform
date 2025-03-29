@@ -19,6 +19,7 @@ target/
 .settings/
 *.settings/
 *.classpath
+.vscode/
 
 # ui
 ui/public/js

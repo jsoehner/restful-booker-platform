@@ -147,5 +147,6 @@ public class RoomDB {
         }
 
         connection.prepareStatement(sb.toString()).executeUpdate();
+        sc.close();
     }
 }

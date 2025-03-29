@@ -2,6 +2,7 @@ package com.automationintesting.api;
 
 import com.automationintesting.model.db.Booking;
 import com.automationintesting.model.db.BookingSummaries;
+import com.automationintesting.model.db.Bookings;
 import com.automationintesting.model.db.CreatedBooking;
 import com.automationintesting.model.service.BookingResult;
 import com.automationintesting.service.BookingService;
@@ -21,28 +22,28 @@ public class BookingController {
     private BookingService bookingService;
 
     @RequestMapping(value = "/", method = RequestMethod.GET)
-    public ResponseEntity getBookings(@RequestParam("roomid") Optional<String> roomid, @CookieValue(value ="token", required = false) String token) throws SQLException {
+    public ResponseEntity<Bookings> getBookings(@RequestParam("roomid") Optional<String> roomid, @CookieValue(value ="token", required = false) String token) throws SQLException {
         BookingResult bookingResult = bookingService.getBookings(roomid, token);
 
         return ResponseEntity.status(bookingResult.getStatus()).body(bookingResult.getBookings());
     }
 
     @RequestMapping(value = "/", method = RequestMethod.POST)
-    public ResponseEntity createBooking(@Valid @RequestBody Booking booking) throws SQLException {
+    public ResponseEntity<CreatedBooking> createBooking(@Valid @RequestBody Booking booking) throws SQLException {
         BookingResult bookingResult = bookingService.createBooking(booking);
 
         return ResponseEntity.status(bookingResult.getStatus()).body(bookingResult.getCreatedBooking());
     }
 
     @RequestMapping(value = "/{id:[0-9]*}", method = RequestMethod.GET)
-    public ResponseEntity getBooking(@PathVariable(value = "id") int bookingId, @CookieValue(value ="token", required = false) String token) throws SQLException {
+    public ResponseEntity<Booking> getBooking(@PathVariable(value = "id") int bookingId, @CookieValue(value ="token", required = false) String token) throws SQLException {
         BookingResult bookingResult = bookingService.getIndividualBooking(bookingId, token);
 
         return ResponseEntity.status(bookingResult.getStatus()).body(bookingResult.getBooking());
     }
 
     @RequestMapping(value = "/{id:[0-9]*}", method = RequestMethod.DELETE)
-    public ResponseEntity deleteBooking(@PathVariable(value = "id") int id, @CookieValue(value ="token", required = false) String token) throws SQLException {
+    public ResponseEntity<?> deleteBooking(@PathVariable(value = "id") int id, @CookieValue(value ="token", required = false) String token) throws SQLException {
         HttpStatus deleteHttpStatus = bookingService.deleteBooking(id, token);
 
         return ResponseEntity.status(deleteHttpStatus).build();
@@ -56,7 +57,7 @@ public class BookingController {
     }
 
     @RequestMapping(value = "/summary", method = RequestMethod.GET)
-    public ResponseEntity getSummaries(@RequestParam("roomid") String roomid) throws SQLException {
+    public ResponseEntity<BookingSummaries> getSummaries(@RequestParam("roomid") String roomid) throws SQLException {
         BookingSummaries bookingSummaries = bookingService.getBookingSummaries(roomid);
 
         return ResponseEntity.status(HttpStatus.OK).body(bookingSummaries);
