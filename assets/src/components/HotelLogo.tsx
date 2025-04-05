@@ -1,19 +1,23 @@
 import React from 'react';
-import Image from 'next/image';
+import { Branding } from '@/types/branding';
 
 interface HotelLogoProps {
-  logoDetails?: string;
+  branding: Branding;
 }
 
-const HotelLogo: React.FC<HotelLogoProps> = ({ logoDetails }) => {
-  if (!logoDetails) {
-    return <div className="hotel-logoUrl"></div>;
-  }
-
+const HotelLogo: React.FC<HotelLogoProps> = ({ branding }) => {
   return (
-    <div>
-      <img src={logoDetails} className='hotel-logoUrl' alt='Hotel logoUrl' />
-    </div>
+    <section className="hero py-5">
+      <div className="container py-5">
+        <div className="row py-5">
+          <div className="col-lg-8 hero-content text-center text-lg-start py-5">
+            <h1 className="display-4 fw-bold mb-4">Welcome to {branding.name}</h1>
+            <p className="lead mb-4">{branding.description}</p>
+            <a href="#booking" className="btn btn-primary btn-lg">Book Now</a>
+          </div>
+        </div>
+      </div>
+    </section>
   );
 };
 

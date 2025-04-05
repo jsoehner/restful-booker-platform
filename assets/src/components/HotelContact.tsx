@@ -76,124 +76,153 @@ const HotelContact: React.FC<HotelContactProps> = ({ contactDetails }) => {
     );
   }
 
-  if (submitted) {
-    form = (
-      <div style={{ height: "412px" }}>
-        <h2>Thanks for getting in touch {contact.name}!</h2>
-        <p>We'll get back to you about</p>
-        <p style={{ fontWeight: "bold" }}>{contact.subject}</p>
-        <p>as soon as possible.</p>
-      </div>
+  return (
+      <section id="contact" className="bg-light py-5">
+        <div className="container">
+          <div className="row justify-content-center">
+            <div className="col-lg-8">
+              <div className="card shadow">
+                <div className="card-body p-4">
+                  <h3 className="h4 mb-4 text-center">Send Us a Message</h3>
+                  
+                  <form>
+                    <div className="mb-3">
+                      <label htmlFor="name" className="form-label">Name</label>
+                      <input type="text" className="form-control" id="name" />
+                    </div>
+                    
+                    <div className="mb-3">
+                      <label htmlFor="email" className="form-label">Email</label>
+                      <input type="email" className="form-control" id="email" />
+                    </div>
+                    
+                    <div className="mb-3">
+                      <label htmlFor="phone" className="form-label">Phone</label>
+                      <input type="tel" className="form-control" id="phone" />
+                    </div>
+                    
+                    <div className="mb-3">
+                      <label htmlFor="subject" className="form-label">Subject</label>
+                      <input type="text" className="form-control" id="subject" />
+                    </div>
+                    
+                    <div className="mb-4">
+                      <label htmlFor="message" className="form-label">Message</label>
+                      <textarea className="form-control" id="message" rows={5}></textarea>
+                    </div>
+                    
+                    <div className="d-grid">
+                      <button type="submit" className="btn btn-primary">Submit</button>
+                    </div>
+                  </form>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
     );
-  } else {
-    form = (
-      <form>
-        <div className="input-group mb-3">
-          <div className="input-group-prepend">
-            <span className="input-group-text" id="basic-addon1"><span className="fa fa-id-card"></span></span>
-          </div>
-          <input 
-            type="text" 
-            data-testid="ContactName" 
-            className="form-control" 
-            placeholder="Name" 
-            aria-label="Name" 
-            id="name" 
-            aria-describedby="basic-addon1" 
-            onChange={updateContact} 
-          />
-        </div>
-        <div className="input-group mb-3">
-          <div className="input-group-prepend">
-            <span className="input-group-text" id="basic-addon1"><span className="fa fa-envelope"></span></span>
-          </div>
-          <input 
-            type="text" 
-            data-testid="ContactEmail" 
-            className="form-control" 
-            placeholder="Email" 
-            aria-label="Email" 
-            id="email" 
-            aria-describedby="basic-addon1" 
-            onChange={updateContact} 
-          />
-        </div>
-        <div className="input-group mb-3">
-          <div className="input-group-prepend">
-            <span className="input-group-text" id="basic-addon1"><span className="fa fa-phone"></span></span>
-          </div>
-          <input 
-            type="text" 
-            data-testid="ContactPhone" 
-            className="form-control" 
-            placeholder="Phone" 
-            aria-label="Phone" 
-            id="phone" 
-            aria-describedby="basic-addon1" 
-            onChange={updateContact} 
-          />
-        </div>
-        <div className="input-group mb-3">
-          <div className="input-group-prepend">
-            <span className="input-group-text" id="basic-addon1"><span className="fa fa-envelope"></span></span>
-          </div>
-          <input 
-            type="text" 
-            data-testid="ContactSubject" 
-            className="form-control" 
-            placeholder="Subject" 
-            aria-label="Subject" 
-            id="subject" 
-            aria-describedby="basic-addon1" 
-            onChange={updateContact} 
-          />
-        </div>
-        <div className="input-group">
-          <div className="input-group-prepend">
-            <span className="input-group-text">Message</span>
-          </div>
-          <textarea 
-            data-testid="ContactDescription" 
-            className="form-control" 
-            aria-label="Description" 
-            id="description" 
-            rows={5} 
-            onChange={updateContact}
-          ></textarea>
-        </div>
-        <br />
-        {errors}
-        <button 
-          type='button' 
-          className='btn btn-outline-primary float-right' 
-          id="submitContact" 
-          onClick={submitForm}
-        >
-          Submit
-        </button>
-      </form>
-    );
-  }
 
-  if (contactDetails) {
-    return (
-      <div className='row contact'>
-        <div className='col-sm-1'></div>
-        <div className='col-sm-5'>
-          {form}
-        </div>
-        <div className='col-sm-5'>
-          <p><span className="fa fa-home"></span> {contactDetails.name}</p>
-          <p><span></span> {contactDetails.address}</p>
-          <p><span className="fa fa-phone"></span> {contactDetails.phone}</p>
-          <p><span className="fa fa-envelope"></span> {contactDetails.email}</p>
-        </div>
-        <div className='col-sm-1'></div>
-      </div>
-    );
-  } else {
-    return <div className="row contact"></div>;
-  }
+  // if (submitted) {
+  //   form = (
+  //     <div style={{ height: "412px" }}>
+  //       <h2>Thanks for getting in touch {contact.name}!</h2>
+  //       <p>We'll get back to you about</p>
+  //       <p style={{ fontWeight: "bold" }}>{contact.subject}</p>
+  //       <p>as soon as possible.</p>
+  //     </div>
+  //   );
+  // } else {
+  //   form = (
+  //     <form>
+  //       <div className="input-group mb-3">
+  //         <div className="input-group-prepend">
+  //           <span className="input-group-text" id="basic-addon1"><span className="fa fa-id-card"></span></span>
+  //         </div>
+  //         <input 
+  //           type="text" 
+  //           data-testid="ContactName" 
+  //           className="form-control" 
+  //           placeholder="Name" 
+  //           aria-label="Name" 
+  //           id="name" 
+  //           aria-describedby="basic-addon1" 
+  //           onChange={updateContact} 
+  //         />
+  //       </div>
+  //       <div className="input-group mb-3">
+  //         <div className="input-group-prepend">
+  //           <span className="input-group-text" id="basic-addon1"><span className="fa fa-envelope"></span></span>
+  //         </div>
+  //         <input 
+  //           type="text" 
+  //           data-testid="ContactEmail" 
+  //           className="form-control" 
+  //           placeholder="Email" 
+  //           aria-label="Email" 
+  //           id="email" 
+  //           aria-describedby="basic-addon1" 
+  //           onChange={updateContact} 
+  //         />
+  //       </div>
+  //       <div className="input-group mb-3">
+  //         <div className="input-group-prepend">
+  //           <span className="input-group-text" id="basic-addon1"><span className="fa fa-phone"></span></span>
+  //         </div>
+  //         <input 
+  //           type="text" 
+  //           data-testid="ContactPhone" 
+  //           className="form-control" 
+  //           placeholder="Phone" 
+  //           aria-label="Phone" 
+  //           id="phone" 
+  //           aria-describedby="basic-addon1" 
+  //           onChange={updateContact} 
+  //         />
+  //       </div>
+  //       <div className="input-group mb-3">
+  //         <div className="input-group-prepend">
+  //           <span className="input-group-text" id="basic-addon1"><span className="fa fa-envelope"></span></span>
+  //         </div>
+  //         <input 
+  //           type="text" 
+  //           data-testid="ContactSubject" 
+  //           className="form-control" 
+  //           placeholder="Subject" 
+  //           aria-label="Subject" 
+  //           id="subject" 
+  //           aria-describedby="basic-addon1" 
+  //           onChange={updateContact} 
+  //         />
+  //       </div>
+  //       <div className="input-group">
+  //         <div className="input-group-prepend">
+  //           <span className="input-group-text">Message</span>
+  //         </div>
+  //         <textarea 
+  //           data-testid="ContactDescription" 
+  //           className="form-control" 
+  //           aria-label="Description" 
+  //           id="description" 
+  //           rows={5} 
+  //           onChange={updateContact}
+  //         ></textarea>
+  //       </div>
+  //       <br />
+  //       {errors}
+  //       <button 
+  //         type='button' 
+  //         className='btn btn-outline-primary float-right' 
+  //         id="submitContact" 
+  //         onClick={submitForm}
+  //       >
+  //         Submit
+  //       </button>
+  //     </form>
+  //   );
+  // }
+
+  
 };
 
 export default HotelContact; 
