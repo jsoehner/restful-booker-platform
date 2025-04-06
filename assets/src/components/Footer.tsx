@@ -1,27 +1,15 @@
 import React from "react";
 import Link from "next/link";
+import { Branding } from "@/types/branding";
 
 // import package.json
 import packageJson from '../../package.json';
 
 // Accept the branding prop
 interface FooterProps {
-  branding: {
-    name: string;
-    map: {
-      latitude: number;
-      longitude: number;
-    };
-    logoUrl: string;
-    description: string;
-    contact: {
-      name: string;
-      address: string;
-      phone: string;
-      email: string;
-    };
-  };
+  branding: Branding;
 }
+
 // Define the Footer component
 const Footer: React.FC<FooterProps> = ({ branding }) => {
   // Get the version from package.json
@@ -50,7 +38,7 @@ const Footer: React.FC<FooterProps> = ({ branding }) => {
           <h5 className="mb-3">Contact Us</h5>
           <ul className="list-unstyled mb-0">
             <li className="mb-2">
-              <i className="bi bi-geo-alt me-2"></i> {branding.contact.address}
+              <i className="bi bi-geo-alt me-2"></i> {branding.address.line1}, {branding.address.line2}, {branding.address.postTown}, {branding.address.county}, {branding.address.postCode}
             </li>
             <li className="mb-2">
               <i className="bi bi-telephone me-2"></i> {branding.contact.phone} 

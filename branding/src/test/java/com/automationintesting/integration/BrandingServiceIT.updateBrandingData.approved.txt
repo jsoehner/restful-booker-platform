@@ -6,10 +6,17 @@
     },
     "logoUrl": "https://www.valid.com/link/to/logo",
     "description": "Description update",
+    "directions": "Updated directions",
     "contact": {
         "name": "Update name",
-        "address": "Update address",
         "phone": "9999999999",
         "email": "update@email.com"
+    },
+    "address": {
+        "line1": "Update line1",
+        "line2": "Update line2",
+        "postTown": "Update post town",
+        "county": "Update county",
+        "postCode": "Update post code"
     }
 }

@@ -112,6 +112,26 @@ exports[`Branding Component Branding page renders 1`] = `
         value="1.2733774"
       />
     </div>
+    <div
+      class="input-group mb-3"
+    >
+      <div
+        class="input-group-prepend"
+      >
+        <span
+          class="input-group-text"
+        >
+          Directions
+        </span>
+      </div>
+      <textarea
+        class="form-control"
+        id="directions"
+        rows="5"
+      >
+        Take the first left after the big tree, then follow the road until you see the sign.
+      </textarea>
+    </div>
     <br />
     <h2>
       Contact details
@@ -134,26 +154,6 @@ exports[`Branding Component Branding page renders 1`] = `
         placeholder="Enter Contact Name"
         type="text"
         value="Shady Meadows B&B"
-      />
-    </div>
-    <div
-      class="input-group mb-3"
-    >
-      <div
-        class="input-group-prepend"
-      >
-        <span
-          class="input-group-text"
-        >
-          Address
-        </span>
-      </div>
-      <input
-        class="form-control"
-        id="contactAddress"
-        placeholder="Enter Address"
-        type="text"
-        value="The Old Farmhouse, Shady Street, Newfordburyshire, NE1 410S"
       />
     </div>
     <div
@@ -196,6 +196,111 @@ exports[`Branding Component Branding page renders 1`] = `
         value="fake@fakeemail.com"
       />
     </div>
+    <br />
+    <h2>
+      Address details
+    </h2>
+    <div
+      class="input-group mb-3"
+    >
+      <div
+        class="input-group-prepend"
+      >
+        <span
+          class="input-group-text"
+        >
+          Line 1
+        </span>
+      </div>
+      <input
+        class="form-control"
+        id="line1"
+        placeholder="Enter Address Line 1"
+        type="text"
+        value="123 Fake Street"
+      />
+    </div>
+    <div
+      class="input-group mb-3"
+    >
+      <div
+        class="input-group-prepend"
+      >
+        <span
+          class="input-group-text"
+        >
+          Line 2
+        </span>
+      </div>
+      <input
+        class="form-control"
+        id="line2"
+        placeholder="Enter Address Line 2"
+        type="text"
+        value="Fake Town"
+      />
+    </div>
+    <div
+      class="input-group mb-3"
+    >
+      <div
+        class="input-group-prepend"
+      >
+        <span
+          class="input-group-text"
+        >
+          Post Town
+        </span>
+      </div>
+      <input
+        class="form-control"
+        id="postTown"
+        placeholder="Enter Post Town"
+        type="text"
+        value="Fake Town"
+      />
+    </div>
+    <div
+      class="input-group mb-3"
+    >
+      <div
+        class="input-group-prepend"
+      >
+        <span
+          class="input-group-text"
+        >
+          County
+        </span>
+      </div>
+      <input
+        class="form-control"
+        id="county"
+        placeholder="Enter County"
+        type="text"
+        value="Fake County"
+      />
+    </div>
+    <div
+      class="input-group mb-3"
+    >
+      <div
+        class="input-group-prepend"
+      >
+        <span
+          class="input-group-text"
+        >
+          Post Code
+        </span>
+      </div>
+      <input
+        class="form-control"
+        id="postCode"
+        placeholder="Enter Post Code"
+        type="text"
+        value="FA1 2KE"
+      />
+    </div>
+    <br />
     <button
       class="btn btn-outline-primary"
       id="updateBranding"

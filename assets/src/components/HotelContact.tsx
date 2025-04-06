@@ -78,7 +78,7 @@ const HotelContact: React.FC<HotelContactProps> = ({ contactDetails }) => {
 
   if(submitted) {
     return (
-      <section id="contact" className="bg-light py-5">
+      <section id="contact" className="py-5">
         <div className="container">
           <div className="row justify-content-center">
             <div className="col-lg-8">
@@ -98,7 +98,7 @@ const HotelContact: React.FC<HotelContactProps> = ({ contactDetails }) => {
   }
 
   return (
-      <section id="contact" className="bg-light py-5">
+      <section id="contact" className="py-5">
         <div className="container">
           <div className="row justify-content-center">
             <div className="col-lg-8">

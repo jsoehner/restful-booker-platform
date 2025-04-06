@@ -20,11 +20,11 @@ const HotelMap: React.FC<HotelMapProps> = ({ branding }) => {
   ]
 
   return (
-    <section id="location" className="section-divider">
+    <section id="location" className="section-divider bg-light py-5">
       <div className="container">
         <div className="text-center mb-5">
           <h2 className="display-5">Our Location</h2>
-          <p className="lead text-muted">Find us in the beautiful Newingtonfordburyshire countryside</p>
+          <p className="lead text-muted">Find us in the beautiful {branding?.address.postTown} countryside</p>
         </div>
         
         <div className="row g-4">
@@ -55,7 +55,7 @@ const HotelMap: React.FC<HotelMapProps> = ({ branding }) => {
                   </div>
                   <div>
                     <h5>Address</h5>
-                    <p className="mb-0">{branding?.contact.address}</p>
+                    <p className="mb-0">{branding.address.line1}, {branding.address.line2}, {branding.address.postTown}, {branding.address.county}, {branding.address.postCode}</p>
                   </div>
                 </div>
                 
@@ -82,7 +82,7 @@ const HotelMap: React.FC<HotelMapProps> = ({ branding }) => {
                 <hr className="my-4" />
                 
                 <h4 className="h5 mb-3">Getting Here</h4>
-                <p>We're just a 10-minute drive from Newfordbury train station and 25 minutes from the airport. Free pickup service available for guests arriving by train with advance notice.</p>
+                <p>{branding?.directions}</p>
               </div>
             </div>
           </div>

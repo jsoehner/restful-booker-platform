@@ -1,6 +1,7 @@
 package com.automationintesting.unit.service;
 
 import com.automationintesting.db.BrandingDB;
+import com.automationintesting.model.db.Address;
 import com.automationintesting.model.db.Branding;
 import com.automationintesting.model.db.Contact;
 import com.automationintesting.model.db.Map;
@@ -40,13 +41,14 @@ public class BrandingServiceTest {
     @Test
     public void queryBrandingTest() throws SQLException {
         Map sampleMap = new Map(2.00,4.00);
-        Contact sampleContact = new Contact("Demo B&B contact name", "The street", "012345", "test@email.com");
-        Branding sampleBranding = new Branding("Demo B&B", sampleMap, "http://sample.url", "Branding description here", sampleContact);
+        Contact sampleContact = new Contact("Demo B&B contact name", "012345", "test@email.com");
+        Address sampleAddress = new Address("The street", "The street 2", "The town", "The county", "The post code");
+        Branding sampleBranding = new Branding("Demo B&B", sampleMap, "directions", "http://sample.url", "Branding description here", sampleContact, sampleAddress);
 
         when(brandingDB.queryBranding()).thenReturn(sampleBranding);
 
         Branding branding = brandingService.getBrandingDetails();
-        assertEquals("Branding{name='Demo B&B', map=Map{latitude=2.0, longitude=4.0}, logoUrl='http://sample.url', description='Branding description here', contact=Contact{name='Demo B&B contact name', address='The street', phone='012345', email='test@email.com'}}", branding.toString());
+        assertEquals("Branding{name='Demo B&B', map=Map{latitude=2.0, longitude=4.0}, logoUrl='http://sample.url', description='Branding description here', directions='directions', contact=Contact{name='Demo B&B contact name', phone='012345', email='test@email.com'}, address=Address{line1='The street', line2='The street 2', postTown='The town', county='The county', postCode='The post code'}}", branding.toString());
     }
 
     @Test
@@ -54,8 +56,9 @@ public class BrandingServiceTest {
         String token = "abc";
 
         Map sampleMap = new Map(2.00,4.00);
-        Contact sampleContact = new Contact("Demo B&B contact name", "The street", "012345", "test@email.com");
-        Branding sampleBranding = new Branding("Updated Branding", sampleMap, "http://sample.url", "Branding description here", sampleContact);
+        Contact sampleContact = new Contact("Demo B&B contact name", "012345", "test@email.com");
+        Address sampleAddress = new Address("The street", "The street 2", "The town", "The county", "The post code");
+        Branding sampleBranding = new Branding("Updated Branding", sampleMap, "directions", "http://sample.url", "Branding description here", sampleContact, sampleAddress);
 
         when(brandingDB.update(sampleBranding)).thenReturn(sampleBranding);
         when(authRequests.postCheckAuth("abc")).thenReturn(true);
@@ -63,7 +66,7 @@ public class BrandingServiceTest {
         BrandingResult result = brandingService.updateBrandingDetails(sampleBranding, token);
 
         assertEquals(HttpStatus.ACCEPTED, result.getHttpStatus());
-        assertEquals("Branding{name='Updated Branding', map=Map{latitude=2.0, longitude=4.0}, logoUrl='http://sample.url', description='Branding description here', contact=Contact{name='Demo B&B contact name', address='The street', phone='012345', email='test@email.com'}}", result.getBranding().toString());
+        assertEquals("Branding{name='Updated Branding', map=Map{latitude=2.0, longitude=4.0}, logoUrl='http://sample.url', description='Branding description here', directions='directions', contact=Contact{name='Demo B&B contact name', phone='012345', email='test@email.com'}, address=Address{line1='The street', line2='The street 2', postTown='The town', county='The county', postCode='The post code'}}", result.getBranding().toString());
     }
 
     @Test
