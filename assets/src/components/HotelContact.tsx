@@ -76,6 +76,27 @@ const HotelContact: React.FC<HotelContactProps> = ({ contactDetails }) => {
     );
   }
 
+  if(submitted) {
+    return (
+      <section id="contact" className="bg-light py-5">
+        <div className="container">
+          <div className="row justify-content-center">
+            <div className="col-lg-8">
+              <div className="card shadow">
+                <div className="card-body p-4">
+                    <h3 className="h4 mb-4">Thanks for getting in touch {contact.name}!</h3>
+                    <p>We'll get back to you about</p>
+                    <p style={{ fontWeight: "bold" }}>{contact.subject}</p>
+                    <p>as soon as possible.</p>
+                    </div>
+                </div>
+              </div>
+            </div>
+          </div>
+      </section>
+    );
+  }
+
   return (
       <section id="contact" className="bg-light py-5">
         <div className="container">
@@ -85,36 +106,38 @@ const HotelContact: React.FC<HotelContactProps> = ({ contactDetails }) => {
                 <div className="card-body p-4">
                   <h3 className="h4 mb-4 text-center">Send Us a Message</h3>
                   
-                  <form>
+                  <form action="">
                     <div className="mb-3">
                       <label htmlFor="name" className="form-label">Name</label>
-                      <input type="text" className="form-control" id="name" />
+                      <input type="text" data-testid="ContactName" className="form-control" id="name" onChange={updateContact} />
                     </div>
                     
                     <div className="mb-3">
                       <label htmlFor="email" className="form-label">Email</label>
-                      <input type="email" className="form-control" id="email" />
+                      <input type="email" data-testid="ContactEmail" className="form-control" id="email" onChange={updateContact} />
                     </div>
                     
                     <div className="mb-3">
                       <label htmlFor="phone" className="form-label">Phone</label>
-                      <input type="tel" className="form-control" id="phone" />
+                      <input type="tel" data-testid="ContactPhone" className="form-control" id="phone" onChange={updateContact} />
                     </div>
                     
                     <div className="mb-3">
                       <label htmlFor="subject" className="form-label">Subject</label>
-                      <input type="text" className="form-control" id="subject" />
+                      <input type="text" data-testid="ContactSubject" className="form-control" id="subject" onChange={updateContact} />
                     </div>
                     
                     <div className="mb-4">
                       <label htmlFor="message" className="form-label">Message</label>
-                      <textarea className="form-control" id="message" rows={5}></textarea>
+                      <textarea data-testid="ContactDescription" className="form-control" id="description" rows={5} onChange={updateContact}></textarea>
                     </div>
                     
                     <div className="d-grid">
-                      <button type="submit" className="btn btn-primary">Submit</button>
+                      <button type="button" className="btn btn-primary" onClick={submitForm}>Submit</button>
                     </div>
                   </form>
+                  <br />
+                  {errors}
                 </div>
               </div>
             </div>

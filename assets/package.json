@@ -7,7 +7,7 @@
     "build": "next build",
     "start": "next start -p 3003",
     "lint": "next lint",
-    "test": "jest"
+    "test": "jest --watchAll"
   },
   "dependencies": {
     "next": "15.2.2",

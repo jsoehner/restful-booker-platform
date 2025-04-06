@@ -29,7 +29,7 @@ describe('HotelContact Component', () => {
       <HotelContact contactDetails={contactDetails} />
     );
   
-    await waitFor(() => getByPlaceholderText(/Name/));
+    await waitFor(() => getByTestId(/ContactName/));
     
     await act(async () => {
       fireEvent.change(getByTestId(/ContactName/), { target: { value: message.name } });
