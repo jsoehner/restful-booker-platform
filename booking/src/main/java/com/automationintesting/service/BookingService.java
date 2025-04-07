@@ -13,6 +13,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
 
 import java.sql.SQLException;
+import java.time.LocalDate;
 import java.util.List;
 import java.util.Optional;
 import java.util.concurrent.TimeUnit;
@@ -128,5 +129,13 @@ public class BookingService {
         bookingList = bookingDB.queryBookingSummariesById(roomId);
 
         return new BookingSummaries(bookingList);
+    }
+
+    public BookingResult checkUnavailability(LocalDate checkin, LocalDate checkout, String token) throws SQLException {
+        if(authRequests.postCheckAuth(token)){
+            return new BookingResult(bookingDB.queryByDate(checkin, checkout), HttpStatus.OK);
+        } else {
+            return new BookingResult(HttpStatus.FORBIDDEN);
+        }
     }
 }

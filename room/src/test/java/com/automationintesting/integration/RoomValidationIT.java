@@ -2,6 +2,7 @@ package com.automationintesting.integration;
 
 import com.automationintesting.api.RoomApplication;
 import com.automationintesting.model.db.Room;
+import com.automationintesting.model.db.Rooms;
 import io.restassured.http.ContentType;
 import io.restassured.response.Response;
 import org.junit.jupiter.api.Test;
@@ -20,8 +21,8 @@ public class RoomValidationIT {
 
     @Test
     public void testPostValidation() {
-        Room roomPayload = new Room.RoomBuilder()
-                                        .build();
+        Room roomPayload = new Room.RoomBuilder().build();
+
         Response response = given()
             .contentType(ContentType.JSON)
             .body(roomPayload)
@@ -43,6 +44,17 @@ public class RoomValidationIT {
                 .put("http://localhost:3001/room/1");
 
         assertEquals(400, response.statusCode());
+    }
+
+    @Test
+    public void testGetRooms() {
+        Response response = given()
+                .contentType(ContentType.JSON)
+                .when()
+                .get("http://localhost:3001/room/");
+
+        assertEquals(200, response.statusCode());
+        assertEquals(response.body().as(Rooms.class).getRooms().size(), 1);
     }
 
 }

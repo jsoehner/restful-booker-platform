@@ -1,6 +1,8 @@
 package com.automationintesting.unit.examples;
 
+import com.automationintesting.model.db.AvailableRoom;
 import com.automationintesting.model.db.Booking;
+import com.automationintesting.model.db.BookingSummary;
 import com.automationintesting.model.db.CreatedBooking;
 import com.automationintesting.unit.BaseTest;
 import org.junit.jupiter.api.BeforeEach;
@@ -10,6 +12,7 @@ import java.io.IOException;
 import java.sql.SQLException;
 import java.time.LocalDate;
 import java.time.Month;
+import java.util.List;
 
 import static org.hamcrest.CoreMatchers.is;
 import static org.hamcrest.MatcherAssert.assertThat;
@@ -106,6 +109,27 @@ public class SqlTest extends BaseTest {
         String updatedBookingString = updatedBooking.toString();
 
         assertThat(updatedBookingString, is("CreatedBooking{bookingid=" + currentBookingId + ", booking=Booking{roomid=1, firstname='Mark', lastname='Winteringham', depositpaid=true, bookingDates=BookingDates{checkin=2013-01-31, checkout=2013-01-31}}}"));
+    }
+
+    @Test
+    public void testQueryByDateSql() throws SQLException {
+        LocalDate checkin = LocalDate.of(2018, Month.JANUARY, 1);
+        LocalDate checkout = LocalDate.of(2018, Month.JANUARY, 5);
+
+        Booking booking = new Booking.BookingBuilder()
+                .setRoomid(1)
+                .setFirstname("Mark")
+                .setLastname("Winteringham")
+                .setDepositpaid(true)
+                .setCheckin(checkin)
+                .setCheckout(checkout)
+                .build();
+
+        bookingDB.create(booking);
+
+        List<AvailableRoom> bookingByDate = bookingDB.queryByDate(checkin, checkout);
+
+        assertThat(bookingByDate.toString(), is("[AvailableRoom{roomid=1}]"));
     }
 
 }
