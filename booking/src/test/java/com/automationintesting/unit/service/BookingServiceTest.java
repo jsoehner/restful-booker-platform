@@ -225,9 +225,8 @@ public class BookingServiceTest {
         }};
 
         when(bookingDB.queryByDate(checkin, checkout)).thenReturn(availableRooms);
-        when(authRequests.postCheckAuth("abc123")).thenReturn(true);
 
-        BookingResult result = bookingService.checkUnavailability(checkin, checkout, "abc123");
+        BookingResult result = bookingService.checkUnavailability(checkin, checkout);
 
         assertEquals(3, result.getAvailableRooms().size());
     }

@@ -67,7 +67,6 @@ public class GetBookingIT {
     @Test
     public void getQueryAvailableRoomsByDate(){
         Response response = given()
-                .cookie("token", "abc123")
                 .queryParam("checkin", "2022-02-01")
                 .queryParam("checkout", "2022-02-05")
                 .get("http://localhost:3000/booking/unavailable");
@@ -79,7 +78,6 @@ public class GetBookingIT {
     @Test
     public void getEmptyQueryAvailableRoomsByDate() {
         Response response = given()
-                .cookie("token", "abc123")
                 .queryParam("checkin", "2020-02-01")
                 .queryParam("checkout", "2020-02-05")
                 .get("http://localhost:3000/booking/unavailable");
@@ -111,7 +109,6 @@ public class GetBookingIT {
             .post("http://localhost:3000/booking/");
 
         Response response = given()
-                .cookie("token", "abc123")
                 .queryParam("checkin", "2022-02-01")
                 .queryParam("checkout", "2022-02-05")
                 .get("http://localhost:3000/booking/unavailable");

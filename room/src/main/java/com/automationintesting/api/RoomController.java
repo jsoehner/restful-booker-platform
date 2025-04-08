@@ -11,6 +11,7 @@ import org.springframework.web.bind.annotation.*;
 
 import jakarta.validation.Valid;
 import java.sql.SQLException;
+import java.util.Optional;
 
 @RestController
 public class RoomController {
@@ -19,8 +20,14 @@ public class RoomController {
     private RoomService roomService;
 
     @RequestMapping(value = "/", method = RequestMethod.GET)
-    public ResponseEntity<Rooms> getRooms() throws SQLException {
-        Rooms rooms = roomService.getRooms();
+    public ResponseEntity<Rooms> getRooms(@RequestParam("checkin") Optional<String> checkin, @RequestParam("checkout") Optional<String> checkout) throws SQLException {
+        Rooms rooms;
+
+        if (checkin.isPresent() && checkout.isPresent()) {
+            rooms = roomService.getUnavailableRooms(checkin.get(), checkout.get());
+        } else {
+            rooms = roomService.getRooms();
+        }
 
         return ResponseEntity.status(HttpStatus.OK).body(rooms);
     }

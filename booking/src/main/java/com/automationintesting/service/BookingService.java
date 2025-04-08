@@ -131,11 +131,7 @@ public class BookingService {
         return new BookingSummaries(bookingList);
     }
 
-    public BookingResult checkUnavailability(LocalDate checkin, LocalDate checkout, String token) throws SQLException {
-        if(authRequests.postCheckAuth(token)){
-            return new BookingResult(bookingDB.queryByDate(checkin, checkout), HttpStatus.OK);
-        } else {
-            return new BookingResult(HttpStatus.FORBIDDEN);
-        }
+    public BookingResult checkUnavailability(LocalDate checkin, LocalDate checkout) throws SQLException {
+        return new BookingResult(bookingDB.queryByDate(checkin, checkout), HttpStatus.OK);
     }
 }

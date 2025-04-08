@@ -28,8 +28,8 @@ public class BookingController {
     }
 
     @RequestMapping(value = "/unavailable", method = RequestMethod.GET)
-    public ResponseEntity<List<AvailableRoom>> checkUnavailability(@RequestParam("checkin") String checkin, @RequestParam("checkout") String checkout, @CookieValue(value ="token", required = false) String token) throws SQLException {
-        BookingResult bookingResult = bookingService.checkUnavailability(LocalDate.parse(checkin), LocalDate.parse(checkout), token);
+    public ResponseEntity<List<AvailableRoom>> checkUnavailability(@RequestParam("checkin") String checkin, @RequestParam("checkout") String checkout) throws SQLException {
+        BookingResult bookingResult = bookingService.checkUnavailability(LocalDate.parse(checkin), LocalDate.parse(checkout));
 
         return ResponseEntity.status(bookingResult.getStatus()).body(bookingResult.getAvailableRooms());
     }
