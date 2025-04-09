@@ -2,7 +2,6 @@ package com.automationintesting.unit.examples;
 
 import com.automationintesting.model.db.AvailableRoom;
 import com.automationintesting.model.db.Booking;
-import com.automationintesting.model.db.BookingSummary;
 import com.automationintesting.model.db.CreatedBooking;
 import com.automationintesting.unit.BaseTest;
 import org.junit.jupiter.api.BeforeEach;

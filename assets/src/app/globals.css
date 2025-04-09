@@ -12,6 +12,10 @@
   height: 340px;
 }
 
+.dateWrapper {
+  display: block !important;
+}
+
 /* Report page */
 
 svg {

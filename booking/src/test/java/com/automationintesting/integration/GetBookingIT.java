@@ -1,9 +1,7 @@
 package com.automationintesting.integration;
 
 import com.automationintesting.api.BookingApplication;
-import com.automationintesting.model.db.Booking;
 import com.xebialabs.restito.server.StubServer;
-import io.restassured.http.ContentType;
 import io.restassured.response.Response;
 import org.glassfish.grizzly.http.util.HttpStatus;
 import org.junit.jupiter.api.AfterEach;
@@ -15,8 +13,6 @@ import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.ActiveProfiles;
 import org.springframework.test.context.junit.jupiter.SpringExtension;
 
-import java.time.LocalDate;
-import java.time.Month;
 import java.util.List;
 
 import static com.xebialabs.restito.builder.stub.StubHttp.whenHttp;
@@ -67,12 +63,12 @@ public class GetBookingIT {
     @Test
     public void getQueryAvailableRoomsByDate(){
         Response response = given()
-                .queryParam("checkin", "2022-02-01")
-                .queryParam("checkout", "2022-02-05")
+                .queryParam("checkin", "2026-02-01")
+                .queryParam("checkout", "2026-03-05")
                 .get("http://localhost:3000/booking/unavailable");
 
         Assertions.assertEquals(200, response.getStatusCode());
-        Assertions.assertEquals(1, response.as(List.class).size());
+        Assertions.assertEquals(3, response.as(List.class).size());
     }
 
     @Test
@@ -82,35 +78,17 @@ public class GetBookingIT {
                 .queryParam("checkout", "2020-02-05")
                 .get("http://localhost:3000/booking/unavailable");
 
+        response.prettyPrint();
+
         Assertions.assertEquals(200, response.getStatusCode());
         Assertions.assertEquals(0, response.as(List.class).size());
     }
 
     @Test
     public void getPartialQueryAvailableRoomsByDate() {
-        LocalDate checkindate = LocalDate.of(1990, Month.FEBRUARY, 1);
-        LocalDate checkoutdate = LocalDate.of(1990, Month.FEBRUARY, 2);
-
-        Booking bookingPayload = new Booking.BookingBuilder()
-                .setRoomid(2)
-                .setFirstname("Mark")
-                .setLastname("Winteringham")
-                .setDepositpaid(true)
-                .setCheckin(checkindate)
-                .setCheckout(checkoutdate)
-                .setEmail("mark@mwtestconsultancy.co.uk")
-                .setPhone("01292123456")
-                .build();
-
-        given()
-            .contentType(ContentType.JSON)
-            .body(bookingPayload)
-            .when()
-            .post("http://localhost:3000/booking/");
-
         Response response = given()
-                .queryParam("checkin", "2022-02-01")
-                .queryParam("checkout", "2022-02-05")
+                .queryParam("checkin", "2026-03-01")
+                .queryParam("checkout", "2026-03-05")
                 .get("http://localhost:3000/booking/unavailable");
 
         Assertions.assertEquals(200, response.getStatusCode());

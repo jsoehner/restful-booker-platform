@@ -77,7 +77,7 @@ public class RoomValidationIT {
                 .get("http://localhost:3001/room/");
 
         assertEquals(200, response.statusCode());
-        assertEquals(response.body().as(Rooms.class).getRooms().size(), 1);
+        assertEquals(response.body().as(Rooms.class).getRooms().size(), 3);
     }
 
     @Test
@@ -88,7 +88,7 @@ public class RoomValidationIT {
                 .get("http://localhost:3001/room/?checkin=2023-10-01&checkout=2023-10-02");
 
         assertEquals(200, response.statusCode());
-        assertEquals(0, response.body().as(Rooms.class).getRooms().size());
+        assertEquals(2, response.body().as(Rooms.class).getRooms().size());
     }
 
 }

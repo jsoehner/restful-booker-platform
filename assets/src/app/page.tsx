@@ -5,16 +5,14 @@ import Footer from "@/components/Footer";
 import HotelContact from "@/components/HotelContact";
 import HotelMap from "@/components/HotelMap";
 import HotelLogo from "@/components/HotelLogo";
-import HotelRoomInfo from "@/components/HotelRoomInfo";
+import Availability from "@/components/Availability";
 
 import { Branding } from "@/types/branding";
-import { Room } from "@/types/room";
 
 export default function Home() {
 
     const [branding, setBranding] = useState<Branding | null>(null);
-    const [rooms, setRooms] = useState<Room[]>([]);
-    
+        
     useEffect(() => {
         const fetchBranding = async () => {
             const response = await fetch('/api/branding');
@@ -22,13 +20,6 @@ export default function Home() {
             setBranding(data);
         };
         fetchBranding();
-
-        const fetchRooms = async () => {
-            const response = await fetch('/api/room');
-            const data = await response.json();
-            setRooms(data.rooms || []);
-        };
-        fetchRooms();
     }, []);
 
     if (!branding) {
@@ -78,50 +69,7 @@ export default function Home() {
             </nav>
 
             <HotelLogo branding={branding} />
-
-            <section id="booking" className="py-3">
-                <div className="container">
-                    <div className="card shadow booking-card">
-                        <div className="card-body p-4">
-                        <h3 className="card-title text-center mb-4">Check Availability & Book Your Stay</h3>
-                        <form>
-                            <div className="row g-3">
-                            <div className="col-md-6">
-                                <label htmlFor="checkin" className="form-label">Check In</label>
-                                <input type="date" className="form-control" id="checkin" />
-                            </div>
-                            <div className="col-md-6">
-                                <label htmlFor="checkout" className="form-label">Check Out</label>
-                                <input type="date" className="form-control" id="checkout" />
-                            </div>
-                            <div className="col-2"></div>
-                            <div className="col-8 mt-4">
-                                <button type="submit" className="btn btn-primary w-100 py-2">Check Availability</button>
-                            </div>
-                            <div className="col-2"></div>
-                            </div>
-                        </form>
-                        </div>
-                    </div>
-                </div>
-            </section>
-
-            <section id="rooms" className="section-divider">
-                <div className="container">
-                <div className="text-center mb-5">
-                    <h2 className="display-5">Our Rooms</h2>
-                    <p className="lead text-muted">Comfortable beds and delightful breakfast from locally sourced ingredients</p>
-                </div>
-                
-                <div className="row g-4">
-
-                    {rooms.map((roomDetails) => {
-                        return <div key={roomDetails.roomid}><HotelRoomInfo roomDetails={roomDetails} /></div>
-                    })}
-                </div>
-                </div>
-            </section>
-
+            <Availability />
             <HotelMap branding={branding} />
             <HotelContact contactDetails={branding?.contact} />
             <Footer branding={branding} />
