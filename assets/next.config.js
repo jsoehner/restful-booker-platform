@@ -3,40 +3,33 @@ const nextConfig = {
   reactStrictMode: false,
   output: 'standalone',
   async rewrites() {
-    const bookingApi = process.env.BOOKING_API || 'http://localhost:3000';
-    const roomApi = process.env.ROOM_API || 'http://localhost:3001';
-    const brandApi = process.env.BRAND_API || 'http://localhost:3002';
-    const authApi = process.env.AUTH_API || 'http://localhost:3004';
-    const reportApi = process.env.REPORT_API || 'http://localhost:3005';
-    const messageApi = process.env.MESSAGE_API || 'http://localhost:3006';
-    
     return [
       {
         source: '/booking/:path*',
-        destination: `${bookingApi}/booking/:path*`,
+        destination: `http://rbp-booking:3000/booking/:path*`,
       },
       {
         source: '/room/:path*',
-        destination: `${roomApi}/room/:path*`,
+        destination: `http://rbp-room:3001/room/:path*`,
       },
       {
         source: '/brand/:path*',
-        destination: `${brandApi}/brand/:path*`,
+        destination: `http://rbp-branding:3002/brand/:path*`,
       },
       {
         source: '/auth/:path*',
-        destination: `${authApi}/auth/:path*`,
+        destination: `http://rbp-auth:3004/auth/:path*`,
       },
       {
         source: '/report/:path*',
-        destination: `${reportApi}/report/:path*`,
+        destination: `http://rbp-report:3005/report/:path*`,
       },
       {
         source: '/message/:path*',
-        destination: `${messageApi}/message/:path*`,
+        destination: `http://rbp-message:3006/message/:path*`,
       }
     ];
-  },
-}
+  }
+};
 
-module.exports = nextConfig
+module.exports = nextConfig;
