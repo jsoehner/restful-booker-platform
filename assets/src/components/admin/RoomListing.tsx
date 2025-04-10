@@ -1,14 +1,9 @@
 import React from 'react';
 
+import { Room } from '@/types/room';
+
 interface RoomListingProps {
-  details: {
-    roomid: number;
-    roomName: string;
-    type: string;
-    accessible: boolean;
-    roomPrice: number;
-    features: string[];
-  };
+  details: Room;
   updateRooms: () => void;
 }
 

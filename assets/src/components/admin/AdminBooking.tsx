@@ -2,6 +2,8 @@ import React, { useEffect, useState } from 'react';
 import ReactModal from 'react-modal';
 import moment from 'moment';
 
+import { Booking as BookingType } from '@/types/booking';
+
 interface AdminBookingProps {
   closeBooking: () => void;
   dates: {
@@ -16,27 +18,20 @@ interface Room {
   roomName: string;
 }
 
-interface Booking {
-  firstname: string;
-  lastname: string;
-  depositpaid: boolean;
-  roomid: number;
-  bookingdates: {
-    checkin?: string;
-    checkout?: string;
-  };
-}
-
 ReactModal.setAppElement('.container');
 
 const AdminBooking: React.FC<AdminBookingProps> = ({ closeBooking, dates }) => {
   const [rooms, setRooms] = useState<Room[]>([]);
-  const [booking, setBooking] = useState<Booking>({
+  const [booking, setBooking] = useState<BookingType>({
+    bookingid: 0,
     firstname: '',
     lastname: '',
     depositpaid: false,
     roomid: 0,
-    bookingdates: {}
+    bookingdates: {
+      checkin: '',
+      checkout: ''
+    }
   });
   const [errors, setErrors] = useState<string[]>([]);
 

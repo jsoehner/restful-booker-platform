@@ -19,7 +19,6 @@ interface ReportEvent {
   title: string;
   start: Date;
   end: Date;
-  // Add any other event properties needed
 }
 
 const Report: React.FC<ReportProps> = ({ defaultDate }) => {
