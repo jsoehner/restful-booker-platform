@@ -18,8 +18,6 @@ interface Room {
   roomName: string;
 }
 
-ReactModal.setAppElement('.container');
-
 const AdminBooking: React.FC<AdminBookingProps> = ({ closeBooking, dates }) => {
   const [rooms, setRooms] = useState<Room[]>([]);
   const [booking, setBooking] = useState<BookingType>({
@@ -105,6 +103,7 @@ const AdminBooking: React.FC<AdminBookingProps> = ({ closeBooking, dates }) => {
 
   return (
     <ReactModal 
+          appElement={document.getElementById('root-container') as HTMLElement}
           isOpen={true}
           contentLabel="onRequestClose Example"
           className="confirmation-modal"

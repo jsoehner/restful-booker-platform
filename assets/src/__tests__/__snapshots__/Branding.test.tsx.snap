@@ -12,7 +12,7 @@ exports[`Branding Component Branding page renders 1`] = `
       class="input-group mb-3"
     >
       <div
-        class="input-group-prepend"
+        class="input-group-prepend d-flex align-items-center"
       >
         <span
           class="input-group-text"
@@ -32,7 +32,7 @@ exports[`Branding Component Branding page renders 1`] = `
       class="input-group mb-3"
     >
       <div
-        class="input-group-prepend"
+        class="input-group-prepend d-flex align-items-center"
       >
         <span
           class="input-group-text"
@@ -49,10 +49,10 @@ exports[`Branding Component Branding page renders 1`] = `
       />
     </div>
     <div
-      class="input-group"
+      class="input-group mb-3"
     >
       <div
-        class="input-group-prepend"
+        class="input-group-prepend d-flex align-items-stretch"
       >
         <span
           class="input-group-text"
@@ -76,7 +76,7 @@ exports[`Branding Component Branding page renders 1`] = `
       class="input-group mb-3"
     >
       <div
-        class="input-group-prepend"
+        class="input-group-prepend d-flex align-items-center"
       >
         <span
           class="input-group-text"
@@ -96,7 +96,7 @@ exports[`Branding Component Branding page renders 1`] = `
       class="input-group mb-3"
     >
       <div
-        class="input-group-prepend"
+        class="input-group-prepend d-flex align-items-center"
       >
         <span
           class="input-group-text"
@@ -116,7 +116,7 @@ exports[`Branding Component Branding page renders 1`] = `
       class="input-group mb-3"
     >
       <div
-        class="input-group-prepend"
+        class="input-group-prepend d-flex align-items-stretch"
       >
         <span
           class="input-group-text"
@@ -140,7 +140,7 @@ exports[`Branding Component Branding page renders 1`] = `
       class="input-group mb-3"
     >
       <div
-        class="input-group-prepend"
+        class="input-group-prepend d-flex align-items-center"
       >
         <span
           class="input-group-text"
@@ -160,7 +160,7 @@ exports[`Branding Component Branding page renders 1`] = `
       class="input-group mb-3"
     >
       <div
-        class="input-group-prepend"
+        class="input-group-prepend d-flex align-items-center"
       >
         <span
           class="input-group-text"
@@ -180,7 +180,7 @@ exports[`Branding Component Branding page renders 1`] = `
       class="input-group mb-3"
     >
       <div
-        class="input-group-prepend"
+        class="input-group-prepend d-flex align-items-center"
       >
         <span
           class="input-group-text"
@@ -204,7 +204,7 @@ exports[`Branding Component Branding page renders 1`] = `
       class="input-group mb-3"
     >
       <div
-        class="input-group-prepend"
+        class="input-group-prepend d-flex align-items-center"
       >
         <span
           class="input-group-text"
@@ -224,7 +224,7 @@ exports[`Branding Component Branding page renders 1`] = `
       class="input-group mb-3"
     >
       <div
-        class="input-group-prepend"
+        class="input-group-prepend d-flex align-items-center"
       >
         <span
           class="input-group-text"
@@ -244,7 +244,7 @@ exports[`Branding Component Branding page renders 1`] = `
       class="input-group mb-3"
     >
       <div
-        class="input-group-prepend"
+        class="input-group-prepend d-flex align-items-center"
       >
         <span
           class="input-group-text"
@@ -264,7 +264,7 @@ exports[`Branding Component Branding page renders 1`] = `
       class="input-group mb-3"
     >
       <div
-        class="input-group-prepend"
+        class="input-group-prepend d-flex align-items-center"
       >
         <span
           class="input-group-text"
@@ -284,7 +284,7 @@ exports[`Branding Component Branding page renders 1`] = `
       class="input-group mb-3"
     >
       <div
-        class="input-group-prepend"
+        class="input-group-prepend d-flex align-items-center"
       >
         <span
           class="input-group-text"

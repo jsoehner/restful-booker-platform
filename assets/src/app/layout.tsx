@@ -30,7 +30,9 @@ export default function RootLayout({
         />
       </head>
       <body>
+        <div id="root-container">
         {children}
+        </div>
         
         {/* Popper.js */}
         <Script 

@@ -20,8 +20,7 @@ exports[`RoomDetails Component Room details can be switched out of edit mode 1`]
           class="col-sm-2"
         >
           <button
-            class="btn btn-outline-primary float-right"
-            style="margin-right: 10px;"
+            class="btn btn-outline-primary float-sm-end"
             type="button"
           >
             Edit
@@ -151,7 +150,7 @@ exports[`RoomDetails Component Room details can render validation errors 1`] = `
       class="room-details"
     >
       <div
-        class="form-row"
+        class="row"
       >
         <div
           class="col-sm-9"
@@ -169,15 +168,14 @@ exports[`RoomDetails Component Room details can render validation errors 1`] = `
           class="col-sm-3"
         >
           <button
-            class="btn btn-outline-danger float-right"
+            class="btn btn-outline-danger float-sm-end"
             id="cancelEdit"
-            style="margin-right: 10px;"
             type="button"
           >
             Cancel
           </button>
           <button
-            class="btn btn-outline-primary float-right"
+            class="btn btn-outline-primary float-sm-end"
             id="update"
             style="margin-right: 10px;"
             type="button"
@@ -187,7 +185,7 @@ exports[`RoomDetails Component Room details can render validation errors 1`] = `
         </div>
       </div>
       <div
-        class="form-row"
+        class="row"
       >
         <div
           class="col-sm-6"
@@ -282,7 +280,7 @@ exports[`RoomDetails Component Room details can render validation errors 1`] = `
         </div>
       </div>
       <div
-        class="form-row"
+        class="row"
       >
         <div
           class="col-sm-6"
@@ -545,8 +543,7 @@ exports[`RoomDetails Component Room details component renders 1`] = `
           class="col-sm-2"
         >
           <button
-            class="btn btn-outline-primary float-right"
-            style="margin-right: 10px;"
+            class="btn btn-outline-primary float-sm-end"
             type="button"
           >
             Edit
@@ -676,7 +673,7 @@ exports[`RoomDetails Component Room details switches into edit mode 1`] = `
       class="room-details"
     >
       <div
-        class="form-row"
+        class="row"
       >
         <div
           class="col-sm-9"
@@ -694,15 +691,14 @@ exports[`RoomDetails Component Room details switches into edit mode 1`] = `
           class="col-sm-3"
         >
           <button
-            class="btn btn-outline-danger float-right"
+            class="btn btn-outline-danger float-sm-end"
             id="cancelEdit"
-            style="margin-right: 10px;"
             type="button"
           >
             Cancel
           </button>
           <button
-            class="btn btn-outline-primary float-right"
+            class="btn btn-outline-primary float-sm-end"
             id="update"
             style="margin-right: 10px;"
             type="button"
@@ -712,7 +708,7 @@ exports[`RoomDetails Component Room details switches into edit mode 1`] = `
         </div>
       </div>
       <div
-        class="form-row"
+        class="row"
       >
         <div
           class="col-sm-6"
@@ -807,7 +803,7 @@ exports[`RoomDetails Component Room details switches into edit mode 1`] = `
         </div>
       </div>
       <div
-        class="form-row"
+        class="row"
       >
         <div
           class="col-sm-6"
