@@ -1,5 +1,5 @@
 import React from 'react';
-import HotelContact from '../components/HotelContact';
+import HotelContact from '../components/home/HotelContact';
 import { render, fireEvent, waitFor, act } from '@testing-library/react';
 
 const message = {

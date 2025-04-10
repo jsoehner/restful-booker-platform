@@ -2,10 +2,10 @@
 
 import React, { useState, useEffect } from "react";
 import Footer from "@/components/Footer";
-import HotelContact from "@/components/HotelContact";
-import HotelMap from "@/components/HotelMap";
-import HotelLogo from "@/components/HotelLogo";
-import Availability from "@/components/Availability";
+import HotelContact from "@/components/home/HotelContact";
+import HotelMap from "@/components/home/HotelMap";
+import HotelLogo from "@/components/home/HotelLogo";
+import Availability from "@/components/home/Availability";
 
 import { Branding } from "@/types/branding";
 
