@@ -119,7 +119,7 @@ const Branding: React.FC = () => {
     <div className="branding-form">
       <h2>B&amp;B details</h2>
       <div className="input-group mb-3">
-        <div className="input-group-prepend">
+        <div className="input-group-prepend d-flex align-items-center">
           <span className="input-group-text">Name</span>
         </div>
         <input 
@@ -132,7 +132,7 @@ const Branding: React.FC = () => {
         />
       </div>
       <div className="input-group mb-3">
-        <div className="input-group-prepend">
+        <div className="input-group-prepend d-flex align-items-center">
           <span className="input-group-text">Logo</span>
         </div>
         <input 
@@ -144,8 +144,8 @@ const Branding: React.FC = () => {
           placeholder="Enter image url" 
         />
       </div>
-      <div className="input-group">
-        <div className="input-group-prepend">
+      <div className="input-group mb-3">
+        <div className="input-group-prepend d-flex align-items-stretch">
           <span className="input-group-text">Description</span>
         </div>
         <textarea 
@@ -159,7 +159,7 @@ const Branding: React.FC = () => {
       <br />
       <h2>Map details</h2>
       <div className="input-group mb-3">
-        <div className="input-group-prepend">
+        <div className="input-group-prepend d-flex align-items-center">
           <span className="input-group-text">Latitude</span>
         </div>
         <input 
@@ -172,7 +172,7 @@ const Branding: React.FC = () => {
         />
       </div>
       <div className="input-group mb-3">
-        <div className="input-group-prepend">
+        <div className="input-group-prepend d-flex align-items-center">
           <span className="input-group-text">Longitude</span>
         </div>
         <input 
@@ -185,7 +185,7 @@ const Branding: React.FC = () => {
         />
       </div>
       <div className="input-group mb-3">
-        <div className="input-group-prepend">
+        <div className="input-group-prepend d-flex align-items-stretch">
           <span className="input-group-text">Directions</span>
         </div>
         <textarea 
@@ -199,7 +199,7 @@ const Branding: React.FC = () => {
       <br />
       <h2>Contact details</h2>
       <div className="input-group mb-3">
-        <div className="input-group-prepend">
+        <div className="input-group-prepend d-flex align-items-center">
           <span className="input-group-text">Name</span>
         </div>
         <input 
@@ -212,7 +212,7 @@ const Branding: React.FC = () => {
         />
       </div>
       <div className="input-group mb-3">
-        <div className="input-group-prepend">
+        <div className="input-group-prepend d-flex align-items-center">
           <span className="input-group-text">Phone</span>
         </div>
         <input 
@@ -225,7 +225,7 @@ const Branding: React.FC = () => {
         />
       </div>
       <div className="input-group mb-3">
-        <div className="input-group-prepend">
+        <div className="input-group-prepend d-flex align-items-center">
           <span className="input-group-text">Email</span>
         </div>
         <input 
@@ -240,7 +240,7 @@ const Branding: React.FC = () => {
       <br />
       <h2>Address details</h2>
       <div className="input-group mb-3">
-        <div className="input-group-prepend">
+        <div className="input-group-prepend d-flex align-items-center">
           <span className="input-group-text">Line 1</span>
         </div>
         <input
@@ -252,7 +252,7 @@ const Branding: React.FC = () => {
           placeholder="Enter Address Line 1" />
       </div>
       <div className="input-group mb-3">
-        <div className="input-group-prepend">
+        <div className="input-group-prepend d-flex align-items-center">
           <span className="input-group-text">Line 2</span>
         </div>
         <input
@@ -264,7 +264,7 @@ const Branding: React.FC = () => {
           placeholder="Enter Address Line 2" />
       </div>
       <div className="input-group mb-3">
-        <div className="input-group-prepend">
+        <div className="input-group-prepend d-flex align-items-center">
           <span className="input-group-text">Post Town</span>
         </div>
         <input
@@ -276,7 +276,7 @@ const Branding: React.FC = () => {
           placeholder="Enter Post Town" />
       </div>
       <div className="input-group mb-3">
-        <div className="input-group-prepend">
+        <div className="input-group-prepend d-flex align-items-center">
           <span className="input-group-text">County</span>
         </div>
         <input
@@ -288,7 +288,7 @@ const Branding: React.FC = () => {
           placeholder="Enter County" />
       </div>
       <div className="input-group mb-3">
-        <div className="input-group-prepend">
+        <div className="input-group-prepend d-flex align-items-center">
           <span className="input-group-text">Post Code</span>
         </div>
         <input
@@ -339,4 +339,4 @@ const Branding: React.FC = () => {
   );
 };
 
-export default Branding; 
+export default Branding;

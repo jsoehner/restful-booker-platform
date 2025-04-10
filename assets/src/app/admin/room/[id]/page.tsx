@@ -13,8 +13,10 @@ const RoomDetails = dynamic(
   }
 );
 
-export default async function RoomDetailsPage({params}: {params: Promise<{ id: string }>}) {
-  const { id } = await params;
+export default function RoomDetailsPage({params}: {params: Promise<{ id: string }>}) {
+  // Use React.use() to unwrap the params Promise before accessing its properties
+  const unwrappedParams = React.use(params);
+  const { id } = unwrappedParams;
 
   return (
     <Suspense fallback={<Loading />}>

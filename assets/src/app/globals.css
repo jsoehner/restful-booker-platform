@@ -1,3 +1,41 @@
+.detail:hover {
+  background-color: #ddd;
+}
+
+.detail p, .detail span {
+  display: table-cell;
+  display: table-cell;
+  line-height : 40px;
+}
+
+.room-form {
+  padding-bottom: 25px;
+  margin-top: 10px;
+}
+
+.room-details {
+  border-radius: 5px;
+  padding: 20px;
+  background: #f5f5f5;
+  margin-bottom: 20px;
+}
+
+.room-details img {
+  height: 200px;
+}
+
+.room-details p{
+  font-weight: bold;
+}
+
+.room-details span{
+  font-weight: normal;
+}
+
+.editLabel {
+  margin-top: 20px;
+}
+
 /* Welcome page */
 
 .welcome h2, .welcome h4{
@@ -20,6 +58,14 @@
 
 svg {
   padding: 1px;
+}
+
+.confirmation-modal {
+  border: 1px solid black;
+  padding: 20px;
+  background-color: #ffffff;
+  width: 50%;
+  margin: 100px auto auto auto;
 }
 
 /* Branding page */

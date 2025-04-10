@@ -98,7 +98,7 @@ export default function Availability() {
                     </div>
                     
                     <div className="row g-4">
-                        {rooms.map((roomDetails) => {
+                        {rooms.slice(0, 3).map((roomDetails) => {
                             return <div key={roomDetails.roomid} className="col-md-6 col-lg-4" ><HotelRoomInfo roomDetails={roomDetails} /></div>
                         })}
                     </div>

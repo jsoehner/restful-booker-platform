@@ -116,7 +116,7 @@ const RoomForm: React.FC<RoomFormProps> = ({ updateRooms }) => {
 
   return (
     <div>
-      <div className="row room-form">
+      <div className="row room-form mt-2">
         <div className="col-sm-1">
           <input 
             className="form-control" 

@@ -27,6 +27,8 @@ interface Booking {
   };
 }
 
+ReactModal.setAppElement('.container');
+
 const AdminBooking: React.FC<AdminBookingProps> = ({ closeBooking, dates }) => {
   const [rooms, setRooms] = useState<Room[]>([]);
   const [booking, setBooking] = useState<Booking>({
@@ -113,7 +115,7 @@ const AdminBooking: React.FC<AdminBookingProps> = ({ closeBooking, dates }) => {
           className="confirmation-modal"
           >
           
-          <div className="form-row">
+          <div className="row">
               <div className="col-6">
                   <input type="text" className="form-control" placeholder="Firstname" aria-label="Firstname" name="firstname" aria-describedby="basic-addon1" value={booking.firstname} onChange={e => updateState({ name: e.target.name, value: e.target.value })} />    
               </div>
@@ -121,9 +123,9 @@ const AdminBooking: React.FC<AdminBookingProps> = ({ closeBooking, dates }) => {
               <input type="text" className="form-control" placeholder="Lastname" aria-label="Lastname" name="lastname" aria-describedby="basic-addon1" value={booking.lastname} onChange={e => updateState({ name: e.target.name, value: e.target.value })} />
               </div>
           </div>
-          <div className="form-row room-booking-form">
+          <div className="row room-booking-form mt-5">
               <div className="col-6">
-                  <div className="input-group-prepend">
+                  <div className="input-group-prepend d-flex align-items-center">
                       <span className="input-group-text" id="basic-addon1">Room</span>
                       <select className="form-control" name="roomid" id="roomid" value={booking.roomid} onChange={e => updateState({ name: e.target.name, value: e.target.value })}>
                       <option value="0">Select room</option>
@@ -134,7 +136,7 @@ const AdminBooking: React.FC<AdminBookingProps> = ({ closeBooking, dates }) => {
                   </div>
               </div>
               <div className="col-6">
-                  <div className="input-group-prepend">
+                  <div className="input-group-prepend d-flex align-items-center">
                       <span className="input-group-text" id="basic-addon1">Deposit paid?</span>
                       <select className="form-control" name="depositpaid" id="depositpaid" value={booking.depositpaid.toString()} onChange={e => updateState({ name: e.target.name, value: e.target.value })}>
                           <option value="false">false</option>
@@ -143,7 +145,7 @@ const AdminBooking: React.FC<AdminBookingProps> = ({ closeBooking, dates }) => {
                   </div>
               </div>
           </div>
-          <div className="form-row room-booking-form">
+          <div className="row room-booking-form mt-5">
               <div className="col-6">
                   <p><span style={{fontWeight : "bold"}}>Checkin: </span>{booking.bookingdates.checkin}</p>
               </div>
@@ -151,10 +153,10 @@ const AdminBooking: React.FC<AdminBookingProps> = ({ closeBooking, dates }) => {
                   <p><span style={{fontWeight : "bold"}}>Checkout: </span>{booking.bookingdates.checkout}</p>
               </div>
           </div>
-          <div className="form-row room-booking-form">
-              <div className="col-sm-12 text-right">
-                  <button type='button' className='btn btn-outline-danger float-right book-room' onClick={() => closeBooking()}>Cancel</button>
-                  <button type='button' className='btn btn-outline-primary float-right book-room' style={{marginRight : '10px' }} onClick={() => doBooking()}>Book</button>
+          <div className="row room-booking-form">
+              <div className="col-sm-12">
+                  <button type='button' className='btn btn-outline-danger float-right book-room float-end' onClick={() => closeBooking()}>Cancel</button>
+                  <button type='button' className='btn btn-outline-primary float-right book-room float-end' style={{marginRight : '10px' }} onClick={() => doBooking()}>Book</button>
               </div>
           </div>
           {errorDetails}

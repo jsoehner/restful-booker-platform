@@ -55,7 +55,7 @@ const Nav: React.FC<NavProps> = ({ setAuthenticate, isAuthenticated }) => {
   };
 
   return (
-    <nav className="navbar navbar-expand-md navbar-dark bg-dark">
+    <nav className="navbar navbar-expand-md navbar-dark bg-dark mb-4">
       <div className="container-fluid">
         <Link href="/" className="navbar-brand">
           Restful Booker Platform Demo
@@ -92,16 +92,16 @@ const Nav: React.FC<NavProps> = ({ setAuthenticate, isAuthenticated }) => {
                 </li>
                 <li className="nav-item">
                   <Link href="/admin/message" className={getNavLinkClass('/admin/message')}>
-                    Messages {messageCount > 0 && <span className="badge badge-pill badge-primary">{messageCount}</span>}
+                    Messages {messageCount > 0 && <span className="badge bg-danger text-white">{messageCount}</span>}
                   </Link>
                 </li>
               </>
             )}
           </ul>
-          <ul className="navbar-nav">
+          <ul className="navbar-nav ms-auto">
             <li className="nav-item">
-							<a className="nav-link" id="frontPageLink" href="/">Front Page</a>
-						</li>
+              <a className="nav-link" id="frontPageLink" href="/">Front Page</a>
+            </li>
             <li className="nav-item">
               <button onClick={doLogout} className="btn btn-outline-danger my-2 my-sm-0">
                 Logout
