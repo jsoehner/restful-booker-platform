@@ -1,6 +1,7 @@
 'use client';
 
 import React, { useState, useEffect } from "react";
+import HomeNav from "@/components/HomeNav";
 import Footer from "@/components/Footer";
 import HotelContact from "@/components/home/HotelContact";
 import HotelMap from "@/components/home/HotelMap";
@@ -34,40 +35,7 @@ export default function Home() {
 
     return (
         <div>
-            
-            <nav className="navbar navbar-expand-lg navbar-light bg-white shadow-sm sticky-top">
-                <div className="container">
-                <a className="navbar-brand d-flex align-items-center" href="#">
-                    <span>{branding.name}</span>
-                </a>
-                <button className="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
-                    <span className="navbar-toggler-icon"></span>
-                </button>
-                <div className="collapse navbar-collapse" id="navbarNav">
-                    <ul className="navbar-nav ms-auto">
-                    <li className="nav-item">
-                        <a className="nav-link" href="#rooms">Rooms</a>
-                    </li>
-                    <li className="nav-item">
-                        <a className="nav-link" href="#booking">Booking</a>
-                    </li>
-                    <li className="nav-item">
-                        <a className="nav-link" href="#amenities">Amenities</a>
-                    </li>
-                    <li className="nav-item">
-                        <a className="nav-link" href="#location">Location</a>
-                    </li>
-                    <li className="nav-item">
-                        <a className="nav-link" href="#contact">Contact</a>
-                    </li>
-                    <li className="nav-item">
-                        <a className="nav-link" href="/admin">Admin</a>
-                    </li>
-                    </ul>
-                </div>
-                </div>
-            </nav>
-
+            <HomeNav branding={branding} />
             <HotelLogo branding={branding} />
             <Availability />
             <HotelMap branding={branding} />

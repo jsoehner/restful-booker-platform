@@ -1,22 +1,9 @@
-import React, { useState } from 'react';
+import React from 'react';
 import { Room } from '@/types/room';
+import { translateIcon } from "@/utils/iconUtils";
 
 interface HotelRoomInfoProps {
   roomDetails: Room;
-}
-
-const translateIcon = (feature: string) => {
-  feature = feature.toLowerCase();
-  switch (feature.toLowerCase()) {
-    case 'refreshments':
-      return 'cup-hot';
-    case 'radio':
-      return 'speaker';
-    case 'views':
-      return 'eye';
-    default:
-      return feature;
-  }
 }
 
 const HotelRoomInfo: React.FC<HotelRoomInfoProps> = ({ roomDetails }) => {
@@ -40,7 +27,7 @@ const HotelRoomInfo: React.FC<HotelRoomInfoProps> = ({ roomDetails }) => {
         </div>
         <div className="card-footer bg-white d-flex justify-content-between align-items-center">
         <div className="fw-bold fs-5">£{roomDetails.roomPrice} <small className="text-muted fw-normal">per night</small></div>
-          <button className="btn btn-primary">Book Now</button>
+          <a href={"/reservation/" + roomDetails.roomid } className="btn btn-primary">Book now</a>
         </div>
     </div>
   );

@@ -9,21 +9,7 @@ try {
     const { id } = await params;
     const roomApi = process.env.ROOM_API || 'http://localhost:3001';
     
-    // Get the token from cookies
-    const cookieStore = await cookies();
-    const token = cookieStore.get('token');
-    if (!token) {
-        return NextResponse.json(
-        { errors: ['Authentication required'] },
-        { status: 401 }
-        );
-    }
-    
-    const response = await fetch(`${roomApi}/room/${id}`, {
-        headers: {
-        'Cookie': `token=${token.value}`
-        }
-    });
+    const response = await fetch(`${roomApi}/room/${id}`);
     
     if (!response.ok) {
         const errorData = await response.json();
