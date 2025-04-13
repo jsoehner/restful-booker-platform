@@ -2,6 +2,7 @@
 
 import React, { useState, useEffect } from "react";
 import DatePicker from "react-datepicker";
+import moment from "moment";
 
 import HotelRoomInfo from "@/components/home/HotelRoomInfo";
 
@@ -99,7 +100,7 @@ export default function Availability() {
                     
                     <div className="row g-4">
                         {rooms.slice(0, 3).map((roomDetails) => {
-                            return <div key={roomDetails.roomid} className="col-md-6 col-lg-4" ><HotelRoomInfo roomDetails={roomDetails} /></div>
+                            return <div key={roomDetails.roomid} className="col-md-6 col-lg-4" ><HotelRoomInfo roomDetails={roomDetails} queryString={"?checkin=" + moment(availabilityDates.checkIn).format("YYYY-MM-DD") + "&checkout=" + moment(availabilityDates.checkOut).format("YYYY-MM-DD") } /></div>
                         })}
                     </div>
                 </div>

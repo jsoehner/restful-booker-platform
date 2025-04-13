@@ -4,9 +4,10 @@ import { translateIcon } from "@/utils/iconUtils";
 
 interface HotelRoomInfoProps {
   roomDetails: Room;
+  queryString?: string;
 }
 
-const HotelRoomInfo: React.FC<HotelRoomInfoProps> = ({ roomDetails }) => {
+const HotelRoomInfo: React.FC<HotelRoomInfoProps> = ({ roomDetails, queryString }) => {
   return (
     <div className="card h-100 shadow-sm room-card">
         <div className="room-image">
@@ -27,7 +28,7 @@ const HotelRoomInfo: React.FC<HotelRoomInfoProps> = ({ roomDetails }) => {
         </div>
         <div className="card-footer bg-white d-flex justify-content-between align-items-center">
         <div className="fw-bold fs-5">£{roomDetails.roomPrice} <small className="text-muted fw-normal">per night</small></div>
-          <a href={"/reservation/" + roomDetails.roomid } className="btn btn-primary">Book now</a>
+          <a href={"/reservation/" + roomDetails.roomid + queryString } className="btn btn-primary">Book now</a>
         </div>
     </div>
   );

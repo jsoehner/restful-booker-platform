@@ -2,9 +2,10 @@ import React, { useEffect } from 'react';
 
 interface SimilarRoomsProps {
     id : number;
+    queryString: string;
 }
 
-const SimilarRooms: React.FC<SimilarRoomsProps> = ({ id }) => {
+const SimilarRooms: React.FC<SimilarRoomsProps> = ({ id, queryString }) => {
 
     const [rooms, setRooms] = React.useState([]);
 
@@ -42,7 +43,7 @@ const SimilarRooms: React.FC<SimilarRoomsProps> = ({ id }) => {
                                     </div>
                                 </div>
                                 <p className="card-text small">{room.description}</p>
-                                <a href={"/reservation/" + room.roomid } className="btn btn-outline-primary">View Details</a>
+                                <a href={"/reservation/" + room.roomid + queryString} className="btn btn-outline-primary">View Details</a>
                             </div>
                         </div>
                     </div>
