@@ -1,5 +1,5 @@
 export interface Booking {
-    bookingid: number;
+    bookingid?: number;
     roomid: number;
     firstname: string;
     lastname: string;
@@ -8,4 +8,6 @@ export interface Booking {
         checkin: string;
         checkout: string;
     };
+    email?: string;
+    phone?: string;
 }
