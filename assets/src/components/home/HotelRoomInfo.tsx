@@ -1,6 +1,6 @@
 import React from 'react';
 import { Room } from '@/types/room';
-import { translateIcon } from "@/utils/iconUtils";
+import { translateIcon } from "../../utils/iconUtils";
 
 interface HotelRoomInfoProps {
   roomDetails: Room;

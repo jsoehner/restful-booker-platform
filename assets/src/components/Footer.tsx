@@ -2,17 +2,13 @@ import React from "react";
 import Link from "next/link";
 import { Branding } from "@/types/branding";
 
-// import package.json
 import packageJson from '../../package.json';
 
-// Accept the branding prop
 interface FooterProps {
   branding: Branding;
 }
 
-// Define the Footer component
 const Footer: React.FC<FooterProps> = ({ branding }) => {
-  // Get the version from package.json
   const version = packageJson.version;
     
   return (
@@ -75,4 +71,4 @@ const Footer: React.FC<FooterProps> = ({ branding }) => {
   );
 };
 
-export default Footer; 
+export default Footer;

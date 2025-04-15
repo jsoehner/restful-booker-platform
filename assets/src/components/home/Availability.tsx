@@ -4,7 +4,7 @@ import React, { useState, useEffect } from "react";
 import DatePicker from "react-datepicker";
 import moment from "moment";
 
-import HotelRoomInfo from "@/components/home/HotelRoomInfo";
+import HotelRoomInfo from "./HotelRoomInfo";
 
 import "react-datepicker/dist/react-datepicker.css";
 import { registerLocale, setDefaultLocale } from  "react-datepicker";
