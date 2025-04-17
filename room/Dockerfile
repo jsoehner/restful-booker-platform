@@ -8,5 +8,6 @@ COPY target ./
 
 ENV profile=dev
 ENV authDomain=rbp-auth
+ENV bookingDomain=rbp-booking
 
 ENTRYPOINT java -jar -Dspring.profiles.active=$profile target/restful-booker-platform-room-*.jar -D
