@@ -50,6 +50,7 @@ exports[`Nav Component Nav bar renders 1`] = `
             <a
               class="nav-link"
               href="/admin/report"
+              id="reportLink"
             >
               Report
             </a>
@@ -60,6 +61,7 @@ exports[`Nav Component Nav bar renders 1`] = `
             <a
               class="nav-link"
               href="/admin/branding"
+              id="brandingLink"
             >
               Branding
             </a>
