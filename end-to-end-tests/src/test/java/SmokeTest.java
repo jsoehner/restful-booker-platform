@@ -46,15 +46,15 @@ public class SmokeTest extends TestSetup {
     }
 
     @Test
-    public void bookingSmokeTest() {
+    public void bookingSmokeTest() throws InterruptedException {
         NavPage navPage = new NavPage(driver);
         navPage.clickFrontPage();
 
         HomePage homePage = new HomePage(driver);
         homePage.clickOpenBookingForm();
-        homePage.clickSubmitBooking();
 
-        assertThat(homePage.bookingFormErrorsExist(), is(true));
+        ReservationPage reservationPage = new ReservationPage(driver);
+        assertThat(reservationPage.bookingFormExists(), is(true));
     }
 
     @Test

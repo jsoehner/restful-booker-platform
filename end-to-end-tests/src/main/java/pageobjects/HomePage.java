@@ -1,6 +1,7 @@
 package pageobjects;
 
 import org.openqa.selenium.By;
+import org.openqa.selenium.JavascriptExecutor;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
@@ -9,11 +10,12 @@ import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
 
 import java.time.Duration;
+import java.util.List;
 
 public class HomePage extends BasePage {
 
-    @FindBy(how = How.CSS, using = ".openBooking")
-    private WebElement btnOpenBooking;
+    @FindBy(how = How.CSS, using = ".room-card a")
+    private List<WebElement> btnReserveRoom;
 
     @FindBy(how = How.CSS, using = ".btn-outline-primary.book-room")
     private WebElement btnSubmitBooking;
@@ -23,16 +25,13 @@ public class HomePage extends BasePage {
 
     public HomePage(WebDriver driver) {
         super(driver);
-
-        WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(10));
-        wait.until(ExpectedConditions.visibilityOfElementLocated(By.cssSelector(".openBooking")));
     }
 
-    public void clickOpenBookingForm() {
-        btnOpenBooking.click();
+    public void clickOpenBookingForm() throws InterruptedException {
+        ((JavascriptExecutor) driver).executeScript("arguments[0].scrollIntoView(true);", btnReserveRoom.get(0));
+        Thread.sleep(500);
 
-        WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(10));
-        wait.until(ExpectedConditions.visibilityOfElementLocated(By.cssSelector(".rbc-calendar")));
+        btnReserveRoom.get(0).click();
     }
 
     public void clickSubmitBooking() {

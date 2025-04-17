@@ -54,6 +54,17 @@ public class Room {
         this.roomPrice = roomPrice;
     }
 
+    public Room(int roomid, String roomName, String type, boolean accessible, String image, String description, String[] features, int roomPrice) {
+        this.roomid = roomid;
+        this.roomName = roomName;
+        this.type = type;
+        this.accessible = accessible;
+        this.image = image;
+        this.description = description;
+        this.features = features;
+        this.roomPrice = roomPrice;
+    }
+
     public Room(ResultSet result) throws SQLException {
         this.roomid = result.getInt("roomid");
         this.roomName = result.getString("room_name");

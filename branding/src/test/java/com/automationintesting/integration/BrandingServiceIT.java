@@ -1,6 +1,7 @@
 package com.automationintesting.integration;
 
 import com.automationintesting.api.BrandingApplication;
+import com.automationintesting.model.db.Address;
 import com.automationintesting.model.db.Branding;
 import com.automationintesting.model.db.Contact;
 import com.automationintesting.model.db.Map;
@@ -59,9 +60,11 @@ public class BrandingServiceIT {
         Branding brandingPayload = new Branding(
                 "Updated hotel name",
                 new Map(50.0, 50.0),
+                "Updated directions",
                 "https://www.valid.com/link/to/logo",
                 "Description update",
-                new Contact("Update name", "Update address", "9999999999", "update@email.com")
+                new Contact("Update name", "9999999999", "update@email.com"),
+                new Address("Update line1", "Update line2", "Update post town", "Update county", "Update post code")
         );
 
         Response brandingPutResponse = given()

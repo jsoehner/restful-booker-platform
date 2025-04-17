@@ -1,9 +1,33 @@
 'use client';
 
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import Footer from '@/components/Footer';
 
+import { Branding } from '@/types/branding';
+
 export default function CookiePolicy() {
+  
+  const [branding, setBranding] = useState<Branding | null>(null);
+          
+  useEffect(() => {
+      const fetchBranding = async () => {
+          const response = await fetch('/api/branding');
+          const data = await response.json();
+          setBranding(data);
+      };
+      fetchBranding();
+  }, []);
+
+  if (!branding) {
+    return (
+        <div className="container-fluid text-center p-5">
+            <div className="spinner-border" role="status">
+              <span className="visually-hidden"></span>
+            </div>
+        </div>
+    )
+  }
+
   return (
     <>
       <div className="container">
@@ -55,7 +79,7 @@ export default function CookiePolicy() {
           </div>
         </div>
       </div>
-      <Footer />
+      <Footer branding={branding} />
     </>
   );
 } 

@@ -2,11 +2,22 @@ import { NextResponse } from 'next/server';
 import { cookies } from 'next/headers';
 
 // Server-side API route that proxies requests to the room service
-export async function GET() {
+export async function GET(request: Request) {
   try {
-    const roomApi = process.env.ROOM_API || 'http://localhost:3001';
-    const response = await fetch(`${roomApi}/room/`);
+    const { searchParams } = new URL(request.url);
+    const checkin = searchParams.get('checkin');
+    const checkout = searchParams.get('checkout');
     
+    const roomApi = process.env.ROOM_API || 'http://localhost:3001';
+    
+    // Build the URL based on whether date parameters are provided
+    let apiUrl = `${roomApi}/room/`;
+    if (checkin && checkout) {
+      apiUrl = `${roomApi}/room/?checkin=${checkin}&checkout=${checkout}`;
+    }
+    
+    const response = await fetch(apiUrl);
+
     if (!response.ok) {
       throw new Error(`Failed to fetch rooms: ${response.status}`);
     }

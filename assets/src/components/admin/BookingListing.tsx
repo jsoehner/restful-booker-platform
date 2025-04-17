@@ -2,20 +2,16 @@ import React, { useEffect, useState } from 'react';
 import DatePicker from 'react-datepicker';
 import moment from 'moment/moment';
 
+import { Booking as BookingType } from '@/types/booking';
+import { registerLocale, setDefaultLocale } from  "react-datepicker";
+import { enGB } from 'date-fns/locale/en-GB';
+registerLocale('en-GB', enGB)
+setDefaultLocale('en-GB');
+
 import "react-datepicker/dist/react-datepicker.css";
 
 interface BookingListingProps {
-  booking: {
-    bookingid: number;
-    roomid: number;
-    firstname: string;
-    lastname: string;
-    depositpaid: boolean;
-    bookingdates: {
-      checkin: string;
-      checkout: string;
-    };
-  };
+  booking: BookingType
   getBookings: () => void;
   roomPrice?: number;
 }
@@ -96,8 +92,12 @@ const BookingListing: React.FC<BookingListingProps> = ({booking, getBookings, ro
                             <option value="true">true</option>
                         </select>
                     </div>
-                    <div className="col-sm-2"><DatePicker className="form-control" selected={moment(booking.bookingdates.checkin).utc(true).toDate()} onChange={date => handleDateChange(date, 'checkin')} dateFormat="yyyy-MM-dd" /></div>
-                    <div className="col-sm-2"><DatePicker className="form-control" selected={moment(booking.bookingdates.checkout).utc(true).toDate()} onChange={date => handleDateChange(date, 'checkout')} dateFormat="yyyy-MM-dd" /></div>
+                    <div className="col-sm-2">
+                        <DatePicker wrapperClassName="dateWrapper" className="form-control" dateFormat="P" selected={moment(booking.bookingdates.checkin).utc(true).toDate()} onChange={date => handleDateChange(date, 'checkin')} />
+                    </div>
+                    <div className="col-sm-2">
+                        <DatePicker wrapperClassName="dateWrapper" className="form-control" dateFormat="P" selected={moment(booking.bookingdates.checkout).utc(true).toDate()} onChange={date => handleDateChange(date, 'checkout')} />
+                    </div>
                     <div className="col-sm-1">
                         <span className="fa fa-check confirmBookingEdit" onClick={doEdit} style={{paddingRight: "10px"}}></span>
                         <span className="fa fa-remove exitBookingEdit" onClick={() => {toggleEdit(false)}}></span>

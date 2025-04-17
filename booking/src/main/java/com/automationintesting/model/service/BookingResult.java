@@ -1,15 +1,20 @@
 package com.automationintesting.model.service;
 
+import com.automationintesting.model.db.AvailableRoom;
 import com.automationintesting.model.db.Booking;
 import com.automationintesting.model.db.Bookings;
 import com.automationintesting.model.db.CreatedBooking;
 import org.springframework.http.HttpStatus;
+
+import java.util.List;
 
 public class BookingResult {
 
     private Booking booking;
 
     private CreatedBooking createdBooking;
+
+    private List<AvailableRoom> availableRooms;
 
     private Bookings bookings;
 
@@ -30,6 +35,11 @@ public class BookingResult {
         this.result= result;
     }
 
+    public BookingResult(List<AvailableRoom> availableRooms, HttpStatus result) {
+        this.availableRooms = availableRooms;
+        this.result = result;
+    }
+
     public BookingResult(HttpStatus result) {
         this.result = result;
     }
@@ -48,5 +58,9 @@ public class BookingResult {
 
     public Bookings getBookings() {
         return bookings;
+    }
+
+    public List<AvailableRoom> getAvailableRooms() {
+        return availableRooms;
     }
 }

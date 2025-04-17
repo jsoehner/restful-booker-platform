@@ -1,5 +1,6 @@
 package com.automationintesting.db;
 
+import com.automationintesting.model.db.AvailableRoom;
 import com.automationintesting.model.db.Booking;
 import com.automationintesting.model.db.BookingSummary;
 import com.automationintesting.model.db.CreatedBooking;
@@ -14,6 +15,7 @@ import java.io.IOException;
 import java.io.InputStreamReader;
 import java.io.Reader;
 import java.sql.*;
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.List;
@@ -192,6 +194,32 @@ public class BookingDB {
         }
 
         return listToReturn;
+    }
+
+    public List<AvailableRoom> queryByDate(LocalDate checkin, LocalDate checkout) throws SQLException {
+        List<AvailableRoom> listToReturn = new ArrayList<AvailableRoom>();
+        String sql = "SELECT * FROM BOOKINGS WHERE checkin >= '" + checkin.toString() + "' AND checkout <= '" + checkout.toString() + "'";
+
+        ResultSet results = connection.prepareStatement(sql).executeQuery();
+        while(results.next()){
+            listToReturn.add(new AvailableRoom(results.getInt("roomid")));
+        }
+
+        List<AvailableRoom> uniqueList = new ArrayList<>();
+        for (AvailableRoom room : listToReturn) {
+            boolean exists = false;
+            for (AvailableRoom uniqueRoom : uniqueList) {
+                if (room.getRoomid() == uniqueRoom.getRoomid()) {
+                    exists = true;
+                    break;
+                }
+            }
+            if (!exists) {
+                uniqueList.add(room);
+            }
+        }
+
+        return uniqueList;
     }
 
     private void executeSqlFile(String filename) throws IOException, SQLException {

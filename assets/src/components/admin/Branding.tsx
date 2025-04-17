@@ -1,36 +1,28 @@
 import React, { useEffect, useState } from 'react';
 import ReactModal from 'react-modal';
-
-interface BrandingState {
-  map: {
-    latitude: number;
-    longitude: number;
-  };
-  logoUrl: string;
-  description: string;
-  name: string;
-  contact: {
-    name: string;
-    address: string;
-    phone: string;
-    email: string;
-  };
-}
+import { Branding as BrandingType } from '@/types/branding';
 
 const Branding: React.FC = () => {
-  const [branding, setBranding] = useState<BrandingState>({
+  const [branding, setBranding] = useState<BrandingType>({
     map: {
       latitude: 0,
       longitude: 0
     },
+    directions: '',
     logoUrl: '',
     description: '',
     name: '',
     contact: {
       name: '',
-      address: '',
       phone: '',
       email: ''
+    },
+    address: {
+      line1: '',
+      line2: '',
+      postTown: '',
+      county: '',
+      postCode: ''
     }
   });
   const [showModal, toggleModal] = useState(false);
@@ -93,14 +85,26 @@ const Branding: React.FC = () => {
         case 'contactName':
           newState.contact.name = value;
           break;
-        case 'contactAddress':
-          newState.contact.address = value;
-          break;
         case 'contactPhone':
           newState.contact.phone = value;
           break;
         case 'contactEmail':
           newState.contact.email = value;
+          break;
+        case 'line1':
+          newState.address.line1 = value;
+          break;
+        case 'line2':
+          newState.address.line2 = value;
+          break;
+        case 'postTown':
+          newState.address.postTown = value;
+          break;
+        case 'county':
+          newState.address.county = value;
+          break;
+        case 'postCode':
+          newState.address.postCode = value;
           break;
         default:
           (newState as any)[id] = value;
@@ -115,7 +119,7 @@ const Branding: React.FC = () => {
     <div className="branding-form">
       <h2>B&amp;B details</h2>
       <div className="input-group mb-3">
-        <div className="input-group-prepend">
+        <div className="input-group-prepend d-flex align-items-center">
           <span className="input-group-text">Name</span>
         </div>
         <input 
@@ -128,7 +132,7 @@ const Branding: React.FC = () => {
         />
       </div>
       <div className="input-group mb-3">
-        <div className="input-group-prepend">
+        <div className="input-group-prepend d-flex align-items-center">
           <span className="input-group-text">Logo</span>
         </div>
         <input 
@@ -140,8 +144,8 @@ const Branding: React.FC = () => {
           placeholder="Enter image url" 
         />
       </div>
-      <div className="input-group">
-        <div className="input-group-prepend">
+      <div className="input-group mb-3">
+        <div className="input-group-prepend d-flex align-items-stretch">
           <span className="input-group-text">Description</span>
         </div>
         <textarea 
@@ -155,7 +159,7 @@ const Branding: React.FC = () => {
       <br />
       <h2>Map details</h2>
       <div className="input-group mb-3">
-        <div className="input-group-prepend">
+        <div className="input-group-prepend d-flex align-items-center">
           <span className="input-group-text">Latitude</span>
         </div>
         <input 
@@ -168,7 +172,7 @@ const Branding: React.FC = () => {
         />
       </div>
       <div className="input-group mb-3">
-        <div className="input-group-prepend">
+        <div className="input-group-prepend d-flex align-items-center">
           <span className="input-group-text">Longitude</span>
         </div>
         <input 
@@ -180,10 +184,22 @@ const Branding: React.FC = () => {
           placeholder="Enter Longitude" 
         />
       </div>
+      <div className="input-group mb-3">
+        <div className="input-group-prepend d-flex align-items-stretch">
+          <span className="input-group-text">Directions</span>
+        </div>
+        <textarea 
+          className="form-control" 
+          value={branding.directions} 
+          onChange={updateState} 
+          id="directions" 
+          rows={5}
+        ></textarea>
+      </div>
       <br />
       <h2>Contact details</h2>
       <div className="input-group mb-3">
-        <div className="input-group-prepend">
+        <div className="input-group-prepend d-flex align-items-center">
           <span className="input-group-text">Name</span>
         </div>
         <input 
@@ -196,20 +212,7 @@ const Branding: React.FC = () => {
         />
       </div>
       <div className="input-group mb-3">
-        <div className="input-group-prepend">
-          <span className="input-group-text">Address</span>
-        </div>
-        <input 
-          type="text" 
-          className="form-control" 
-          id="contactAddress" 
-          value={branding.contact.address} 
-          onChange={updateState} 
-          placeholder="Enter Address" 
-        />
-      </div>
-      <div className="input-group mb-3">
-        <div className="input-group-prepend">
+        <div className="input-group-prepend d-flex align-items-center">
           <span className="input-group-text">Phone</span>
         </div>
         <input 
@@ -222,7 +225,7 @@ const Branding: React.FC = () => {
         />
       </div>
       <div className="input-group mb-3">
-        <div className="input-group-prepend">
+        <div className="input-group-prepend d-flex align-items-center">
           <span className="input-group-text">Email</span>
         </div>
         <input 
@@ -234,6 +237,69 @@ const Branding: React.FC = () => {
           placeholder="Enter Email Address" 
         />
       </div>
+      <br />
+      <h2>Address details</h2>
+      <div className="input-group mb-3">
+        <div className="input-group-prepend d-flex align-items-center">
+          <span className="input-group-text">Line 1</span>
+        </div>
+        <input
+          type="text"
+          className="form-control"
+          id="line1"
+          value={branding.address.line1}
+          onChange={updateState}
+          placeholder="Enter Address Line 1" />
+      </div>
+      <div className="input-group mb-3">
+        <div className="input-group-prepend d-flex align-items-center">
+          <span className="input-group-text">Line 2</span>
+        </div>
+        <input
+          type="text"
+          className="form-control"
+          id="line2"
+          value={branding.address.line2}
+          onChange={updateState}
+          placeholder="Enter Address Line 2" />
+      </div>
+      <div className="input-group mb-3">
+        <div className="input-group-prepend d-flex align-items-center">
+          <span className="input-group-text">Post Town</span>
+        </div>
+        <input
+          type="text"
+          className="form-control"
+          id="postTown"
+          value={branding.address.postTown}
+          onChange={updateState}
+          placeholder="Enter Post Town" />
+      </div>
+      <div className="input-group mb-3">
+        <div className="input-group-prepend d-flex align-items-center">
+          <span className="input-group-text">County</span>
+        </div>
+        <input
+          type="text"
+          className="form-control"
+          id="county"
+          value={branding.address.county}
+          onChange={updateState}
+          placeholder="Enter County" />
+      </div>
+      <div className="input-group mb-3">
+        <div className="input-group-prepend d-flex align-items-center">
+          <span className="input-group-text">Post Code</span>
+        </div>
+        <input
+          type="text"
+          className="form-control"
+          id="postCode"
+          value={branding.address.postCode}
+          onChange={updateState}
+          placeholder="Enter Post Code" />
+      </div>
+      <br />
       <button 
         type="submit" 
         id="updateBranding" 
@@ -273,4 +339,4 @@ const Branding: React.FC = () => {
   );
 };
 
-export default Branding; 
+export default Branding;

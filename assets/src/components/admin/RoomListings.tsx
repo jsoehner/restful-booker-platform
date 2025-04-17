@@ -2,14 +2,7 @@ import React, { useEffect, useState } from 'react';
 import RoomListing from './RoomListing';
 import RoomForm from './RoomForm';
 
-interface Room {
-  roomid: number;
-  roomName: string;
-  type: string;
-  accessible: boolean;
-  roomPrice: number;
-  features: string[];
-}
+import { Room } from '@/types/room';
 
 const RoomListings: React.FC = () => {
   const [rooms, setRooms] = useState<Room[]>([]);

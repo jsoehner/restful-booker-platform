@@ -19,7 +19,6 @@ interface ReportEvent {
   title: string;
   start: Date;
   end: Date;
-  // Add any other event properties needed
 }
 
 const Report: React.FC<ReportProps> = ({ defaultDate }) => {
@@ -52,7 +51,6 @@ const Report: React.FC<ReportProps> = ({ defaultDate }) => {
   };
 
   const closeBooking = async () => {
-    toggleBookingForm(false);
     
     // Refresh report data
     try {
@@ -61,6 +59,7 @@ const Report: React.FC<ReportProps> = ({ defaultDate }) => {
         const data = await response.json();
         
         setReport(data.report);
+        toggleBookingForm(false);
       }
     } catch (error) {
       console.error('Error refreshing report:', error);

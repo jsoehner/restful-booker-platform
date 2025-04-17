@@ -20,7 +20,7 @@ public class NavPage extends BasePage {
     @FindBy(how = How.ID, using = "brandingLink")
     private WebElement aBranding;
 
-    @FindBy(how = How.CSS, using = ".fa-inbox")
+    @FindBy(how = How.CSS, using = ".badge")
     private WebElement aNotification;
 
     @FindBy(how = How.ID, using = "frontPageLink")

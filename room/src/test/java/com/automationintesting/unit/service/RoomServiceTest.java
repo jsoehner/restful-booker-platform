@@ -3,8 +3,10 @@ package com.automationintesting.unit.service;
 import com.automationintesting.db.RoomDB;
 import com.automationintesting.model.db.Room;
 import com.automationintesting.model.db.Rooms;
+import com.automationintesting.model.request.UnavailableRoom;
 import com.automationintesting.model.service.RoomResult;
 import com.automationintesting.requests.AuthRequests;
+import com.automationintesting.requests.BookingRequests;
 import com.automationintesting.service.RoomService;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -28,6 +30,9 @@ public class RoomServiceTest {
 
     @Mock
     private AuthRequests authRequests;
+
+    @Mock
+    private BookingRequests bookingRequests;
 
     @Autowired
     @InjectMocks
@@ -160,6 +165,29 @@ public class RoomServiceTest {
         RoomResult roomResult = roomService.updateRoom(1, sampleRoom, "abc");
 
         assertEquals(HttpStatus.FORBIDDEN, roomResult.getHttpStatus());
+    }
+
+    @Test
+    public void getAvailableRoomsTest() throws SQLException {
+        List<UnavailableRoom> sampleUnavailableRooms = new ArrayList<>(){{
+            this.add(new UnavailableRoom(1));
+            this.add(new UnavailableRoom(2));
+        }};
+
+        List<Room> sampleRooms = new ArrayList<Room>(){{
+            this.add(new Room(1, "101", "Single", true, "image1", "Room description", new String[] {"a", "b", "c"}, 123));
+            this.add(new Room(2, "102", "Twin", false, "image2", "Room description 2", new String[] {"x", "y", "z"}, 987));
+            this.add(new Room(3, "103", "Double", true, "image3", "Room description 3", new String[] {"m", "n", "o"}, 456));
+        }};
+
+        when(bookingRequests.getUnavailableRooms( "2023-10-01", "2023-10-05")).thenReturn(sampleUnavailableRooms);
+        when(roomDB.queryRooms()).thenReturn(sampleRooms);
+
+        when(bookingRequests.getUnavailableRooms( "2023-10-01", "2023-10-05")).thenReturn(sampleUnavailableRooms);
+
+        Rooms availableRooms = roomService.getUnavailableRooms("2023-10-01", "2023-10-05");
+
+        assertEquals(1, availableRooms.getRooms().size());
     }
 
 }

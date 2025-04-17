@@ -1,6 +1,7 @@
 package com.automationintesting.unit.service;
 
 import com.automationintesting.db.BookingDB;
+import com.automationintesting.model.db.AvailableRoom;
 import com.automationintesting.model.db.Booking;
 import com.automationintesting.model.db.BookingDates;
 import com.automationintesting.model.db.CreatedBooking;
@@ -210,6 +211,24 @@ public class BookingServiceTest {
         BookingResult bookingResult = bookingService.createBooking(booking);
 
         assertEquals(HttpStatus.CONFLICT, bookingResult.getStatus());
+    }
+
+    @Test
+    public void queryBookingsByDateTest() throws SQLException {
+        LocalDate checkin = LocalDate.of(2019, Month.SEPTEMBER, 1);
+        LocalDate checkout = LocalDate.of(2019, Month.SEPTEMBER, 2);
+
+        List<AvailableRoom> availableRooms = new ArrayList<AvailableRoom>(){{
+            this.add(new AvailableRoom(1));
+            this.add(new AvailableRoom(2));
+            this.add(new AvailableRoom(3));
+        }};
+
+        when(bookingDB.queryByDate(checkin, checkout)).thenReturn(availableRooms);
+
+        BookingResult result = bookingService.checkUnavailability(checkin, checkout);
+
+        assertEquals(3, result.getAvailableRooms().size());
     }
 
     private Booking createGenericBooking() {

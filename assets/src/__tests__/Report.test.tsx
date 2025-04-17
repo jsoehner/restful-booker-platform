@@ -37,7 +37,9 @@ describe('Report Component', () => {
     );
 
     render(
-      <Report defaultDate={new Date("2019-04-02")} />
+      <div id="root-container">
+        <Report defaultDate={new Date("2019-04-02")} />
+      </div>
     );
 
     // Wait for fetch mock to be called

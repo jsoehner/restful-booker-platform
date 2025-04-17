@@ -18,21 +18,10 @@ export default function RootLayout({
         <meta name="google" content="notranslate" />
         <meta httpEquiv="Content-Language" content="en" />
         
-        {/* jQuery */}
-        <Script 
-          src="https://code.jquery.com/jquery-3.3.1.slim.min.js" 
-          integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" 
-          crossOrigin="anonymous"
-          strategy="beforeInteractive"
-        />
+        <link href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-icons/1.10.5/font/bootstrap-icons.min.css" rel="stylesheet" />
         
         {/* Bootstrap CSS */}
-        <link 
-          href="https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/css/bootstrap.min.css" 
-          rel="stylesheet" 
-          integrity="sha384-GJzZqFGwb1QTTN6wy59ffF1BuGJpLSa9DkKMp0DgiMDm4iYMj70gZWKYbI706tWS" 
-          crossOrigin="anonymous" 
-        />
+        <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.5/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-SgOJa3DmI69IUzQ2PVdRZhwQ+dy64/BUtbMJw1MZ8t5HZApcHrRKUc4W0kG879m7" crossOrigin="anonymous" />
         
         {/* Font Awesome */}
         <link 
@@ -41,7 +30,9 @@ export default function RootLayout({
         />
       </head>
       <body>
+        <div id="root-container">
         {children}
+        </div>
         
         {/* Popper.js */}
         <Script 
@@ -53,11 +44,12 @@ export default function RootLayout({
         
         {/* Bootstrap JS */}
         <Script 
-          src="https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/js/bootstrap.min.js" 
-          integrity="sha384-B0UglyR+jN6CkvvICOB2joaf5I4l3gm9GU6Hc1og6Ls7i6U/mkkaduKaBhlAXv9k" 
+          src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.5/dist/js/bootstrap.bundle.min.js" 
+          integrity="sha384-k6d4wzSIapyDyv1kpU366/PK5hCdSbCRGRCMv+eplOQJWyd1fbcAu9OCUj5zNLiq" 
           crossOrigin="anonymous"
           strategy="afterInteractive"
         />
+
       </body>
     </html>
   )

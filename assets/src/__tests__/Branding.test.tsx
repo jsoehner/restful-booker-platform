@@ -1,5 +1,5 @@
 import React from 'react';
-import Branding from '../components/admin/Branding';
+import BrandingForm from '../components/admin/Branding';
 import ReactModal from 'react-modal';
 import { render, fireEvent, waitFor } from '@testing-library/react';
 
@@ -9,13 +9,20 @@ const brandingData = {
     latitude: 52.6351204,
     longitude: 1.2733774
   },
+  directions: 'Take the first left after the big tree, then follow the road until you see the sign.',
   logoUrl: 'https://www.mwtestconsultancy.co.uk/img/rbp-logo.png',
   description: 'Welcome to Shady Meadows, a delightful Bed & Breakfast nestled in the hills on Newingtonfordburyshire. A place so beautiful you will never want to leave. All our rooms have comfortable beds and we provide breakfast from the locally sourced supermarket. It is a delightful place.',
   contact: {
     name: 'Shady Meadows B&B',
-    address: 'The Old Farmhouse, Shady Street, Newfordburyshire, NE1 410S',
     phone: '0123456789',
     email: 'fake@fakeemail.com'
+  },
+  address: {
+    line1: '123 Fake Street',
+    line2: 'Fake Town',
+    postTown: 'Fake Town',
+    county: 'Fake County',
+    postCode: 'FA1 2KE'
   }
 };
 
@@ -31,7 +38,7 @@ describe('Branding Component', () => {
 
   test('Branding page renders', async () => {
     const { asFragment, findByDisplayValue } = render(
-      <Branding />
+      <BrandingForm />
     );
 
     await findByDisplayValue("52.6351204");
@@ -52,7 +59,7 @@ describe('Branding Component', () => {
     ReactModal.setAppElement(document.createElement('div'));
 
     const { getByText, getByPlaceholderText } = render(
-      <Branding />
+      <BrandingForm />
     );
 
     fireEvent.change(getByPlaceholderText('Enter B&B name'), { target: { value: 'Updated Room' } });
@@ -75,7 +82,7 @@ describe('Branding Component', () => {
       }));
 
     const { getByText, findByText } = render(
-      <Branding />
+      <BrandingForm />
     );
 
     fireEvent.click(getByText('Submit'));

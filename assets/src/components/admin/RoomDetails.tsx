@@ -144,17 +144,17 @@ const RoomDetails: React.FC<RoomDetailsProps> = ({ id }) => {
     if (edit) {
       return (
         <div className="room-details">
-          <div className="form-row">
+          <div className="row">
             <div className="col-sm-9">
               <h2>Room: </h2>
               <input type="text" defaultValue={room.roomName} id="roomName" onChange={updateState} />
             </div>
             <div className="col-sm-3">
-              <button onClick={() => toggleAndRestEdit(false)} type="button" id="cancelEdit" className="btn btn-outline-danger float-right">Cancel</button>
-              <button onClick={doEdit} type="button" id="update" className="btn btn-outline-primary float-right" style={{marginRight: "10px"}}>Update</button>
+              <button onClick={() => toggleAndRestEdit(false)} type="button" id="cancelEdit" className="btn btn-outline-danger float-sm-end">Cancel</button>
+              <button onClick={doEdit} type="button" id="update" className="btn btn-outline-primary float-sm-end" style={{marginRight: "10px"}}>Update</button>
             </div>
           </div>
-          <div className="form-row">
+          <div className="row">
             <div className="col-sm-6">
               <label className="editLabel" htmlFor="type">Type: </label>
               <select className="form-control" id="type" value={room.type} onChange={updateState}>
@@ -177,7 +177,7 @@ const RoomDetails: React.FC<RoomDetailsProps> = ({ id }) => {
               <textarea className="form-control" aria-label="Description" defaultValue={room.description} id="description" rows={5} onChange={updateState}></textarea>
             </div>
           </div>
-          <div className="form-row">
+          <div className="row">
             <div className="col-sm-6">
               <label className="editLabel">Room features: </label>
               <div className="row">
@@ -222,7 +222,7 @@ const RoomDetails: React.FC<RoomDetailsProps> = ({ id }) => {
             <h2>Room: {room.roomName}</h2>
           </div>
           <div className="col-sm-2">
-            <button onClick={() => toggleAndRestEdit(true)} type="button" className="btn btn-outline-primary float-right" style={{marginRight: "10px"}}>Edit</button>
+            <button onClick={() => toggleAndRestEdit(true)} type="button" className="btn btn-outline-primary float-sm-end">Edit</button>
           </div>
         </div>
         <div className="row">

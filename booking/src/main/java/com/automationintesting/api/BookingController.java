@@ -1,9 +1,6 @@
 package com.automationintesting.api;
 
-import com.automationintesting.model.db.Booking;
-import com.automationintesting.model.db.BookingSummaries;
-import com.automationintesting.model.db.Bookings;
-import com.automationintesting.model.db.CreatedBooking;
+import com.automationintesting.model.db.*;
 import com.automationintesting.model.service.BookingResult;
 import com.automationintesting.service.BookingService;
 import jakarta.validation.Valid;
@@ -13,6 +10,8 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.sql.SQLException;
+import java.time.LocalDate;
+import java.util.List;
 import java.util.Optional;
 
 @RestController
@@ -26,6 +25,13 @@ public class BookingController {
         BookingResult bookingResult = bookingService.getBookings(roomid, token);
 
         return ResponseEntity.status(bookingResult.getStatus()).body(bookingResult.getBookings());
+    }
+
+    @RequestMapping(value = "/unavailable", method = RequestMethod.GET)
+    public ResponseEntity<List<AvailableRoom>> checkUnavailability(@RequestParam("checkin") String checkin, @RequestParam("checkout") String checkout) throws SQLException {
+        BookingResult bookingResult = bookingService.checkUnavailability(LocalDate.parse(checkin), LocalDate.parse(checkout));
+
+        return ResponseEntity.status(bookingResult.getStatus()).body(bookingResult.getAvailableRooms());
     }
 
     @RequestMapping(value = "/", method = RequestMethod.POST)

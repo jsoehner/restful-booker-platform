@@ -18,12 +18,6 @@ public class Contact {
     private String name;
 
     @JsonProperty
-    @NotNull(message = "Address should not be null")
-    @NotBlank(message = "Address should not be blank")
-    @Size(min = 10, max = 200)
-    private String address;
-
-    @JsonProperty
     @NotNull(message = "Phone should not be null")
     @NotBlank(message = "Phone should not be blank")
     @Min(11)
@@ -35,16 +29,14 @@ public class Contact {
     @Email(message = "Email should be a valid email format")
     private String email;
 
-    public Contact(String name, String address, String phone, String email) {
+    public Contact(String name, String phone, String email) {
         this.name = name;
-        this.address = address;
         this.phone = phone;
         this.email = email;
     }
 
     public Contact(ResultSet result) throws SQLException {
         this.name = result.getString("contact_name");
-        this.address = result.getString("address");
         this.phone = result.getString("phone");
         this.email = result.getString("email");
     }
@@ -53,10 +45,6 @@ public class Contact {
 
     public String getName() {
         return name;
-    }
-
-    public String getAddress() {
-        return address;
     }
 
     public String getPhone() {
@@ -71,10 +59,6 @@ public class Contact {
         this.name = name;
     }
 
-    public void setAddress(String address) {
-        this.address = address;
-    }
-
     public void setPhone(String phone) {
         this.phone = phone;
     }
@@ -87,7 +71,6 @@ public class Contact {
     public String toString() {
         return "Contact{" +
                 "name='" + name + '\'' +
-                ", address='" + address + '\'' +
                 ", phone='" + phone + '\'' +
                 ", email='" + email + '\'' +
                 '}';

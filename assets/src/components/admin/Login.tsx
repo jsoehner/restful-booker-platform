@@ -57,7 +57,7 @@ const Login: React.FC<LoginProps> = ({ setAuthenticate }) => {
                 <label htmlFor="username">Username</label>
                 <input
                   type="text"
-                  className="form-control"
+                  className="form-control mt-2"
                   id="username"
                   placeholder="Enter username"
                   value={username}
@@ -65,17 +65,17 @@ const Login: React.FC<LoginProps> = ({ setAuthenticate }) => {
                 />
               </div>
               <div className="form-group">
-                <label htmlFor="password">Password</label>
+                <label htmlFor="password" className="mt-2">Password</label>
                 <input
                   type="password"
-                  className="form-control"
+                  className="form-control mt-2"
                   id="password"
                   placeholder="Password"
                   value={password}
                   onChange={(e) => setPassword(e.target.value)}
                 />
               </div>
-              <button type="submit" className="btn btn-primary">
+              <button type="submit" id="doLogin" className="btn btn-primary mt-3">
                 Login
               </button>
             </form>
