@@ -75,7 +75,7 @@ const Login: React.FC<LoginProps> = ({ setAuthenticate }) => {
                   onChange={(e) => setPassword(e.target.value)}
                 />
               </div>
-              <button type="submit" className="btn btn-primary mt-3">
+              <button type="submit" id="doLogin" className="btn btn-primary mt-3">
                 Login
               </button>
             </form>

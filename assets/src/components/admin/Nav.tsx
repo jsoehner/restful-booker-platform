@@ -81,12 +81,12 @@ const Nav: React.FC<NavProps> = ({ setAuthenticate, isAuthenticated }) => {
                   </Link>
                 </li>
                 <li className="nav-item">
-                  <Link href="/admin/report" className={getNavLinkClass('/admin/report')}>
+                  <Link id="reportLink" href="/admin/report" className={getNavLinkClass('/admin/report')}>
                     Report
                   </Link>
                 </li>
                 <li className="nav-item">
-                  <Link href="/admin/branding" className={getNavLinkClass('/admin/branding')}>
+                  <Link id="brandingLink" href="/admin/branding" className={getNavLinkClass('/admin/branding')}>
                     Branding
                   </Link>
                 </li>

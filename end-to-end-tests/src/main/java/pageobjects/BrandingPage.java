@@ -15,7 +15,7 @@ public class BrandingPage extends BasePage {
     }
 
     public String getNameValue() throws InterruptedException {
-        Thread.sleep(1000);
+        Thread.sleep(2000);
         return inpName.getAttribute("value");
     }
 }

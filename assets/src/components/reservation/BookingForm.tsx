@@ -295,7 +295,7 @@ const BookingForm: React.FC<RoomDetailsProps> = ({ room }) => {
                                 </div>
                             </div>
     
-                            <button type="button" className="btn btn-primary w-100 mb-3" onClick={submitDatesForBooking}>Reserve Now</button>
+                            <button type="button" id="doReservation" className="btn btn-primary w-100 mb-3" onClick={submitDatesForBooking}>Reserve Now</button>
                         </form>
                     </div>
                 </div>
