@@ -7,7 +7,7 @@ interface HotelLogoProps {
 
 const HotelLogo: React.FC<HotelLogoProps> = ({ branding }) => {
   return (
-    <section className="hero py-5">
+    <section className="hero py-5" style={{"backgroundImage": "url('" + branding.logoUrl + "')"}}>
       <div className="container py-5">
         <div className="row py-5">
           <div className="col-lg-8 hero-content text-center text-lg-start py-5">

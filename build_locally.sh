@@ -49,13 +49,6 @@ printf "\n####### RESTFUL-BOOKER-PLATFORM #######
 ####                               ####
 #######################################\n"
 
-mvn clean
-
-if [[ -z "${APPLITOOLS_API_KEY}" ]]; then
-  printf "Skipping visual checks because no applitools api key has been set. Assign a key to APPLITOOLS_API_KEY to run visual checks"
-  mvn install
-else
-  mvn install -P ci
-fi
+mvn clean install
 
 /bin/bash ./run_locally.sh -e true

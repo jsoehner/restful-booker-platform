@@ -74,8 +74,8 @@ public class GetBookingIT {
     @Test
     public void getEmptyQueryAvailableRoomsByDate() {
         Response response = given()
-                .queryParam("checkin", "2020-02-01")
-                .queryParam("checkout", "2020-02-05")
+                .queryParam("checkin", "2018-02-01")
+                .queryParam("checkout", "2018-02-05")
                 .get("http://localhost:3000/booking/unavailable");
 
         response.prettyPrint();

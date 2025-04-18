@@ -71,16 +71,7 @@ echo:
 set cmdFileDirectory=%~dp0
 
 cd %cmdFileDirectory%
-call mvn clean
-if %errorlevel% neq 0 exit /b %errorlevel%
-
-cd %cmdFileDirectory%
-if defined APPLITOOLS_API_KEY (
-    call mvn install -P ci
-) else (
-    echo Skipping visual checks because no applitools api key has been set. Assign a key to APPLITOOLS_API_KEY to run visual checks
-    call mvn install
-)
+call mvn clean install
 if %errorlevel% neq 0 exit /b %errorlevel%
 
 CALL run_locally.cmd true
