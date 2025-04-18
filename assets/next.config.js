@@ -5,8 +5,8 @@ const nextConfig = {
   async rewrites() {
     return [
       {
-        source: '/booking/:path*',
-        destination: `http://rbp-booking:3000/booking/:path*`,
+        source: '/booking:path*',
+        destination: `http://rbp-booking:3000/booking:path*`,
       },
       {
         source: '/room/:path*',
