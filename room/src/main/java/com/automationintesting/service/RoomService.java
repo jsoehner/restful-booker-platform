@@ -7,7 +7,6 @@ import com.automationintesting.model.request.UnavailableRoom;
 import com.automationintesting.model.service.RoomResult;
 import com.automationintesting.requests.AuthRequests;
 import com.automationintesting.requests.BookingRequests;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.context.event.ApplicationReadyEvent;
 import org.springframework.context.event.EventListener;
 import org.springframework.http.HttpStatus;
@@ -20,17 +19,16 @@ import java.util.concurrent.TimeUnit;
 @Service
 public class RoomService {
 
-    @Autowired
-    private RoomDB roomDB;
+    private final RoomDB roomDB;
 
-    private AuthRequests authRequests;
+    private final AuthRequests authRequests;
 
-    private BookingRequests bookingRequests;
+    private final BookingRequests bookingRequests;
 
-    @Autowired
-    public RoomService() {
-        authRequests = new AuthRequests();
-        bookingRequests = new BookingRequests();
+    public RoomService(RoomDB roomDB) {
+        this.roomDB = roomDB;
+        this.authRequests = new AuthRequests();
+        this.bookingRequests = new BookingRequests();
     }
 
     @EventListener(ApplicationReadyEvent.class)
