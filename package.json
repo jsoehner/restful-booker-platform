@@ -1,5 +1,10 @@
 {
   "dependencies": {
     "react-datepicker": "^8.3.0"
+  },
+  "devDependencies": {
+    "@types/node": "22.15.18",
+    "@types/react": "19.1.4",
+    "typescript": "5.8.3"
   }
 }

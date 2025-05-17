@@ -1,4 +1,4 @@
-FROM openjdk:21-slim
+FROM cgr.dev/chainguard/jdk:21
 
 ADD . /usr/local/auth
 
