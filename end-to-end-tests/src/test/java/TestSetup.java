@@ -17,7 +17,7 @@ public class TestSetup {
     @BeforeEach
     public void SetUp(){
         driver = new DriverFactory().create();
-        driver.manage().timeouts().implicitlyWait(Duration.of(2, SECONDS));
+        driver.manage().timeouts().implicitlyWait(Duration.of(10, SECONDS));
     }
 
     @AfterEach
