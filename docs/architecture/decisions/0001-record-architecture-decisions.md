@@ -10,7 +10,7 @@ Accepted
 We need a way to document the architectural decisions made in the `restful-booker-platform` project to ensure transparency, support onboarding, and capture design rationales.
 
 ## Decision
-We will use Architecture Decision Records (ADRs) as described by Michael Nygard. These records will be saved as Markdown files in the `docs/adr/` directory.
+We will use Architecture Decision Records (ADRs) as described by Michael Nygard. These records will be saved as Markdown files in the `docs/architecture/decisions/` directory.
 
 ## Consequences
 - Architectural decisions will be version-controlled along with the code.
