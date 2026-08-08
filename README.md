@@ -38,7 +38,7 @@ The user login details are:
 ## Development
 
 ### Architecture Decisions (ADRs)
-The key architecture decisions made in this project are documented in the [ADR Index](docs/adr/README.md).
+The key architecture decisions made in this project are documented in the [ADR Index](docs/architecture/decisions/README.md).
 
 ### API details
 
