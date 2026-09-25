@@ -26,3 +26,5 @@ ui/public/js
 
 # ApprovalTests
 **/.approval_tests_temp/
+# Generated BOM artifacts
+oss/
